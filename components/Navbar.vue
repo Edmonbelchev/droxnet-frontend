@@ -13,15 +13,15 @@
           :dropdownElements="{
             element1: {
               text: 'Element 1',
-              route: '/element-1',
+              route: '/',
             },
             element2: {
               text: 'Element 2',
-              route: '/element-2',
+              route: '/',
             },
             element3: {
               text: 'Element 3',
-              route: '/element-3',
+              route: '/',
             },
           }"
         />
@@ -37,7 +37,7 @@
           src="~/assets/images/user-login.webp"
           alt="User Logo"
         />
-        <NuxtLink to="/login" class="text-blue-400">Login</NuxtLink>
+        <NuxtLink to="/" class="text-blue-400">Login</NuxtLink>
         <NuxtLink
           to="/"
           class="bg-[--primary-color] text-white px-4 py-2 rounded"

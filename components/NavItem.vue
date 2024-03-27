@@ -14,7 +14,6 @@ defineProps({
 });
 </script>
 
-
 <template>
   <li class="relative group/parent">
     <slot name="element">

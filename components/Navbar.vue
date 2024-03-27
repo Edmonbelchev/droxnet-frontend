@@ -37,7 +37,7 @@
           src="~/assets/images/user-login.webp"
           alt="User Logo"
         />
-        <NuxtLink to="/" class="text-blue-400">Login</NuxtLink>
+        <NuxtLink to="/" class="text-blue-400">Login Text</NuxtLink>
         <NuxtLink
           to="/"
           class="bg-[--primary-color] text-white px-4 py-2 rounded"

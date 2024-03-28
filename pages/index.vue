@@ -9,5 +9,8 @@
     </header>
     <main>
         <HomeBanner />
+      
+
+        <Footer />
     </main>
 </template>

@@ -4,13 +4,15 @@
 
 
 <template>
-    <header>
+    <header class="relative z-10">
         <Navbar/>
     </header>
-    <main>
-        <HomeBanner />
-      
 
+    <main>
+        <div class="relative z-0">
+            <HomeBanner />
+        </div>
+      
         <Footer />
     </main>
 </template>

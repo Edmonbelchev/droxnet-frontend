@@ -17,6 +17,13 @@
         font-family: "Poppins", sans-serif;
     }
 
+    body{
+        color: #767676;
+        background: #fff;
+        overflow-x: hidden;
+        font: 400 14px/23px 'Open Sans', Arial, Helvetica, sans-serif;
+    }
+
     input:focus{
         outline: none;
     }

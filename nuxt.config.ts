@@ -5,6 +5,15 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
     '@nuxtjs/i18n',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@vesp/nuxt-fontawesome'
   ],
+
+  fontawesome: {  
+    icons: {
+      solid: ['chevronDown', 'magnifyingGlass'],
+      regular: ['user'],
+      brands: ['faTwitter', 'faInstagram', 'faFacebookF', 'faYoutube', 'faGooglePlusG'],
+    },
+  },
 });

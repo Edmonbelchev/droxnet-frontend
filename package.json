@@ -9,10 +9,14 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@fortawesome/free-brands-svg-icons": "^6.5.1",
+    "@fortawesome/free-regular-svg-icons": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@nuxt/devtools": "^1.0.3",
     "@nuxtjs/i18n": "^8.0.0-rc.5",
     "@nuxtjs/tailwindcss": "^6.11.4",
     "@pinia/nuxt": "^0.5.1",
+    "@vesp/nuxt-fontawesome": "^1.0.4",
     "nuxt": "^3.8.2",
     "pinia": "^2.1.7",
     "vue": "^3.3.8",

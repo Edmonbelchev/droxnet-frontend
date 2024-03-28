@@ -23,8 +23,10 @@ const searchTypes: Ref<Object> = ref([
   { label: "Contest", value: "contest" },
 ]);
 
-const search: Ref<String> = ref("");
-const selected: Ref<String> = ref("");
+const formFields: Ref<Object> = ref({
+  search: "",
+  selected: "",
+});
 </script>
 
 <template>
@@ -67,8 +69,7 @@ const selected: Ref<String> = ref("");
         </p>
 
         <FormElementsInputList
-          v-model="search"
-          @selectModelValue="(selected = $event)"
+          v-model="formFields"
           :selectOptions="searchTypes"
           placeholder="I'm looking for"
           inputClass="p-4 text-lg rounded-l border-r"

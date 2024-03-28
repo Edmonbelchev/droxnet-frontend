@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps({
   placeholder: {
-    type: String
+    type: String,
   },
   mainClass: {
     type: String,
@@ -16,7 +16,7 @@ defineProps({
     default: "p-4 text-lg rounded-md",
   },
   selectPlaceholder: {
-    type: String
+    type: String,
   },
   selectOptions: {
     type: Array,
@@ -30,22 +30,24 @@ defineProps({
 
 const search: Ref<String> = ref("");
 const selected: Ref<String> = ref("");
+const result: Ref<Object> = ref({});
 
-const emit = defineEmits(["update:modelValue", "selectModelValue"]);
+const emit = defineEmits(["update:modelValue"]);
 
 watch(
   () => search.value,
   (value: any) => {
-    emit("update:modelValue", value);
+    result.value.search = value;
   }
 );
 
-watch(
-  () => selected.value,
-  (value: any) => {
-    emit("selectModelValue", value);
-  }
-);
+watch(() => selected.value, (value: any) => {
+    result.value.selected = value;
+});
+
+watch(() => result.value, (value: any) => {
+    emit("update:modelValue", value);
+}, { deep: true });
 </script>
 
 <template>

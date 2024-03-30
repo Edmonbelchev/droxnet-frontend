@@ -9,6 +9,8 @@
         --primary-color: #ff5851;
         --secondary-color: #414489;
         --gray-color: #767676;
+        --text-color: #323232;
+        --blue-color: #007bff;
     }
 
     * {
@@ -38,5 +40,18 @@
     /* Firefox */
     input[type="number"]{
         appearance: textfield
+    }
+
+    .primary-button{
+        color: #fff;
+        padding: 0 50px;
+        background: var(--primary-color);
+        position: relative;
+        text-align: center;
+        border-radius: 5px;
+        display: inline-block;
+        vertical-align: middle;
+        text-transform: uppercase;
+        font: 700 13px/50px 'Poppins', Arial, Helvetica, sans-serif;
     }
 }

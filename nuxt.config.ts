@@ -1,13 +1,21 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  
+  ssr: false, // Disable Server Side rendering
 
   modules: [
     '@pinia/nuxt',
-    '@nuxtjs/i18n',
     '@nuxtjs/tailwindcss',
     '@vesp/nuxt-fontawesome'
   ],
+
+  runtimeConfig: {
+    public: {
+      publicUrl: process.env.PUBLIC_URL,
+      apiUrl: process.env.API_URL
+    }
+  },
 
   fontawesome: {  
     icons: {

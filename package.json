@@ -6,14 +6,17 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint:js": "eslint --ext \".ts,.vue\" --ignore-path .gitignore .",
+    "lint:prettier": "prettier --check .",
+    "lint": "npm lint:js && npm lint:prettier",
+    "lintfix": "prettier --write --list-different . && npm lint:js --fix"
   },
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@nuxt/devtools": "^1.0.3",
-    "@nuxtjs/i18n": "^8.0.0-rc.5",
     "@nuxtjs/tailwindcss": "^6.11.4",
     "@pinia/nuxt": "^0.5.1",
     "@vesp/nuxt-fontawesome": "^1.0.4",

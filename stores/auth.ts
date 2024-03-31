@@ -18,7 +18,7 @@ export const useAuthStore = defineStore('auth', {
         const { status, error } = await dataFetch('/login', {
           method: 'post', 
           body: params
-        })
+        }, useRuntimeConfig().public.publicUrl)
         
         if(status.value == 'success'){
           // Change login state

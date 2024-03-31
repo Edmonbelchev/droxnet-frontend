@@ -35,7 +35,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 w-full">
+  <div class="flex flex-col gap-2 flex-1">
     <div class="relative">
       <label :for="name" v-if="label">{{ label }}</label>
   
@@ -45,6 +45,7 @@ defineProps({
         @input="$emit('update:modelValue', $event.target.value)"
         @change="$emit('touch')"
         :placeholder="placeholder"
+        class="w-full"
         :class="[inputClass, { 'border-red-500': error }, { 'border-green-500': valid }]"
       />
   

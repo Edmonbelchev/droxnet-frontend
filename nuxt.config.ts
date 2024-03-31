@@ -7,7 +7,8 @@ export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
-    '@vesp/nuxt-fontawesome'
+    '@vesp/nuxt-fontawesome',
+    'nuxt-icon'
   ],
 
   runtimeConfig: {

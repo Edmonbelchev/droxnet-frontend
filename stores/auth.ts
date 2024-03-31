@@ -2,8 +2,7 @@ import { defineStore } from 'pinia'
 
 interface AuthState {
   loggedIn: boolean,
-  user: Object,
-  errors: Object
+  user: Object
 }
 
 const runtimeConfig = useRuntimeConfig()
@@ -11,8 +10,7 @@ const runtimeConfig = useRuntimeConfig()
 export const useAuthStore = defineStore('auth', {
     state: (): AuthState => ({
       loggedIn: false,
-      user: {},
-      errors: {}
+      user: {}
     }),
 
     actions: {
@@ -20,24 +18,19 @@ export const useAuthStore = defineStore('auth', {
         const { status, error } = await dataFetch('/login', {
           method: 'post', 
           body: params
-        }, 
-        useRuntimeConfig().public.publicUrl)
+        }, useRuntimeConfig().public.publicUrl)
         
         if(status.value == 'success'){
           // Change login state
           this.loggedIn = true;
-          // Reset errors state
-          this.errors = {}
           
-          // Retrieve user
-          this.authenticated()
-          .then(() => {
-            const router = useRouter()
-            router.push('/')
-          })
+          // Authenticate user
+          return this.authenticated()
         }else{
-          console.log('error!')
-          this.errors = error._object[error._key].data
+
+          const errorMessage = error._object[error._key].data.message
+
+          return { status, errorMessage }
         }
       },
 
@@ -55,11 +48,17 @@ export const useAuthStore = defineStore('auth', {
       },
       
       async authenticated() {
-        const { data: user }: any = await dataFetch('/user')
+        const { data: user, status }: any = await dataFetch('/user')
 
-        if(user.value) this.user = user.value.data
+        // Set user state
+        if(user.value) {
+          this.user = user.value.data
+        }
 
-        return this.loggedIn = user.value ? true : false
+        // Set loggedIn state
+        this.loggedIn = user.value ? true : false
+
+        return { user, status }
       },
 
       async resetPassword(email: string){

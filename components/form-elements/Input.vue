@@ -30,6 +30,10 @@ defineProps({
     type: Array,
     default: () => [],
   },
+  modelValue: {
+    type: String,
+    required: true,
+  },
 });
 
 </script>
@@ -42,6 +46,7 @@ defineProps({
       <input
         :name="name"
         :type="type"
+        :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
         @change="$emit('touch')"
         :placeholder="placeholder"

@@ -84,8 +84,7 @@ const categories = [
                 <NuxtLink to="/" class="primary-button">View All Categories</NuxtLink>
             </div>
 
-                <HomeCta /> 
-
+            <HomeCta /> 
         </main>
     </NuxtLayout>
 </template>

@@ -56,7 +56,8 @@ const categories = [
             "Consectetur adipisicing elitaed eiusmod tempor incididuatna labore et dolore magna.",
         route: "/",
     },
-];
+];  
+
 </script>
 
 
@@ -84,8 +85,10 @@ const categories = [
                 <NuxtLink to="/" class="primary-button">View All Categories</NuxtLink>
             </div>
 
-                <HomeCta /> 
+            <HomeCta />
+            <HomeAbout />
 
+          
         </main>
     </NuxtLayout>
 </template>

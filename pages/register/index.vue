@@ -1,7 +1,10 @@
 <script setup>
 import { useAuthStore } from "@/stores/auth";
 
-const router = useRouter();
+definePageMeta({
+  middleware: 'auth'
+})
+
 const toast = useNuxtApp().$toast;
 
 // Access the auth store
@@ -29,7 +32,6 @@ const register = async () => {
 
   const response = await authStore.signUp(formData.value);
 
-  console.log(response);
   if (response.status.value != "error") {
     toast.success("Registration successful");
     visibleStep.value = 3;

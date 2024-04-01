@@ -38,7 +38,7 @@ const authStore: any = useAuthStore();
       >
         <img
           class="w-9 h-9"
-          src="~/assets/images/user-login.webp"
+          src="/images/user-login.webp"
           alt="User Logo"
         />
 
@@ -53,6 +53,8 @@ const authStore: any = useAuthStore();
 
       <div class="flex items-center gap-4 my-4 border-l pl-4" v-else>
         {{ authStore.user.email }}
+
+        <button @click="authStore.signOut()">Logout</button>
       </div>
     </div>
   </div>

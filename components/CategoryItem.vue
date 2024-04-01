@@ -26,7 +26,7 @@ defineProps({
     <img
       :src="image"
       alt="Category Image"
-      class="group-hover:-translate-y-40 relative duration-500 mb-4"
+      class="group-hover:-translate-y-40 relative duration-500 mb-4 max-w-12"
     />
 
     <NuxtLink :to="route" class="group-hover:-translate-y-20 relative duration-500 text-lg text-[--text-color] hover:text-[--primary-color]">

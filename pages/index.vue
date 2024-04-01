@@ -1,56 +1,60 @@
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'auth'
+})
+
 const categories = [
     {
-        image: "../assets/images/categories/img-01.webp",
+        image: "images/categories/img-01.webp",
         title: "Web Developer",
         description:
             "Consectetur adipisicing elitaed eiusmod tempor incididuatna labore et dolore magna.",
         route: "/",
     },
     {
-        image: "../assets/images/categories/img-08.webp",
+        image: "images/categories/img-08.webp",
         title: "Software Developer",
         description:
             "Consectetur adipisicing elitaed eiusmod tempor incididuatna labore et dolore magna.",
         route: "/",
     },
     {
-        image: "../assets/images/categories/img-02.webp",
+        image: "images/categories/img-02.webp",
         title: "Mobile Apps",
         description:
             "Consectetur adipisicing elitaed eiusmod tempor incididuatna labore et dolore magna.",
         route: "/",
     },
     {
-        image: "../assets/images/categories/img-03.webp",
+        image: "images/categories/img-03.webp",
         title: "Data Entry",
         description:
             "Consectetur adipisicing elitaed eiusmod tempor incididuatna labore et dolore magna.",
         route: "/",
     },
     {
-        image: "../assets/images/categories/img-04.webp",
+        image: "images/categories/img-04.webp",
         title: "Design",
         description:
             "Consectetur adipisicing elitaed eiusmod tempor incididuatna labore et dolore magna.",
         route: "/",
     },
     {
-        image: "../assets/images/categories/img-05.webp",
+        image: "images/categories/img-05.webp",
         title: "Seo",
         description:
             "Consectetur adipisicing elitaed eiusmod tempor incididuatna labore et dolore magna.",
         route: "/",
     },
     {
-        image: "../assets/images/categories/img-06.webp",
+        image: "images/categories/img-06.webp",
         title: "Marketing",
         description:
             "Consectetur adipisicing elitaed eiusmod tempor incididuatna labore et dolore magna.",
         route: "/",
     },
     {
-        image: "../assets/images/categories/img-07.webp",
+        image: "images/categories/img-07.webp",
         title: "Copywriter",
         description:
             "Consectetur adipisicing elitaed eiusmod tempor incididuatna labore et dolore magna.",

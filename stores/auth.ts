@@ -33,30 +33,31 @@ export const useAuthStore = defineStore("auth", {
     },
 
     async signOut() {
-      await dataFetch("/logout", {
+      const { status } = await dataFetch("/logout", {
         method: "post",
-      }).then(() => {
+      });
+
+      if (status.value == "success") {
         this.user = {};
         this.loggedIn = false;
 
         const router = useRouter();
         router.push("/login");
-      });
+      }
     },
 
     async authenticated() {
-      const { data: user, status }: any = await dataFetch("/user");
+      const { data: user, status, error }: any = await dataFetch("/profile");
 
       // Set user state
-      if (user.value) {
+      if (status.value != "error") {
         // Change login state
         this.loggedIn = true;
 
         this.user = user.value.data;
+        // Set loggedIn state
+        this.loggedIn = user.value ? true : false;
       }
-
-      // Set loggedIn state
-      this.loggedIn = user.value ? true : false;
 
       return { user, status };
     },

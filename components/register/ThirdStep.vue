@@ -6,7 +6,7 @@ const verificationCode = ref('');
 <template>
   <div class="flex flex-col gap-2">
     <img
-      src="~/assets/images/envelope.webp"
+      src="/images/envelope.webp"
       class="w-50 mx-auto my-6"
       alt="Envelope Image"
     />

@@ -3,6 +3,10 @@ import { useAuthStore } from "@/stores/auth";
 import { required, email, minLength, helpers } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
 
+definePageMeta({
+  middleware: 'auth'
+})
+
 const router = useRouter();
 const toast = useNuxtApp().$toast;
 

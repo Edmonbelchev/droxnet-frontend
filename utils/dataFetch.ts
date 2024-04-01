@@ -38,8 +38,6 @@ export async function dataFetch(
     watch: false,
   });
 
-  console.log(result)
-
   //handle error
   const { error, status }: { error: any; status: any } = result;
   if (status.value === "success") {
@@ -47,7 +45,8 @@ export async function dataFetch(
   } else {
     switch (error.value.statusCode) {
       case 401:
-        return navigateTo("/login");
+        return result;
+        console.log('Logged Out!')
       case 419:
         return navigateTo("/login");
       case 500:

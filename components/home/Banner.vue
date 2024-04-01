@@ -34,7 +34,7 @@ const formFields: Ref<Object> = ref({
     class="flex justify-center items-center relative after:content-[''] after:absolute after:inset-0 after:w-full after:h-full after:bg-[rgba(50,50,50,0.40)] after:z-0"
   >
     <img
-      src="~/assets/images/banner/background-image.webp"
+      src="/images/banner/background-image.webp"
       alt="Hire expert freelancers for any job, Online"
       class="absolute inset-0 w-full h-full object-cover"
     />
@@ -42,16 +42,16 @@ const formFields: Ref<Object> = ref({
     <div class="flex items-center gap-8 py-20">
       <figure class="relative z-10" ref="banner" @mousemove="tiltBanner" @mouseleave="resetBanner">
         <img
-          src="~/assets/images/banner/float-img-1.webp"
+          src="/images/banner/float-img-1.webp"
           alt="Hire expert freelancers for any job, Online"
         />
         <img
-          src="~/assets/images/banner/float-img-2.webp"
+          src="/images/banner/float-img-2.webp"
           alt="Hire expert freelancers for any job, Online"
           class="absolute top-0 left-0 animate-[floating_7s_ease-in-out_infinite]"
         />
         <img
-          src="~/assets/images/banner/float-img-3.webp"
+          src="/images/banner/float-img-3.webp"
           alt="Hire expert freelancers for any job, Online"
           class="absolute top-0 left-0 animate-[floating_12s_ease-in-out_infinite]"
         />

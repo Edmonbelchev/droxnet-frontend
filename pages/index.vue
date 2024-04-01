@@ -87,8 +87,6 @@ const categories = [
 
             <HomeCta />
             <HomeAbout />
-
-          
         </main>
     </NuxtLayout>
 </template>

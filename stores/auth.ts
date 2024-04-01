@@ -79,6 +79,20 @@ export const useAuthStore = defineStore('auth', {
         }, useRuntimeConfig().public.publicUrl)
 
         return { success, error }
+      },
+
+      async signUp(params: any) {
+        const { data, status, error } = await dataFetch('/register', {
+          method: 'post', 
+          body: params
+        }, useRuntimeConfig().public.publicUrl)
+
+        let errorMessage
+        if(status.value == 'error'){
+          errorMessage = error._object[error._key].data.message
+        }
+
+        return { data, status, errorMessage }
       }
     },
 })

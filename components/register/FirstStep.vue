@@ -9,6 +9,8 @@ const props = defineProps({
   }
 });
 
+const emit = defineEmits(["changeStep"]);
+
 const rules = computed(() => {
   return {
     email: {
@@ -31,14 +33,17 @@ const rules = computed(() => {
 });
 
 const v$ = useVuelidate(rules, props.form);
+
+const changeStep = () => {
+  v$.value.$validate();
+  
+  if (!v$.value.$error) {
+    emit("changeStep", 2);
+  }
+};
 </script>
 
 <template>
-  <span class="text-xs text-center mb-4">
-    Consectetur adipisicing elit sed dotem eiusmod tempor incune utnaem labore
-    etdolore maigna aliqua enim poskina
-  </span>
-
   <div class="flex gap-4 w-full">
     <FormElementsInput
       v-model="form.first_name"
@@ -76,9 +81,40 @@ const v$ = useVuelidate(rules, props.form);
 
   <div class="flex flex-col gap-4">
     <button
-      class="bg-[--primary-color] text-white px-8 py-3 rounded w-fit uppercase font-medium"
+      class="primary-button w-fit uppercase font-medium"
+      @click="changeStep"
     >
       Start now
     </button>
+  </div>
+
+  <div class="mt-6 flex flex-col items-center text-center gap-2 px-10">
+    <h4 class="text-[--text-color] text-lg">Join Now With</h4>
+    <p class="text-base mb-4">
+      Use a social account for faster login or easy registration to directly
+      get in to your account and start a good business
+    </p>
+
+    <div class="flex gap-2">
+      <button class="bg-[#1877f2] text-white px-4 py-2.5 rounded flex items-center gap-2 shadow-lg hover:shadow-blue-500/50 transition-all duration-300">
+        <Icon name="logos:facebook" class="text-lg" />
+        <span class="pl-3 border-l border-white/50">Facebook</span>
+      </button>
+
+      <button class="bg-[#1da1f2] text-white px-4 py-2.5 rounded flex items-center gap-2 shadow-lg hover:shadow-[#1da1f2]/50 transition-all duration-300">
+        <Icon name="uil:twitter" class="text-lg" />
+        <span class="pl-3 border-l border-white/50">Twitter</span>
+      </button>
+
+      <button class="bg-[#dc4d42] text-white px-4 py-2.5 rounded flex items-center gap-2 shadow-lg hover:shadow-[#dc4d42]/50 transition-all duration-300">
+        <Icon name="logos:google-plus" class="text-2xl" />
+        <span class="pl-3 border-l border-white/50">Google</span>
+      </button>
+
+      <button class="bg-[#e4405f] text-white px-4 py-2.5 rounded flex items-center gap-2 shadow-lg hover:shadow-[#e4405f]/50 transition-all duration-300">
+        <Icon name="uil:instagram" class="text-lg" />
+        <span class="pl-3 border-l border-white/50">Instagram</span>
+      </button>
+    </div>
   </div>
 </template>

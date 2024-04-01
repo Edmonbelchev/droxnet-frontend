@@ -1,12 +1,11 @@
 export async function dataFetch(
   path: any,
-  options: any = {},
-  baseURL: any = useRuntimeConfig().public.apiUrl
+  options: any = {}
 ) {
-  const publicUrl = useRuntimeConfig().public.publicUrl;
+  const apiURL = useRuntimeConfig().public.apiUrl;
 
   //get token
-  let token = csrfCookie();
+  let token = bearerTokenCookie();
 
   if (
     process.client &&
@@ -15,32 +14,31 @@ export async function dataFetch(
     ) &&
     !token
   ) {
-    await retrieveCsrfCookie();
-    token = csrfCookie();
+    token = bearerTokenCookie();
   }
 
   //set headers
   let headers = {
     ...options.headers,
     accept: "application/json",
-    "X-Xsrf-Token": token,
+    Authorization: `Bearer ${token}`,
   };
   if (process.server) {
     headers = {
       ...headers,
-      ...useRequestHeaders(["cookie"]),
-      referer: publicUrl,
+      ...useRequestHeaders(["cookie"])
     };
   }
 
   //fetch operation
   const result = await useFetch(path, {
     ...options,
-    baseURL: baseURL,
-    credentials: "include",
+    baseURL: apiURL,
     headers,
     watch: false,
   });
+
+  console.log(result)
 
   //handle error
   const { error, status }: { error: any; status: any } = result;

@@ -22,59 +22,59 @@
 </template>
 
 <script>
-import ListWithAnchors from './ListWithAnchors.vue';
+import ListWithAnchors from "./ListWithAnchors.vue";
 
 export default {
   components: {
-    ListWithAnchors
+    ListWithAnchors,
   },
   data() {
     return {
       skillsItems: [
-        { id: 1, name: 'Software Engineer' },
-        { id: 2, name: 'Technical Writer' },
-        { id: 3, name: 'UL Designer' },
-          { id: 4, name: 'UX Designer' },
-        { id: 5, name: 'Virtual Assistant' },
-        { id: 6, name: 'Web Designer' },
-          { id: 7, name: 'Wordpress Developer' },
-        { id: 8, name: 'Content Writer' },
-        { id: 9, name: '+ View All' }
+        { id: 1, name: "Software Engineer" },
+        { id: 2, name: "Technical Writer" },
+        { id: 3, name: "UL Designer" },
+        { id: 4, name: "UX Designer" },
+        { id: 5, name: "Virtual Assistant" },
+        { id: 6, name: "Web Designer" },
+        { id: 7, name: "Wordpress Developer" },
+        { id: 8, name: "Content Writer" },
+        { id: 9, name: "+ View All" },
       ],
       usSkillsItems: [
-        { id: 1, name: 'HTML Developers in US' },
-        { id: 2, name: 'HTML5 Developers in US' },
-        { id: 3, name: 'JavaScript Developers in US' },
-          { id: 4, name: 'Microsoft Word Experts in US' },
-        { id: 5, name: 'PowerPoint Experts in US' },
-        { id: 6, name: 'Social Media Marketers in US' },
-          { id: 7, name: 'WordPress Developers in US' },
-        { id: 8, name: 'Writers in US' },
-        { id: 9, name: '+ View All' }
+        { id: 1, name: "HTML Developers in US" },
+        { id: 2, name: "HTML5 Developers in US" },
+        { id: 3, name: "JavaScript Developers in US" },
+        { id: 4, name: "Microsoft Word Experts in US" },
+        { id: 5, name: "PowerPoint Experts in US" },
+        { id: 6, name: "Social Media Marketers in US" },
+        { id: 7, name: "WordPress Developers in US" },
+        { id: 8, name: "Writers in US" },
+        { id: 9, name: "+ View All" },
       ],
       categoriesItems: [
-        { id: 1, name: 'Graphics & Design' },
-        { id: 2, name: 'Digital Marketing' },
-        { id: 3, name: 'Writing & Translation' },
-          { id: 4, name: 'Video & Animation' },
-        { id: 5, name: 'Music & Audio' },
-        { id: 6, name: 'Programming & Tech' },
-          { id: 7, name: 'Business' },
-        { id: 8, name: 'Fun & Lifestyle' },
-        { id: 9, name: '+ View All' }
+        { id: 1, name: "Graphics & Design" },
+        { id: 2, name: "Digital Marketing" },
+        { id: 3, name: "Writing & Translation" },
+        { id: 4, name: "Video & Animation" },
+        { id: 5, name: "Music & Audio" },
+        { id: 6, name: "Programming & Tech" },
+        { id: 7, name: "Business" },
+        { id: 8, name: "Fun & Lifestyle" },
+        { id: 9, name: "+ View All" },
       ],
       locationItems: [
-        { id: 1, name: 'Switzerland' },
-        { id: 2, name: 'Canada' },
-        { id: 3, name: 'Germany' },
-          { id: 4, name: 'United Kingdom' },
-        { id: 5, name: 'Japan' },
-        { id: 6, name: 'Sweden' },
-          { id: 7, name: 'Australia' },
-        { id: 8, name: 'United States' },
-        { id: 9, name: '+ View All' }
-      ]
+        { id: 1, name: "Switzerland" },
+        { id: 2, name: "Canada" },
+        { id: 3, name: "Germany" },
+        { id: 4, name: "United Kingdom" },
+        { id: 5, name: "Japan" },
+        { id: 6, name: "Sweden" },
+        { id: 7, name: "Australia" },
+        { id: 8, name: "United States" },
+        { id: 9, name: "+ View All" },
+      ],
     };
-  }
+  },
 };
 </script>

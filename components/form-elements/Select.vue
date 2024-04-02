@@ -1,5 +1,4 @@
 
-import type { findIconDefinition } from '@fortawesome/fontawesome-svg-core';
 <script setup lang="ts">
 defineProps({
   placeholder: {

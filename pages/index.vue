@@ -64,7 +64,6 @@ const categories = [
 
 </script>
 
-
 <template>
     <NuxtLayout name="default">
         <main>
@@ -90,7 +89,7 @@ const categories = [
             </div>
 
             <HomeCta />
-            <HomeAbout />
+            <HomeSearchByElement />
         </main>
     </NuxtLayout>
 </template>

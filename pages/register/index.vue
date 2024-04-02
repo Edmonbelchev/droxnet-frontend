@@ -36,10 +36,7 @@ const register = async () => {
     toast.success("Registration successful");
     visibleStep.value = 3;
 
-    console.log(response.data.value.user);
-
-    authStore.loggedIn = true;
-    authStore.user = response.data.value.user;
+    authStore.authenticated()
   } else {
     toast.error(response.errorMessage);
   }

@@ -34,28 +34,29 @@ const authStore: any = useAuthStore();
 
       <div
         class="flex items-center gap-4 my-4 border-l pl-4"
-        v-if="!authStore.loggedIn"
       >
-        <img
-          class="w-9 h-9"
-          src="/images/user-login.webp"
-          alt="User Logo"
-        />
+        <ProfileAvatar />
 
-        <NuxtLink to="/login" class="text-blue-400">Login</NuxtLink>
+        <div class="flex items-center gap-4" v-if="authStore.loggedIn">
+          <span>
+            {{ authStore.user.first_name }}
+            {{ authStore.user.last_name }}
+          </span>
+  
+          <button @click="authStore.signOut()">Logout</button>
+        </div>
 
-        <NuxtLink
-          to="/register"
-          class="bg-[--primary-color] text-white px-4 py-2 rounded"
-          >Join now</NuxtLink
-        >
+        <div class="flex gap-4 items-center" v-else>
+          <NuxtLink to="/login" class="text-blue-400">Login</NuxtLink>
+  
+          <NuxtLink
+            to="/register"
+            class="bg-[--primary-color] text-white px-4 py-2 rounded"
+            >Join now</NuxtLink
+          >
+        </div>
       </div>
 
-      <div class="flex items-center gap-4 my-4 border-l pl-4" v-else>
-        {{ authStore.user.email }}
-
-        <button @click="authStore.signOut()">Logout</button>
-      </div>
     </div>
   </div>
 </template>

@@ -31,7 +31,7 @@ const formFields: Ref<Object> = ref({
 
 <template>
   <div
-    class="flex justify-center items-center relative after:content-[''] after:absolute after:inset-0 after:w-full after:h-full after:bg-[rgba(50,50,50,0.40)] after:z-0"
+    class="flex justify-center items-center relative after:content-[''] after:absolute after:inset-0 after:w-full after:h-full after:bg-[rgba(50,50,50,0.40)] after:z-0 px-5 lg:px-32"
   >
     <img
       src="/images/banner/background-image.webp"
@@ -40,7 +40,7 @@ const formFields: Ref<Object> = ref({
     />
 
     <div class="flex items-center gap-8 py-20">
-      <figure class="relative z-10" ref="banner" @mousemove="tiltBanner" @mouseleave="resetBanner">
+      <figure class="relative z-10 hidden md:block" ref="banner" @mousemove="tiltBanner" @mouseleave="resetBanner">
         <img
           src="/images/banner/float-img-1.webp"
           alt="Hire expert freelancers for any job, Online"
@@ -58,12 +58,12 @@ const formFields: Ref<Object> = ref({
       </figure>
 
       <div class="flex flex-col gap-4 relative z-20">
-        <h1 class="text-white text-5xl">
+        <h1 class="text-white text-3xl md:text-4xl lg:text-5xl">
           <span class="block">Hire expert freelancers</span>
           <span class="font-[600]">for any job, Online</span>
         </h1>
 
-        <p class="text-white text-lg">
+        <p class="text-white text-sm md:text-base lg:text-lg">
           Millions of small businesses use Freelancer to turn their ideas into
           reality.
         </p>

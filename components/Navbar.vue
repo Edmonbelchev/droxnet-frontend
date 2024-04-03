@@ -15,6 +15,28 @@ const authStore: any = useAuthStore();
             element1: {
               text: 'Element 1',
               route: '/',
+              dropdownElements: {
+                element1: {
+                  text: 'Element 1',
+                  route: '/',
+                },
+                element2: {
+                  text: 'Element 2',
+                  route: '/',
+                },
+                element3: {
+                  text: 'Element 3',
+                  route: '/',
+                },
+                element4: {
+                  text: 'Element 4',
+                  route: '/',
+                },
+                element5: {
+                  text: 'Element 5',
+                  route: '/',
+                },
+              }
             },
             element2: {
               text: 'Element 2',
@@ -33,17 +55,38 @@ const authStore: any = useAuthStore();
       </ul>
 
       <div
-        class="flex items-center gap-4 my-4 border-l pl-4"
+        class="flex items-center gap-4 border-l pl-4"
       >
+      
+      <div class="flex items-center py-4 gap-4 group/parent relative" v-if="authStore.loggedIn">
         <ProfileAvatar />
-
-        <div class="flex items-center gap-4" v-if="authStore.loggedIn">
           <span>
             {{ authStore.user.first_name }}
             {{ authStore.user.last_name }}
           </span>
   
-          <button @click="authStore.signOut()">Logout</button>
+          <DropdownElement :dropdownElements="{
+                element1: {
+                  text: 'Element 1',
+                  route: '/',
+                },
+                element2: {
+                  text: 'Element 2',
+                  route: '/',
+                },
+                element3: {
+                  text: 'Element 3',
+                  route: '/',
+                },
+                element4: {
+                  text: 'Element 4',
+                  route: '/',
+                },
+                element5: {
+                  text: 'Element 5',
+                  route: '/',
+                },
+              }" />
         </div>
 
         <div class="flex gap-4 items-center" v-else>

@@ -24,19 +24,7 @@ defineProps({
         {{ text }}
       </NuxtLink>
 
-      <ul
-        class="text-base absolute overflow-hidden left-0 top-[130px] dropdown-menu w-[255px] bg-white shadow shadow-black/25 border-t-2 border-[--primary-color] rounded-b-md transition-all opacity-0 duration-300 invisible group-hover/parent:top-[72px] group-hover/parent:opacity-100 group-hover/parent:visible"
-        v-if="dropdownElements"
-      >
-        <li v-for="(element, index) in dropdownElements" :key="index">
-          <NuxtLink
-            :to="element.route"
-            class="relative text-[--gray-color] px-4 py-3 block border-b text-sm hover:bg-gray-100/50 transition-all duration-300 hover:text-black"
-          >
-            {{ element.text }}
-          </NuxtLink>
-        </li>
-      </ul>
+      <DropdownElement v-if="dropdownElements" :dropdownElements="dropdownElements" />
     </slot>
   </li>
 </template>

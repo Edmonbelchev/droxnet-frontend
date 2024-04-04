@@ -12,7 +12,7 @@ const checkDropdownPosition = () => {
   const dropdownMenu = dropdownMenuRef.value;
   if (dropdownMenu) {
     const rect = dropdownMenu.getBoundingClientRect();
-    dropdownLeft.value = Number(rect.right + rect.width) < window.innerWidth;
+    dropdownLeft.value = Number((rect.right + rect.width) + 150) < window.innerWidth;
   }
 }
 
@@ -67,7 +67,9 @@ onMounted(() => {
       </NuxtLink>
 
       <ul
-        class="text-base absolute left-[255px] top-[130px] dropdown-menu w-[255px] bg-white shadow shadow-black/25 rounded-b-md transition-all opacity-0 duration-300 invisible group-hover:top-[0px] group-hover:opacity-100 group-hover:visible"
+        ref="dropdownMenuRef"
+        class="text-base absolute top-[130px] dropdown-menu w-[255px] bg-white shadow shadow-black/25 rounded-b-md transition-all opacity-0 duration-300 invisible group-hover:top-[0px] group-hover:opacity-100 group-hover:visible"
+        :class="{ 'left-[255px]': dropdownLeft, 'right-[255px]': !dropdownLeft }"
       >
         <li
           v-for="(subElement, index) in element.dropdownElements"

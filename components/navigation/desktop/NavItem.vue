@@ -24,7 +24,7 @@ defineProps({
         {{ text }}
       </NuxtLink>
 
-      <DropdownElement v-if="dropdownElements" :dropdownElements="dropdownElements" />
+      <NavigationDesktopDropdownElement v-if="dropdownElements" :dropdownElements="dropdownElements" />
     </slot>
   </li>
 </template>

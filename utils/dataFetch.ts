@@ -51,7 +51,7 @@ export async function dataFetch(
         return navigateTo("/login");
       case 500:
         console.log("server error");
-        return error;
+        return { error, status };
       default:
         return result;
     }

@@ -50,7 +50,7 @@ export const useAuthStore = defineStore("auth", {
       const { data: user, status, error }: any = await dataFetch("/profile");
 
       // Set user state
-      if (status.value != "error") {
+      if (status.value == "success") {
         // Change login state
         this.loggedIn = true;
 

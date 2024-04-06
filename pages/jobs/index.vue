@@ -1,6 +1,8 @@
 <script setup>
 // icon: 'openmoji:flag-england',
-
+// #f1c40f
+// #e67e22
+// #2ecc71
 const divItems = [
     {
         heading: 'Light Bulb Association',
@@ -17,7 +19,8 @@ const divItems = [
         duration: 'Duration: 03 Months',
         job: 'Job Id: gy3yV2Vm5u',
         save: 'Save',
-        aButton: 'VIEW JOB'
+        aButton: 'VIEW JOB',
+        badge: "default"
     },
     {
         heading: 'Point Trend Studio',
@@ -34,7 +37,8 @@ const divItems = [
         duration: 'Duration: 15 Days',
         job: 'Job Id: 5aUQgM2ZbW',
         save: 'Click to Save',
-        aButton: 'VIEW JOB'
+        aButton: 'VIEW JOB',
+        badge: 'member'
     },
     {
         heading: 'Vortex Association',
@@ -51,7 +55,8 @@ const divItems = [
         duration: 'Duration: 03 Months',
         job: 'Job Id: gy3yV2Vm5u',
         save: 'Click to Save',
-        aButton: 'VIEW JOB'
+        aButton: 'VIEW JOB',
+        badge: 'premium'
     },
     {
         heading: 'Traprator House',
@@ -128,74 +133,37 @@ const divItems = [
 
 <template>
     <NuxtLayout name="default">
-        <div class="flex justify-center">
-            <div class="w-4/6 flex">
+        <div class="max-w-screen-xl flex mx-auto">
+            
                 <div class="w-2/6">
 
                 </div>
                 <div class="w-4/6">
 
-                    <div v-for="(item, index) in divItems" :key="index"
-                        class="overflow-hidden rounded-md mb-10 bg-white rounded-lg transition-shadow duration-500 flex primary-section duration-500">
-                        <div class="w-4/6 py-10 px-10 relative">
-                         
-                            <span :class="{
-                                'section-one': index === 0,
-                                'section-two': index === 1,
-                                'section-thre': index === 2
-                            }">
-                            <img src="https://amentotech.com/htmls/worktern/images/featured.png" alt=""
-                            class="imgPosition">
-                            </span>
+                  <JobsCard
+                  :heading="item.heading"
+                  :text="item.text"
+                  :description="item.description"
+                  :professional="item.professional"
+                  :icon="item.icon"
+                  :folderIcon="item.folderIcon"
+                  :clockIcon="item.clockIcon"
+                  :heartIcon="item.heartIcon"
+                  :jobIcon="item.jobIcon"
+                  :national="item.national"
+                  :typeTime="item.typeTime"
+                  :duration="item.duration"
+                  :job="item.job"
+                  :save="item.save"
+                  :aButton="item.aButton"
+                  :badge="item.badge"
+                  v-for="(item,index) in divItems"
+                  :key="index"
 
-                            <div class="flex items-center gap-2">
-                                <Icon name="material-symbols:check" class="text-white bg-green-400 rounded-full" /><a
-                                    class="text-base font-semibold">{{ item.heading
-                                    }}</a>
-                            </div>
-                            <h2 class="text-xl text-gray-600 my-3">{{ item.text }}</h2>
-                            <p class="text-gray-500">{{ item.description }}</p>
-                        </div>
-
-                        <div class="w-2/6 border-l">
-                            <ul class="py-10 px-8 leading-8">
-                                <li>
-                                    <Icon name="fluent-emoji-flat:heavy-dollar-sign" class="w-4 h-4" />
-                                    {{ item.professional }}
-                                </li>
-                                <li>
-                                    <Icon :name="item.icon" class="w-5 h-5" />
-                                    {{ item.national }}
-                                </li>
-                                <li>
-                                    <Icon :name="item.folderIcon" class="text-blue-600 w-5 h-5" />
-                                    {{ item.typeTime }}
-                                </li>
-                                <li>
-                                    <Icon :name="item.clockIcon" class="text-red-600 w-4 h-4" />
-
-                                    {{ item.duration }}
-                                </li>
-                                <li>
-                                    <Icon :name="item.jobIcon" class="text-purple-500" />
-
-                                    {{ item.job }}
-                                </li>
-                                <li>
-                                    <Icon :name="item.heartIcon" />
-                                    {{ item.save }}
-                                </li>
-                                <li class="flex justify-center mt-5">
-                                    <a href="#" class="primary-button w-full">
-                                        {{ item.aButton }}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                  />
 
                 </div>
-            </div>
+            
         </div>
 
         <!-- <Icon name="material-symbols:check" /> -->

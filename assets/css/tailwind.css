@@ -66,39 +66,6 @@
         -webkit-box-shadow: 10px 10px 25px 0 rgba(0, 0, 0, 0.25);
         box-shadow: 10px 10px 25px 0 rgba(0, 0, 0, 0.25);
     }
-    
-    .section-one {
-        top: 0;
-        left: 0;
-        width: 40px;
-        height: 40px;
-        position: absolute;
-        z-index: 1000000000000;
-        border-top: 40px solid #f1c40f;
-        border-right: 40px solid transparent;
-    }
-    .section-two {
-        top: 0;
-        left: 0;
-        width: 40px;
-        height: 40px;
-        position: absolute;
-        z-index: 1000000000000;
-        border-top: 40px solid #e67e22;
-        border-right: 40px solid transparent;
-    }
-
-    .section-thre {
-        top: 0;
-        left: 0;
-        width: 40px;
-        height: 40px;
-        position: absolute;
-        z-index: 1000000000000;
-        border-top: 40px solid #2ecc71;
-        border-right: 40px solid transparent;
-    }
-
 
     .imgPosition {
         max-width: 40px;

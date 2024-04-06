@@ -26,6 +26,10 @@ defineProps({
     type: String,
     default: "single",
   },
+  buttonClass:{
+    type: String,
+    default: "py-4 px-6 bg-[--primary-color] text-white rounded-r"
+  }
 });
 
 const search: Ref<String> = ref("");
@@ -65,7 +69,7 @@ watch(() => result.value, (value: any) => {
       v-model="selected"
     />
 
-    <button class="py-4 px-6 bg-[--primary-color] text-white rounded-r">
+    <button :class="buttonClass">
       <font-awesome icon="magnifying-glass" />
     </button>
   </div>

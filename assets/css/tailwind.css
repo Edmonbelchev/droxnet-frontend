@@ -61,4 +61,17 @@
         -webkit-box-shadow: 10px 10px 25px 0 rgba(0, 0, 0, 0.25);
         box-shadow: 10px 10px 25px 0 rgba(0, 0, 0, 0.25);
     }
+
+    @media screen and (max-width: 992px) {
+        .primary-button {
+            padding: 0 30px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .primary-button {
+            padding: 0 20px;
+            font: 700 12px/40px 'Poppins', Arial, Helvetica, sans-serif;
+        }
+    }
 }

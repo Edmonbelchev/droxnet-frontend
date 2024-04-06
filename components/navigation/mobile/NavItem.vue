@@ -12,6 +12,8 @@ defineProps({
     type: Object,
   },
 });
+
+const showDropdown = ref(false);
 </script>
 
 <template>
@@ -19,12 +21,29 @@ defineProps({
     <slot name="element">
       <NuxtLink
         :to="route"
-        class="text-base py-2 my-4 relative text-[--gray-color] block after:content-[''] after:invisible after:absolute after:bottom-0 after:left-0 after:right-0 after:m-auto after:opacity-0 after:w-[10px] after:h-[2px] after:bg-[--primary-color] after:transition-all after:duration-300 hover:after:w-[20px] hover:after:opacity-[100%] hover:after:visible"
+        class="relative text-[--gray-color] px-4 py-3 border-b flex justify-between"
       >
         {{ text }}
       </NuxtLink>
 
-      <NavigationMobileDropdownElement v-if="dropdownElements" :dropdownElements="dropdownElements" />
+      <button
+        class="absolute right-0 top-[12px] px-4"
+        type="button"
+        @click="showDropdown = !showDropdown"
+        v-if="dropdownElements"
+      >
+        <Icon
+          class="text-lg transition-all duration-300"
+          :class="{ 'transform rotate-90': showDropdown }"
+          name="heroicons-solid:chevron-right"
+        />
+      </button>
+
+      <NavigationMobileDropdownElement
+        v-if="dropdownElements"
+        :dropdownElements="dropdownElements"
+        :showDropdown="showDropdown"
+      />
     </slot>
   </li>
 </template>

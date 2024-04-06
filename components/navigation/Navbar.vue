@@ -57,7 +57,7 @@ const showNavMenu: Ref<boolean> = ref(false);
 </script>
 
 <template>
-  <div class="flex px-2 ld:px-4 justify-between items-center">
+  <div class="flex px-2 ld:px-4 justify-between items-center max-w-[1920px] mx-auto">
     <Logo class="w-36 md:w-auto" />
 
     <div class="flex gap-4 items-center">

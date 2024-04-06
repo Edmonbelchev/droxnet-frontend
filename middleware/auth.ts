@@ -8,9 +8,20 @@ export default defineNuxtRouteMiddleware(async (to) => {
          // Try to authenticated user
          await authStore.authenticated();
 
+         if(to?.path == '/email-verification'){
+            return navigateTo('/register');
+         }
+
          // Perform redirections after authentication
          if(authStore.loggedIn){
-            // TODO: CHECK FOR VERIFIED EMAILS
+            if(!authStore.user.email_verified && to?.path != '/email-verification') {
+                return navigateTo('/email-verification');
+            }
+
+            // If email is verified, redirect to home page
+            if(authStore.user.email_verified && to?.path == '/email-verification') {
+                return navigateTo('/');
+            }
 
             if(to?.path == '/login' || to?.path == '/register') {
                 return navigateTo('/');
@@ -18,7 +29,14 @@ export default defineNuxtRouteMiddleware(async (to) => {
          }
     } else {
         // If logged in state exists
-        // TODO: VERIFY EMAIL
+        if(!authStore.user.email_verified && to?.path != '/email-verification') {
+            return navigateTo('/email-verification');
+        }
+
+        // If email is verified, redirect to home page
+        if(authStore.user.email_verified && to?.path == '/email-verification') {
+            return navigateTo('/');
+        }
 
         if(to?.path == '/login' || to?.path == '/register') {
             return navigateTo('/');

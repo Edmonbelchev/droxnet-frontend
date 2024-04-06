@@ -1,17 +1,17 @@
-<script setup>
+<script setup lang="ts">
 import { useAuthStore } from "@/stores/auth";
 
 definePageMeta({
-  middleware: 'auth'
-})
+  middleware: "auth",
+});
 
-const toast = useNuxtApp().$toast;
+const toast: any = useNuxtApp().$toast;
 
 // Access the auth store
-const authStore = useAuthStore();
-const isLoading = ref(false);
+const authStore: any = useAuthStore();
+const isLoading: Ref<Boolean> = ref(false);
 
-const formData = ref({
+const formData: Ref<Object> = ref({
   first_name: "",
   last_name: "",
   email: "",
@@ -25,7 +25,8 @@ const formData = ref({
 });
 
 // Set first step as visible by default
-const visibleStep = ref(1);
+const visibleStep: Ref<Number> = ref(1);
+const loadingCodeVerify: Ref<Boolean> = ref(false);
 
 const register = async () => {
   isLoading.value = true;
@@ -36,13 +37,28 @@ const register = async () => {
     toast.success("Registration successful");
     visibleStep.value = 3;
 
-    authStore.authenticated()
+    authStore.authenticated();
   } else {
-    toast.error(response.errorMessage);
+    toast.error(response.errorMessage, {
+      autoClose: false,
+      position: "bottom-right",
+    });
   }
 
   isLoading.value = false;
 };
+
+const verifyCode = async (code: any) => {
+  loadingCodeVerify.value = true;
+  const response = await validateEmail(code);
+
+  if (response.data.value.status === true) {
+    visibleStep.value = 4;
+  } else {
+    toast.error("Failed to verify email");
+  }
+  loadingCodeVerify.value = false;
+}
 </script>
 
 <template>
@@ -52,7 +68,7 @@ const register = async () => {
         <div class="flex flex-col gap-4 p-8" @submit.prevent="register">
           <div class="px-8 flex flex-col gap-4">
             <h2 class="text-2xl text-gray-800 font-bold text-center">
-              <span v-if="currentStep == 3"> You're Almost There </span>
+              <span v-if="visibleStep == 3"> You're Almost There </span>
               <span v-else>Join For a Good Start</span>
             </h2>
 
@@ -99,10 +115,15 @@ const register = async () => {
             :form="formData"
             @register="register"
             @changeStep="visibleStep = $event"
+            :isLoading="isLoading"
             v-if="visibleStep == 2"
           />
 
-          <RegisterThirdStep v-if="visibleStep == 3" />
+          <RegisterThirdStep 
+            @verifyCode="verifyCode($event)"
+            :loadingCodeVerify="loadingCodeVerify"
+            v-if="visibleStep == 3" 
+          />
         </div>
 
         <div class="border-t py-6">

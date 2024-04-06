@@ -1,5 +1,5 @@
 <script setup>
-import { required, email, minLength, helpers } from "@vuelidate/validators";
+import { required, minLength, helpers } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
 const props = defineProps({
@@ -7,6 +7,10 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  isLoading: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 const emit = defineEmits(["register"]);
@@ -121,10 +125,11 @@ const submitRegister = () => {
   <div class="flex gap-4">
     <button
       type="button"
-      class="primary-button px-10 uppercase font-medium"
+      class="primary-button px-10 uppercase font-medium flex items-center gap-2"
       @click="submitRegister"
     >
       Continue
+      <Loader width="12" v-if="isLoading" />
     </button>
 
     <button

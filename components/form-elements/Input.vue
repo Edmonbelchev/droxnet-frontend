@@ -16,7 +16,7 @@ defineProps({
   },
   inputClass: {
     type: String,
-    default: "px-4 py-2 min-h-[50px] rounded border focus:border-[--primary-color] transition-all duration-300 w-full",
+    default: "px-4 py-2 min-h-[46px] sm:min-h-[50px] rounded border focus:border-[--primary-color] transition-all duration-300 w-full",
   },
   error: {
     type: Boolean,
@@ -50,7 +50,7 @@ defineProps({
         @input="$emit('update:modelValue', $event.target.value)"
         @change="$emit('touch')"
         :placeholder="placeholder"
-        class="w-full"
+        class="text-xs md:text-sm w-full"
         :class="[inputClass, { 'border-red-500': error }, { 'border-green-500': valid }]"
       />
   

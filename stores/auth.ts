@@ -44,6 +44,8 @@ export const useAuthStore = defineStore("auth", {
         const router = useRouter();
         router.push("/login");
       }
+
+      return status;
     },
 
     async authenticated() {

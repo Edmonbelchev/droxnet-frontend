@@ -40,7 +40,7 @@ const changeStep = () => {
   <button
     type="button"
     @click="changeStep"
-    class="w-10 h-10 border-2 rounded-full flex justify-center items-center font-bold transition-all"
+    class="w-8 h-8 lg:w-10 lg:h-10 border-2 rounded-full flex justify-center items-center font-bold transition-all"
     :class="{
       'border-[--primary-color] text-[--primary-color]': step == currentStep,
     }"

@@ -44,7 +44,8 @@ onMounted(() => {
       'opacity-0',
       'duration-300',
       'invisible',
-      'group-hover/parent:top-[72px]',
+      'group-hover/parent:top-[68px]',
+      'lg:group-hover/parent:top-[72px]',
       'group-hover/parent:opacity-100',
       'group-hover/parent:visible',
     ]"

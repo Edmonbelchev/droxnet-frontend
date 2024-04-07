@@ -54,11 +54,23 @@ const navigationItems = ref([
   },
 ]);
 const showNavMenu: Ref<boolean> = ref(false);
+const showLoader: Ref<boolean> = ref(false);
+
+const signOut = async () => {
+  showLoader.value = true;
+  showNavMenu.value = false;
+
+  const response = await authStore.signOut();
+
+  if (response) {
+    showLoader.value = false;
+  }
+};
 </script>
 
 <template>
-  <div class="flex px-2 ld:px-4 justify-between items-center max-w-[1920px] mx-auto">
-    <Logo class="w-36 md:w-auto" />
+  <div class="flex p-4 md:py-0 lg:px-4 justify-between items-center max-w-[1920px] mx-auto">
+    <Logo class="w-36 md:w-44 lg:auto" />
 
     <div class="flex gap-4 items-center">
       <NavigationDesktopNavMenu :navigationItems="navigationItems" />
@@ -67,6 +79,7 @@ const showNavMenu: Ref<boolean> = ref(false);
         :navigationItems="navigationItems"
         :showNavMenu="showNavMenu"
         @hideNavMenu="showNavMenu = false"
+        @signOut="signOut"
       />
 
       <button
@@ -81,7 +94,7 @@ const showNavMenu: Ref<boolean> = ref(false);
       </button>
 
       <div
-        class="relative flex items-center gap-4 pl-4 before:content-[''] before:h-[30px] before:w-[1px] before:bg-gray-200 before:absolute before:left-0"
+        class="hidden relative md:flex items-center gap-4 md:pl-4 md:before:content-[''] md:before:h-[30px] md:before:w-[1px] md:before:bg-gray-200 md:before:absolute md:before:left-0"
       >
         <div
           class="flex items-center py-4 gap-4 group/parent relative"
@@ -117,4 +130,11 @@ const showNavMenu: Ref<boolean> = ref(false);
     :class="{ 'visible opacity-[100%]': showNavMenu, 'invisible opacity-0': !showNavMenu}"
     @click="showNavMenu = false"
   ></div>
+
+  <div 
+    class="fixed inset-0 w-full h-full flex justify-center items-center transition-all bg-gray-200/50 z-50"
+    :class="{ 'visible opacity-[100%]': showLoader, 'invisible opacity-0': !showLoader}"
+  >
+    <Loader width="100" height="100" />
+  </div>
 </template>

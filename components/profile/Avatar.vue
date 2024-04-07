@@ -3,7 +3,7 @@ defineProps({
   avatar: {
     type: String,
   },
-  class: {
+  className: {
     type: String,
     default: "w-9 h-9",
   },
@@ -11,6 +11,6 @@ defineProps({
 </script>
 
 <template>
-  <img :class="class" :src="avatar" alt="User Logo" v-if="avatar" />
-  <img :class="class" :src="`/images/user-login.webp`" alt="User Logo" v-else />
+  <img :class="className" :src="avatar" alt="User Logo" v-if="avatar" />
+  <img :class="className" :src="`/images/user-login.webp`" alt="User Logo" v-else />
 </template>

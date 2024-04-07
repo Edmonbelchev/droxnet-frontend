@@ -21,7 +21,8 @@ const showDropdown = ref(false);
     <slot name="element">
       <NuxtLink
         :to="route"
-        class="relative text-[--gray-color] px-4 py-3 border-b flex justify-between"
+        class="relative text-[--gray-color] px-4 py-3 flex justify-between"
+        :class="{ 'border-b': !dropdownElements }"
       >
         {{ text }}
       </NuxtLink>

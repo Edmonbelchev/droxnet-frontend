@@ -14,7 +14,7 @@ const showSubDropdown = ref(false);
 
 <template>
   <ul
-    class="flex flex-col overflow-hidden transition-all ease-in-out relative"
+    class="flex flex-col overflow-hidden transition-all ease-in-out relative border-b"
     v-if="dropdownElements"
     :class="{ 'max-h-[999px]': showDropdown, 'max-h-0': !showDropdown }"
   >
@@ -25,7 +25,7 @@ const showSubDropdown = ref(false);
     >
       <NuxtLink
         :to="element.route"
-        class="relative text-[--gray-color] px-6 py-3 border-b text-sm flex justify-between"
+        class="relative text-[--gray-color] px-6 py-3 text-sm flex justify-between"
       >
         {{ element.text }}
       </NuxtLink>
@@ -56,7 +56,7 @@ const showSubDropdown = ref(false);
         >
           <NuxtLink
             :to="subElement.route"
-            class="relative text-[--gray-color] px-8 py-3 block border-b text-sm"
+            class="relative text-[--gray-color] px-8 py-3 block text-sm"
           >
             {{ subElement.text }}
           </NuxtLink>

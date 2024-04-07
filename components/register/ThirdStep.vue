@@ -59,15 +59,15 @@ const v$ = useVuelidate(rules, { verification_code: verificationCode });
 </script>
 
 <template>
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-2 w-full">
     <img
       src="/images/envelope.webp"
-      class="w-50 mx-auto my-6"
+      class="w-44 md:w-50 mx-auto my-6"
       alt="Envelope Image"
     />
 
-    <span class="font-light">
-      We've sent verification code on your email.
+    <span class="text-xs md:text-sm font-light">
+      We've sent verification code on your email.<br/>
       <a href="#" class="text-[--blue-color]">Why I need code?</a>
     </span>
 
@@ -90,7 +90,7 @@ const v$ = useVuelidate(rules, { verification_code: verificationCode });
       Verify now <Loader width="12" v-if="loadingCodeVerify" />
     </button>
 
-    <span class="text-sm flex gap-1">
+    <span class="text-xs md:text-sm flex gap-1">
       Didn't receive the code?
       <button
         type="button"

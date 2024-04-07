@@ -71,7 +71,7 @@
     @media screen and (max-width: 768px) {
         .primary-button {
             padding: 0 20px;
-            font: 700 12px/40px 'Poppins', Arial, Helvetica, sans-serif;
+            font: 700 12px/44px 'Poppins', Arial, Helvetica, sans-serif;
         }
     }
 }

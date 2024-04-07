@@ -31,7 +31,7 @@ const formFields: Ref<Object> = ref({
 
 <template>
   <div
-    class="flex justify-center items-center relative after:content-[''] after:absolute after:inset-0 after:w-full after:h-full after:bg-[rgba(50,50,50,0.40)] after:z-0 px-4 lg:px-32"
+    class="flex justify-center items-center relative after:content-[''] after:absolute after:inset-0 after:w-full after:h-full after:bg-[rgba(50,50,50,0.40)] after:z-0 px-4 lg:px-8 xl:px-32"
   >
     <img
       src="/images/banner/background-image.webp"
@@ -72,9 +72,9 @@ const formFields: Ref<Object> = ref({
           v-model="formFields"
           :selectOptions="searchTypes"
           placeholder="I'm looking for"
-          inputClass="p-3 lg:p-4 lg:text-lg rounded-l border-r"
-          selectClass="bg-white cursor-pointer flex gap-2 items-center justify-between w-full p-3 lg:min-w-[255px] lg:p-4 lg:text-lg"
-          buttonClass="py-3 px-4 lg:py-4 sm:px-6 bg-[--primary-color] text-white rounded-r"
+          inputClass="rounded-l border-r min-h-[45px] p-3 lg:p-4 lg:text-lg"
+          selectClass="bg-white min-h-[45px] cursor-pointer flex gap-2 items-center justify-between w-full px-3 py-2 min-w-[140px] text-xs md:text-sm lg:min-w-[255px] lg:p-4 lg:text-lg"
+          buttonClass="bg-[--primary-color] text-white rounded-r py-2.5 px-4 lg:py-4 sm:px-6"
         />
       </div>
     </div>

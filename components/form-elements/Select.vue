@@ -51,7 +51,7 @@ watch(
     </div>
 
     <div 
-        class="absolute w-full flex flex-col bg-white rounded-b-md top-10 lg:top-14 max-h-0 overflow-hidden transition-all duration-300"
+        class="absolute w-full flex flex-col bg-white rounded-b-md top-10 lg:top-14 max-h-0 overflow-hidden transition-all duration-300 shadow-lg"
         :class="{ 'max-h-[200px]': showDropdown }"
     >
       <label

@@ -9,7 +9,7 @@ defineProps({
 
 
 <template>
-    <NuxtLink :class="className" to="/">
-      <img src="/images/logo.webp" alt="Logo" />
+    <NuxtLink to="/">
+      <img :class="className" src="/images/logo.webp" alt="Logo" />
     </NuxtLink>
 </template>

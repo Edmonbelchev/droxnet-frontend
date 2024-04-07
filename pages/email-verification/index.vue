@@ -21,14 +21,14 @@ const verifyCode = async (code: any) => {
 
 <template>
   <NuxtLayout layout="default">
-    <div class="bg-[--background-color] px-10 py-20 flex justify-center">
+    <div class="bg-[--background-color] py-10 px-4 md:px-10 md:py-20 flex justify-center">
       <div
-        class="flex flex-col justify-center items-center gap-4 p-8 max-w-[730px] w-full bg-white rounded-md"
+        class="flex flex-col justify-center items-center p-5 lg:p-8 max-w-[730px] w-full bg-white rounded-md"
       >
-        <h2 class="text-2xl text-gray-800 font-bold text-center">
+        <h2 class="text-xl lg:text-2xl text-gray-800 font-bold text-center">
             You're Almost There
         </h2>
-        <span class="text-base text-center mb-4">
+        <span class="text-sm lg:text-base text-center mb-4  max-w-[500px]">
           Consectetur adipisicing elit sed dotem eiusmod tempor incune utnaem
           labore etdolore maigna aliqua enim poskina
         </span>

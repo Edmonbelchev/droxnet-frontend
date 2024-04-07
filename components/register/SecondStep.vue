@@ -62,7 +62,7 @@ const submitRegister = () => {
     name="location"
   />
 
-  <div class="flex gap-4 w-full">
+  <div class="flex flex-col sm:flex-row gap-4 w-full">
     <FormElementsInput
       v-model="form.password"
       type="password"
@@ -113,12 +113,12 @@ const submitRegister = () => {
     </label>
   </div>
 
-  <label class="text-sm text-gray-800" for="terms">
+  <label class="text-xs sm:text-sm text-gray-800" for="terms">
     <input type="checkbox" id="terms" class="mr-2" v-model="form.terms" />
     I agree to the terms and conditions
   </label>
 
-  <span v-if="v$.terms.$error" class="text-red-500 text-sm ">
+  <span v-if="v$.terms.$error" class="text-red-500 text-xs sm:text-sm ">
     The terms and conditions field is required
   </span>
 

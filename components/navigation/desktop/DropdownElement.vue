@@ -2,7 +2,7 @@
 defineProps({
   dropdownElements: {
     type: Object,
-  },
+  }
 });
 
 const dropdownLeft = ref(false);
@@ -12,9 +12,10 @@ const checkDropdownPosition = () => {
   const dropdownMenu = dropdownMenuRef.value;
   if (dropdownMenu) {
     const rect = dropdownMenu.getBoundingClientRect();
-    dropdownLeft.value = Number((rect.right + rect.width) + 150) < window.innerWidth;
+    dropdownLeft.value =
+      Number(rect.right + rect.width + 150) < window.innerWidth;
   }
-}
+};
 
 onMounted(() => {
   checkDropdownPosition();
@@ -56,9 +57,20 @@ onMounted(() => {
       v-for="(element, index) in dropdownElements"
       :key="index"
     >
+      <button
+        type="button"
+        @click="$emit('signOut')"
+        class="cursor-pointer relative flex gap-3 w-full text-[--gray-color] px-4 py-3 border-b text-sm hover:bg-gray-100/50 transition-all duration-300 hover:text-black"
+        v-if="element.method == 'signOut'"
+      >
+        <Icon class="text-lg" name="heroicons-solid:logout" />
+        {{ element.text }}
+      </button>
+
       <NuxtLink
         :to="element.route"
         class="relative flex justify-between text-[--gray-color] px-4 py-3 border-b text-sm hover:bg-gray-100/50 transition-all duration-300 hover:text-black"
+        v-else
       >
         {{ element.text }}
 
@@ -70,7 +82,10 @@ onMounted(() => {
       <ul
         ref="dropdownMenuRef"
         class="text-base absolute top-[130px] dropdown-menu w-[255px] bg-white shadow shadow-black/25 rounded-b-md transition-all opacity-0 duration-300 invisible group-hover:top-[0px] group-hover:opacity-100 group-hover:visible"
-        :class="{ 'left-[255px]': dropdownLeft, 'right-[255px]': !dropdownLeft }"
+        :class="{
+          'left-[255px]': dropdownLeft,
+          'right-[255px]': !dropdownLeft,
+        }"
       >
         <li
           v-for="(subElement, index) in element.dropdownElements"

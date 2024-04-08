@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const authStore: any = useAuthStore();
 
-const navigationItems = ref([
+const navigationItems = [
   {
     text: "How It Works",
     route: "/",
@@ -52,7 +52,23 @@ const navigationItems = ref([
     text: "View Freelancers",
     route: "/",
   },
-]);
+];
+
+const profileMenu = [
+  {
+    text: "My Profile",
+    route: "/",
+  },
+  {
+    text: "Settings",
+    route: "/",
+  },
+  {
+    text: "Sign out",
+    method: "signOut",
+  },
+];
+
 const showNavMenu: Ref<boolean> = ref(false);
 const showLoader: Ref<boolean> = ref(false);
 
@@ -108,7 +124,8 @@ const signOut = async () => {
           </span>
 
           <NavigationDesktopDropdownElement
-            :dropdownElements="navigationItems"
+            :dropdownElements="profileMenu"
+            @signOut="signOut"
           />
         </div>
 

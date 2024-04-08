@@ -29,7 +29,7 @@ const login = async () => {
     const response = await authStore.signIn(form)
   
     if(response.status.value != "error") {
-      // Redirect to the dashboard
+      // Redirect to the homepage
       router.push("/");
     }else{
       // Show error message

@@ -1,5 +1,15 @@
+<script setup>
+defineProps({
+  className: {
+    type: String,
+    default: 'w-auto',
+  },
+});
+</script>
+
+
 <template>
     <NuxtLink to="/">
-      <img src="~/assets/images/logo.webp" alt="Logo" />
+      <img :class="className" src="/images/logo.webp" alt="Logo" />
     </NuxtLink>
 </template>

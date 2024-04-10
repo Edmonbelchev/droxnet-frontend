@@ -1,20 +1,8 @@
 // Retrieve cookie stored in browser
-const csrfCookie = () => {
-  const token: any = useCookie("XSRF-TOKEN");
+const bearerTokenCookie = () => {
+  const token: any = useCookie("BEARER_TOKEN");
 
   return token.value ?? undefined;
-};
-
-const retrieveCsrfCookie = async () => {
-  const runtimeConfig = useRuntimeConfig();
-
-  // If CSRF token doesn't exist, make request to API to retrieve it
-  if (!csrfCookie()) {
-    await useFetch(runtimeConfig.public.publicUrl + "/sanctum/csrf-cookie", {
-      method: "get",
-      credentials: "include",
-    });
-  }
 };
 
 // Helper function to get cookie value
@@ -48,4 +36,4 @@ const setCookie = (
   return (document.cookie = `${name}=${value}; path=/`);
 };
 
-export { csrfCookie, retrieveCsrfCookie, getCookie, setCookie };
+export { bearerTokenCookie, getCookie, setCookie };

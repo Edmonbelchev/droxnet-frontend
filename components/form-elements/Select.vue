@@ -1,5 +1,4 @@
 
-import type { findIconDefinition } from '@fortawesome/fontawesome-svg-core';
 <script setup lang="ts">
 defineProps({
   placeholder: {
@@ -7,7 +6,7 @@ defineProps({
   },
   selectClass: {
     type: String,
-    default: "p-4 text-lg rounded-md",
+    default: "p-4 text-lg rounded-md min-w-[255px]",
   },
   selectOptions: {
     type: Object,
@@ -34,7 +33,7 @@ watch(
 <template>
   <div class="relative">
     <div
-      class="bg-white cursor-pointer flex gap-2 items-center justify-between w-full min-w-[255px]"
+      class="bg-white cursor-pointer flex gap-2 items-center justify-between w-full"
       :class="selectClass"
       @click="showDropdown = !showDropdown"
     >
@@ -52,14 +51,14 @@ watch(
     </div>
 
     <div 
-        class="absolute w-full flex flex-col bg-white rounded-b-md top-14 max-h-0 overflow-hidden transition-all duration-300"
+        class="absolute w-full flex flex-col bg-white rounded-b-md top-10 lg:top-14 max-h-0 overflow-hidden transition-all duration-300 shadow-lg"
         :class="{ 'max-h-[200px]': showDropdown }"
     >
       <label
         :for="`${randomID}_${option.value}`"
         v-for="(option, index) in selectOptions"
         :key="index"
-        class="p-4 text-lg rounded-md bg-white cursor-pointer hover:bg-gray-100/50 transition-all duration-300"
+        class="p-4 lg:text-lg rounded-md bg-white cursor-pointer hover:bg-gray-100/50 transition-all duration-300"
         :class=" {'bg-gray-100/50' : selected.value == option.value } "
       >
         <span>

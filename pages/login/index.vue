@@ -3,6 +3,10 @@ import { useAuthStore } from "@/stores/auth";
 import { required, email, minLength, helpers } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
 
+definePageMeta({
+  middleware: 'auth'
+})
+
 const router = useRouter();
 const toast = useNuxtApp().$toast;
 
@@ -25,7 +29,7 @@ const login = async () => {
     const response = await authStore.signIn(form)
   
     if(response.status.value != "error") {
-      // Redirect to the dashboard
+      // Redirect to the homepage
       router.push("/");
     }else{
       // Show error message
@@ -57,9 +61,9 @@ const v$ = useVuelidate(rules, form);
 
 <template>
   <NuxtLayout name="default">
-    <div class="bg-[--background-color] px-10 py-20 flex justify-center">
+    <div class="bg-[--background-color] py-10 px-4 md:px-10 md:py-20 flex justify-center">
       <form
-        class="flex flex-col p-10 gap-4 max-w-[500px] w-full bg-white rounded-md"
+        class="flex flex-col p-8 lg:p-10 gap-4 max-w-[500px] w-full bg-white rounded-md"
         @submit.prevent="login"
       >
         <h2 class="text-2xl text-gray-800 font-bold text-center">Login</h2>

@@ -32,9 +32,7 @@ defineProps({
 </script>
 
 <template>
-  <div
-    class="overflow-hidden mb-10 bg-white rounded-lg transition-shadow duration-500 flex primary-section relative"
-  >
+  <div class="overflow-hidden mb-10 bg-white rounded-lg transition-shadow duration-500 flex relative hover:shadow-xl">
     <span
       class="absolute top-0 left-0 w-10 h-10 z-50 border-t-[40px] border-r-[40px] border-r-transparent"
       :class="{

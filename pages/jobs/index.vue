@@ -134,32 +134,32 @@ const divItems = [
 
 <template>
   <NuxtLayout name="default">
-    <div class="max-w-screen-xl flex mx-auto">
-      <div class="w-2/6"></div>
-      <div class="w-4/6">
-        <JobsCard
-          :heading="item.heading"
-          :text="item.text"
-          :description="item.description"
-          :professional="item.professional"
-          :icon="item.icon"
-          :folderIcon="item.folderIcon"
-          :clockIcon="item.clockIcon"
-          :heartIcon="item.heartIcon"
-          :jobIcon="item.jobIcon"
-          :national="item.national"
-          :typeTime="item.typeTime"
-          :duration="item.duration"
-          :job="item.job"
-          :save="item.save"
-          :aButton="item.aButton"
-          :badge="item.badge"
-          v-for="(item, index) in divItems"
-          :key="index"
-        />
+    <div class="bg-[--background-color] py-20 px-10">
+      <div class="max-w-screen-xl flex mx-auto">
+        <div class="w-2/6"></div>
+        <div class="w-4/6">
+          <JobsCard
+            :heading="item.heading"
+            :text="item.text"
+            :description="item.description"
+            :professional="item.professional"
+            :icon="item.icon"
+            :folderIcon="item.folderIcon"
+            :clockIcon="item.clockIcon"
+            :heartIcon="item.heartIcon"
+            :jobIcon="item.jobIcon"
+            :national="item.national"
+            :typeTime="item.typeTime"
+            :duration="item.duration"
+            :job="item.job"
+            :save="item.save"
+            :aButton="item.aButton"
+            :badge="item.badge"
+            v-for="(item, index) in divItems"
+            :key="index"
+          />
+        </div>
       </div>
     </div>
-
-    <!-- <Icon name="material-symbols:check" /> -->
   </NuxtLayout>
 </template>

@@ -66,10 +66,4 @@
         -webkit-box-shadow: 10px 10px 25px 0 rgba(0, 0, 0, 0.25);
         box-shadow: 10px 10px 25px 0 rgba(0, 0, 0, 0.25);
     }
-
-    .imgPosition {
-        max-width: 40px;
-        margin: -35px 4px 0;
-        border: 0;
-    }
 }

@@ -1,4 +1,6 @@
+
 <script setup lang="ts">
+
 defineProps({
   image: {
     type: String,

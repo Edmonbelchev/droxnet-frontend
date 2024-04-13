@@ -4,7 +4,7 @@ const authStore: any = useAuthStore();
 const navigationItems = [
   {
     text: "How It Works",
-    route: "/",
+    route: "/how-it-works",
     dropdownElements: {
       element1: {
         text: "Element 1",

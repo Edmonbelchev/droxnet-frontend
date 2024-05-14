@@ -19,8 +19,7 @@ defineProps({
     <div class="relative -z-[10]">
         <img class="absolute" src="http://amentotech.com/htmls/worktern/images/bannerimg/img-03.jpg" alt="">
     </div>
-    <div class="flex justify-center z-1 bg-gray-800 bg-opacity-40">
-
+    <div class="flex justify-center z-1 bg-gray-800 bg-opacity-40 py-20 px-4">
 
         <div class="flex justify-center max-w-[1240px] bg-white rounded-lg">
             <div class="flex flex-col items-center w-[28%] py-[30px]">
@@ -56,7 +55,7 @@ defineProps({
                 <p class="text-3xl font-bold text-black">{{ user.informations.title }}</p>
                 <div class="flex gap-2 py-3 text-[16px]">
 
-                    <span class="flex items-center">
+                    <span class="flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 36 36">
                             <path fill="currentColor"
                                 d="M32 8H4a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h28a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2m0 6a4.25 4.25 0 0 1-3.9-4H32Zm0 1.62v4.83A5.87 5.87 0 0 0 26.49 26h-17A5.87 5.87 0 0 0 4 20.44V15.6A5.87 5.87 0 0 0 9.51 10h17A5.87 5.87 0 0 0 32 15.6ZM7.9 10A4.25 4.25 0 0 1 4 14v-4ZM4 22.06A4.25 4.25 0 0 1 7.9 26H4ZM28.1 26a4.25 4.25 0 0 1 3.9-3.94V26Z"
@@ -67,13 +66,13 @@ defineProps({
                             <path fill="none" d="M0 0h36v36H0z" />
                         </svg>
                         {{ user.informations.perHour }}</span>
-                    <span class="flex items-center border-r-[1px] border-l-[1px] px-[15px]">
+                    <span class="flex items-center border-r-[1px] border-l-[1px] px-[15px] gap-2">
                         <div>
                             <img src="http://amentotech.com/htmls/worktern/images/flag/img-02.png" alt="">
                         </div>
                         {{ user.informations.country }}
                     </span>
-                    <span class="flex items-center">
+                    <span class="flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 128 128">
                             <path fill="#db0a28"
                                 d="M64.8 120.71c3.68 0 32.11-24.18 48.7-44.07c15.96-19.14 10.2-41.74 6.69-48.03c-4.15-7.43-56.94 17.01-56.94 17.01S14.07 17.99 10.39 23.99C5.4 32.13-1.59 53.54 12.52 73.45C27.5 94.6 60.85 120.71 64.8 120.71" />

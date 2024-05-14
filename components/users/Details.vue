@@ -16,17 +16,17 @@ defineProps({
 </script>
 
 <template>
-    <div class="relative z-[-10]">
-        <img class="" src="http://amentotech.com/htmls/worktern/images/bannerimg/img-03.jpg" alt="">
+    <div class="relative -z-[10]">
+        <img class="absolute" src="http://amentotech.com/htmls/worktern/images/bannerimg/img-03.jpg" alt="">
     </div>
-    <div class="flex justify-center mt-[-220px]">
+    <div class="flex justify-center z-1 bg-gray-800 bg-opacity-40">
 
 
         <div class="flex justify-center max-w-[1240px] bg-white rounded-lg">
-            <div class="flex flex-col flex  items-center w-[28%] py-[30px]">
+            <div class="flex flex-col items-center w-[28%] py-[30px]">
                 <div class="mb-6">
                     <div class="relative">
-                        <div class="rounded-[50%] absolute top-[-6px] right-[-6px] bg-[#57E50C] w-[20px] h-[20px] border-[3px] border-white"></div>
+                        <div class="rounded-[50%] absolute -top-[6px] -right-[6px] bg-[#57E50C] w-[20px] h-[20px] border-[3px] border-white"></div>
                     </div>
                       
                     <img class="w-[280px] rounded-md" :src="user.avatar" alt="User Avatar" />

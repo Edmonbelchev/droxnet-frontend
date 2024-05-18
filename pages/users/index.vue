@@ -1,4 +1,8 @@
 <script setup>
+definePageMeta({
+  middleware: 'auth'
+})
+
 const user = ref(
     {
         avatar: "http://amentotech.com/htmls/worktern/images/profile/img-01.jpg",

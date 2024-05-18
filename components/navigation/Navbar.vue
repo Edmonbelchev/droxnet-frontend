@@ -57,7 +57,7 @@ const navigationItems = [
 const profileMenu = [
   {
     text: "My Profile",
-    route: "/",
+    route: "/profile",
   },
   {
     text: "Settings",

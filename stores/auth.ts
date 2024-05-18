@@ -5,8 +5,6 @@ interface AuthState {
   user: Object;
 }
 
-const runtimeConfig = useRuntimeConfig();
-
 export const useAuthStore = defineStore("auth", {
   state: (): AuthState => ({
     loggedIn: false,
@@ -73,6 +71,7 @@ export const useAuthStore = defineStore("auth", {
             email: email,
           },
         },
+        
         useRuntimeConfig().public.publicUrl
       );
 
@@ -81,7 +80,7 @@ export const useAuthStore = defineStore("auth", {
 
     async newPassword(params: any) {
       const { data: success, error } = await dataFetch(
-        runtimeConfig.public.apiUrl + "/reset-password",
+        useRuntimeConfig().public.apiUrl + "/reset-password",
         {
           method: "post",
           body: params,

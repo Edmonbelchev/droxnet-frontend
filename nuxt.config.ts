@@ -1,27 +1,33 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  
-  ssr: false, // Disable Server Side rendering
+
+  ssr: true, // Disable Server Side rendering
 
   modules: [
-    '@pinia/nuxt',
-    '@nuxtjs/tailwindcss',
-    '@vesp/nuxt-fontawesome',
-    'nuxt-icon'
+    "@pinia/nuxt",
+    "@nuxtjs/tailwindcss",
+    "@vesp/nuxt-fontawesome",
+    "nuxt-icon",
   ],
 
   runtimeConfig: {
     public: {
-      apiUrl: process.env.API_URL
-    }
+      apiUrl: process.env.API_URL,
+    },
   },
 
-  fontawesome: {  
+  fontawesome: {
     icons: {
-      solid: ['chevronDown', 'magnifyingGlass'],
-      regular: ['user'],
-      brands: ['faTwitter', 'faInstagram', 'faFacebookF', 'faYoutube', 'faGooglePlusG'],
+      solid: ["chevronDown", "magnifyingGlass"],
+      regular: ["user"],
+      brands: [
+        "faTwitter",
+        "faInstagram",
+        "faFacebookF",
+        "faYoutube",
+        "faGooglePlusG",
+      ],
     },
   },
 });

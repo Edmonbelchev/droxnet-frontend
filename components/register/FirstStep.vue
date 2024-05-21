@@ -1,5 +1,5 @@
 <script setup>
-import { required, email, minLength, helpers } from "@vuelidate/validators";
+import { required, email, helpers } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
 const props = defineProps({

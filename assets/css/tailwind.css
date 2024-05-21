@@ -12,6 +12,7 @@
         --text-color: #323232;
         --blue-color: #007bff;
         --background-color: #f7f7f7;
+        --green-color: #00cc8d;
     }
 
     * {
@@ -74,5 +75,21 @@
             font: 700 12px/44px 'Poppins', Arial, Helvetica, sans-serif;
         }
     }
-    
+
+}
+
+@layer utilities {
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
 }

@@ -85,10 +85,10 @@ const signOut = async () => {
 </script>
 
 <template>
-  <div class="lg:flex p-4 md:py-2 lg:px-4 justify-between items-center max-w-[1920px] mx-auto">
-    <Logo class="lg:w-36 md:w-44 lg:auto md:flex md:justify-center md:w-full" />
+  <div class="flex p-4 md:py-0 lg:px-4 justify-between items-center max-w-[1920px] mx-auto">
+    <Logo class="w-36 md:w-44 lg:auto" />
 
-    <div class="flex gap-4 items-center md:justify-around">
+    <div class="flex gap-4 items-center">
       <NavigationDesktopNavMenu :navigationItems="navigationItems" />
 
       <NavigationMobileNavMenu

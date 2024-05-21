@@ -101,14 +101,14 @@ const informations = [
 
 <template>
   <NuxtLayout name="default">
-    <div class="bg-[--background-color] flex justify-center py-20 px-4">
+    <div class="bg-[--background-color] flex justify-center lg:py-20 px-4">
         <div class="bg-white max-w-[1140px] flex flex-col">
             <InformationCard
               :information="information"
               v-for="(information, index) of informations"
               :key="index"
               :className="{ 'flex-row-reverse': index % 2 === 1 }"
-              class="py-20 px-10 border-b"
+              class="lg:py-20 lg:px-10 md:py-10 md:px-10 border-b"
             />
         </div>
     </div>

@@ -10,20 +10,20 @@ const socialMediaIcons = [
 
 <template>
   <footer class="bg-[#323232] flex flex-col items-center">
-    <div class="flex flex-col justify-center gap-8 px-4 py-16 max-w-[960px] md:flex-row xl:gap-10">
-      <div class="md:w-1/2">
+    <div class="md:px-20 lg:px-0 lg:flex flex-col justify-center gap-8 px-4 py-16 max-w-[960px] md:flex-row xl:gap-10">
+      <div class="lg:w-1/2 md:w-full">
         <div class="mb-8 w-fit">
           <Logo />
         </div>
 
-        <p class="text-xs md:text-sm leading-7 text-gray-300 mb-4">
+        <p class="text-xs lg:text-sm md:text-xl leading-7 text-gray-300 mb-4">
           Dotem eiusmod tempor incune utnaem labore etdolore maigna aliqua enim
           poskina ilukita ylokem lokateise ination voluptate velit esse cillum
           dolore eu fugiat nulla pariatur lokaim urianewce
           <a class="text-blue-400" href="#">more...</a>
         </p>
 
-        <div class="flex gap-4">
+        <div class="flex gap-4 md:py-5 lg:py-0">
           <a
             class="text-white text-base md:text-xl hover:text-[--primary-color] transition-all"
             :href="icon.link"
@@ -35,7 +35,7 @@ const socialMediaIcons = [
         </div>
       </div>
 
-      <div class="border-t border-white/20 flex gap-6 pt-8 md:pl-10 md:border-l md:border-t-0 md:w-1/2 md:pt-0 xl:pl-16">
+      <div class="border-t border-white/20 flex gap-6 pt-8 md:pl-10 lg:border-l md:pl-0 md:border-t-1 lg:border-t-0 lg:w-1/2 md:w-full lg:pt-0 md:pt-5 xl:pl-16">
         <div class="w-1/2">
           <h3 class="text-white text-base md:text-xl mb-3">Company</h3>
   
@@ -48,7 +48,7 @@ const socialMediaIcons = [
             <li
               class="text-sm py-1 text-gray-300 hover:translate-x-2 transition duration-300"
             >
-              <a href="#">How it Works</a>
+              <a href="#" class="">How it Works</a>
             </li>
             <li
               class="text-sm py-1 text-gray-300 hover:translate-x-2 transition duration-300"
@@ -113,14 +113,14 @@ const socialMediaIcons = [
     </div>
 
     <div class="px-4 py-7 bg-[#282828] w-full flex justify-center">
-      <div class="flex justify-center flex-col sm:flex-row gap-y-4 gap-x-20 items-center max-w-[960px]">
-        <span class="text-white flex-1">
+      <div class="md:px-[60px] lg:px-[0] flex justify-center flex-col sm:flex-row md:flex-col lg:flex-row md:items-baseline gap-y-4 gap-x-20 items-center max-w-[960px]">
+        <span class="text-white flex-1 lg:base md:text-lg">
           <a class="text-lg md:text-2xl font-extrabold text-blue-400" href="#">New @ Droxnet?</a
           >
           Dotem eiusmod tempor incune utnaem labore etdolore.
         </span>
 
-        <a href="#" class="primary-button">Join Now</a>
+        <a href="#" class="md:primary-button lg:primary-button md:px-10 md:text-[16px] lg:px-[50px] lg:text-[13px]">Join Now</a>
       </div>
     </div>
 

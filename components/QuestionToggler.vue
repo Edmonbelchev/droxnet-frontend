@@ -23,7 +23,7 @@ const toggleContent = (index) => {
         :key="index"
         @click="toggleContent(index)"
       >
-        <h2 class="border border-gray p-4 text-black cursor-pointer lg:text-sm md:text-xl">
+        <h2 class="border border-gray p-4 text-black cursor-pointer lg:text-base md:text-base">
           {{ content.title }}
         </h2>
         <div

@@ -18,7 +18,7 @@ defineProps({
       </h2>
       <h3 class="text-lg mb-6">{{ information.subTitle }}</h3>
       <span class="border-b-4 w-[160px] border-[--primary-color] rounded-md absolute"></span>
-      <p class="pt-14 mb-6 lg:text-base md:text-2xl">
+      <p class="pt-14 mb-6 lg:text-base md:text-lg">
         {{ information.description }}
         <a class="text-blue-400" :href="information.learn">{{
           information.learn

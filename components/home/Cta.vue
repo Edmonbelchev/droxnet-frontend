@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center relative overflow-hidden px-4 py-4 lg:py-0 lg:px-0">
+  <div class="flex justify-center relative overflow-hidden md:px-10 px-4 py-4 lg:py-0 lg:px-0">
     <div class="w-1/5 hidden lg:block bg-gray-800 relative">
       <img
         src="https://amentotech.com/htmls/worktern/images/bg/img-01.jpg"

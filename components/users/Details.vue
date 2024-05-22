@@ -21,8 +21,8 @@ defineProps({
     </div>
     <div class="flex justify-center z-1 bg-gray-800 bg-opacity-40 py-20 px-4">
 
-        <div class="flex justify-center max-w-[1240px] bg-white rounded-lg">
-            <div class="flex flex-col items-center w-[28%] py-[30px]">
+        <div class="lg:flex lg:justify-center max-w-[1240px] bg-white rounded-lg">
+            <div class="flex flex-col items-center w-[28%] py-[30px] sm:w-full">
                 <div class="mb-6">
                     <div class="relative">
                         <div class="rounded-[50%] absolute -top-[6px] -right-[6px] bg-[#57E50C] w-[20px] h-[20px] border-[3px] border-white"></div>
@@ -51,9 +51,9 @@ defineProps({
                 </div>
             </div>
             <!-- div 2  -->
-            <div class="w-[50%] px-[30px] py-[30px]">
+            <div class="sm:w-full sm:text-center lg:text-start w-[50%] px-[30px] py-[30px]">
                 <p class="text-3xl font-bold text-black">{{ user.informations.title }}</p>
-                <div class="flex gap-2 py-3 text-[16px]">
+                <div class="sm:justify-center lg:justify-start flex gap-2 py-3 text-[16px]">
 
                     <span class="flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 36 36">
@@ -100,7 +100,7 @@ defineProps({
 
             </div>
             <!-- // div 3 -->
-            <div class=" text-center w-[22%] border-l border-gray-100">
+            <div class="sm:w-full sm:px-[30px] sm:py-[30px] lg:py-0 lg:px-0 text-center w-[22%] border-l border-gray-100">
                 <div class="flex">
                     <div class="bg-gray-100 py-9 px-2.5 w-1/2">
                         <h3 class="text-xl font-bold text-green-500">{{ user.informationsTwo.ongoing }}</h3>

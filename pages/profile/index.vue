@@ -12,7 +12,7 @@ const authStore = useAuthStore();
     <div class="relative">
       <ProfileSidebarMenu :user="authStore.user" />
 
-      <div class="bg-[--gray-color] p-10">
+      <div class="bg-[--background-color] p-10">
         <ProfileDetails :user="authStore.user" />
       </div>
     </div>

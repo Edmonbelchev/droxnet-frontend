@@ -12,13 +12,9 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  width: {
+  className: {
     type: String,
-    default: "128",
-  },
-  height: {
-    type: String,
-    default: "128",
+    default: "profile-avatar",
   },
   fileName: {
     type: String,
@@ -129,11 +125,11 @@ const removeFile = () => {
     v-if="fileErrorMessage"
   ></p>
 
-  <div v-if="previewFile || props.modelValue" :class="`w-full max-w-[${width}px] border mt-4`">
+  <div v-if="previewFile || props.modelValue" :class="`${className} w-full border mt-4`">
     <img
       :src="previewFile ?? props.modelValue"
       alt="Preview File"
-      :class="`object-cover w-full h-full max-w-[${width}px] max-h-[${height}px]`"
+      :class="`object-cover w-full h-full`"
     />
     <div class="flex flex-col gap-2 p-2 pr-6 relative">
       <span class="text-xs text-[--text-color]" v-if="uploadedFile">
@@ -158,3 +154,23 @@ const removeFile = () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.profile-avatar{
+  max-width: 270px;
+}
+
+.profile-avatar img {
+  max-width: 270px;
+  max-height: 270px;
+}
+
+.profile-banner {
+  max-width: 800px;
+}
+
+.profile-banner img {
+  max-width: 800px;
+  height: 166px;
+}
+</style>

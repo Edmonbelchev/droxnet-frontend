@@ -1,13 +1,40 @@
 <script setup lang="ts">
-import { required, helpers } from "@vuelidate/validators";
+import {
+  required,
+  minLength,
+  maxLength,
+  numeric,
+  helpers,
+} from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
 const props: any = defineProps({
-  form: {
+  user: {
     type: Object,
     required: true,
   },
 });
+
+const toast: any = useNuxtApp().$toast;
+
+const form = ref({
+  first_name: props.user.first_name ?? "",
+  last_name: props.user.last_name ?? "",
+  hourly_rate: props.user.hourly_rate ?? "",
+  gender: props.user.gender ?? "male",
+  about: props.user.about ?? "",
+  date_of_birth: props.user.date_of_birth ?? "",
+  phone: props.user.phone_number ?? "",
+  email: props.user.email ?? "",
+  address: props.user.address ?? "",
+  city: props.user.city ?? "",
+  country: props.user.country ?? "",
+  profile_image: props.user.profile_image ?? "",
+  profile_banner: props.user.profile_banner ?? "",
+  company_name: props.user.company_name ?? "",
+});
+
+const loading = ref(false);
 
 const rules = computed(() => {
   return {
@@ -23,32 +50,53 @@ const rules = computed(() => {
         required
       ),
     },
-    hourly_rate: {
-      number: helpers.withMessage(
-        "The hourly rate field must be a number",
-        required
-      ),
-    },
     about: {
       required: helpers.withMessage(
         "The description field is required",
         required
       ),
+      minLength: helpers.withMessage(
+        "The description field must be at least 64 characters",
+        minLength(64)
+      ),
+      maxLength: helpers.withMessage(
+        "The description field must be at most 512 characters",
+        maxLength(512)
+      ),
     },
   };
 });
 
-const v$ = useVuelidate(rules, props.form);
+const v$ = useVuelidate(rules, form.value);
 
-const previewProfileAvatarImage = ref(props.form.profile_image ?? null);
-const previewProfileBannerImage = ref(props.form.profile_banner ?? null);
+const submit = async () => {
+  loading.value = true;
+
+  v$.value.$validate();
+
+  if (!v$.value.$error) {
+    const response: any = await updateProfile(form.value);
+
+    if (response.status.value === "success") {
+      toast.success("Profile updated successfully");
+    } else {
+      toast.error(response.error, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+    }
+  } else {
+    toast.error("Please fill in all required fields", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  }
+
+  loading.value = false;
+};
 </script>
 
 <template>
-  <div class="flex flex-col p-6 gap-2">
-    <h4
-      class="bg-[--background-color] text-[--text-color] py-3 px-4 mb-6 border-l-4 border-[--primary-color] text-base"
-    >
+  <form @submit.prevent="submit" class="flex flex-col p-6 gap-2">
+    <h4 class="bg-[--background-color] text-[--text-color] py-3 px-4 mb-4 border-l-4 border-[--primary-color] text-base">
       Your Details
     </h4>
 
@@ -96,10 +144,6 @@ const previewProfileBannerImage = ref(props.form.profile_banner ?? null);
         type="number"
         placeholder="Your Service Hourly Rate ($)"
         name="hourly_rate"
-        :error="v$.hourly_rate.$error"
-        :valid="!v$.hourly_rate.$invalid"
-        :errorMessages="v$.hourly_rate.$errors"
-        @touch="v$.hourly_rate.$touch"
       />
     </div>
 
@@ -123,8 +167,10 @@ const previewProfileBannerImage = ref(props.form.profile_banner ?? null);
       </h4>
 
       <div class="flex flex-col px-6">
-        <p class="mb-4">Upload a profile photo to make your profile stand out</p>
-    
+        <p class="mb-4">
+          Upload a profile photo to make your profile stand out
+        </p>
+
         <FormElementsFileUpload
           v-model="form.profile_image"
           name="profile_image"
@@ -133,28 +179,62 @@ const previewProfileBannerImage = ref(props.form.profile_banner ?? null);
           height="270"
         />
       </div>
-  
     </div>
 
-    <div class="flex flex-col">
+    <div class="flex flex-col mb-6">
       <h4
         class="bg-[--background-color] text-[--text-color] py-3 px-4 mb-4 border-l-4 border-[--primary-color] text-base"
       >
         Banner Photo
       </h4>
-  
+
       <div class="flex flex-col px-6">
         <p class="mb-4">Upload a banner photo to make your profile stand out</p>
-    
+
         <FormElementsFileUpload
           v-model="form.profile_banner"
           name="profile_banner"
           id="profile_banner"
           width="800"
           height="166"
-          imageName="Profile Banner"
+          className="profile-banner"
         />
       </div>
     </div>
-  </div>
+
+    <h4
+      class="bg-[--background-color] text-[--text-color] py-3 px-4 mb-4 border-l-4 border-[--primary-color] text-base"
+    >
+      Your Details
+    </h4>
+
+    <div class="flex gap-2 mb-6 px-6">
+      <div class="flex-1">
+        <FormElementsCountrySelect
+          v-model="form.country"
+          placeholder="Select a country"
+          :selectedOption="form.country"
+        />
+      </div>
+
+      <FormElementsInput
+        v-model="form.city"
+        type="text"
+        placeholder="City"
+        name="city"
+      />
+    </div>
+
+    <div class="flex justify-end p-6 w-full bg-white rounded-md">
+      <button
+        type="submit"
+        class="primary-button uppercase flex gap-2 items-center"
+        :class="loading ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'"
+        :disabled="loading"
+      >
+        Save & Update
+        <Loader width="14" v-if="loading" />
+      </button>
+    </div>
+  </form>
 </template>

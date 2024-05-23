@@ -48,7 +48,7 @@ const socialMediaIcons = [
             <li
               class="text-sm py-1 text-gray-300 hover:translate-x-2 transition duration-300"
             >
-              <a href="#">How it Works</a>
+              <a href="#" class="">How it Works</a>
             </li>
             <li
               class="text-sm py-1 text-gray-300 hover:translate-x-2 transition duration-300"

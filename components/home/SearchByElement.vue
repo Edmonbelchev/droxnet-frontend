@@ -50,21 +50,21 @@ const locationItems = [
 
 <template>
   <div class="bg-[#f7f7f7]">
-    <div class="mx-auto max-w-screen-xl px-4 py-8 md:p-8 xl:p-12">
+    <div class="mx-auto max-w-screen-xl px-4 py-8 md:p-10 xl:p-12">
       <div class="flex flex-wrap md:justify-center">
-        <div class="w-full sm:w-1/2 lg:w-1/4 mb-6 lg:mb-0">
+        <div class="w-full sm:w-1/2 lg:w-1/4 mb-6 lg:mb-0 sm:px-10 md:px-10 lg:px-0">
           <h2 class="text-lg text-gray-800 font-medium mb-2 lg:mb-4">By Skills</h2>
           <ListWithAnchors :items="skillsItems" />
         </div>
-        <div class="w-full sm:w-1/2 lg:w-1/4 mb-6 lg:mb-0">
+        <div class="w-full sm:w-1/2 lg:w-1/4 mb-6 lg:mb-0 sm:px-10 md:px-10 lg:px-0">
           <h2 class="text-lg text-gray-800 font-medium mb-2 lg:mb-4">Skills In US</h2>
           <ListWithAnchors :items="usSkillsItems" />
         </div>
-        <div class="w-full sm:w-1/2 lg:w-1/4 mb-6 lg:mb-0">
+        <div class="w-full sm:w-1/2 lg:w-1/4 mb-6 lg:mb-0 sm:px-10 md:px-10 lg:px-0">
           <h2 class="text-lg text-gray-800 font-medium mb-2 lg:mb-4">By Categories</h2>
           <ListWithAnchors :items="categoriesItems" />
         </div>
-        <div class="w-full sm:w-1/2 lg:w-1/4 lg:mb-0">
+        <div class="w-full sm:w-1/2 lg:w-1/4 lg:mb-0 sm:px-10 md:px-10 lg:px-0">
           <h2 class="text-lg text-gray-800 font-medium mb-2 lg:mb-4">By Location</h2>
           <ListWithAnchors :items="locationItems" />
         </div>

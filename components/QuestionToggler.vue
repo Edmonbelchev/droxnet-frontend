@@ -23,20 +23,20 @@ const toggleContent = (index) => {
         :key="index"
         @click="toggleContent(index)"
       >
-        <h2 class="border border-gray p-4 text-black cursor-pointer lg:text-base md:text-base">
+        <h3 class="border border-gray p-4 text-black cursor-pointer xl:text-base">
           {{ content.title }}
-        </h2>
+        </h3>
         <div
           class="overflow-hidden transition-all duration-300 lg:mb-0 md:mb-5"
           :class="{
             block: showContent === index,
-            'max-h-[200px]': showContent === index,
+            'max-h-[999px]': showContent === index,
             'max-h-0': showContent !== index,
           }"
           @click.stop
         >
-          <div class="lg:p-6 md:px-5 md:py-3 bg-[--background-color]">
-            <h2 class="text-lg text-black mb-2">{{ content.contentTitle }}</h2>
+          <div class="p-4 lg:p-6 md:px-5 md:py-3 bg-[--background-color]">
+            <h4 class="lg:text-lg text-black mb-2">{{ content.contentTitle }}</h4>
             <p class="mb-4 font-normal lg:text-sm md:text-lg">{{ content.description }}</p>
 
             <div class="flex items-center gap-3">

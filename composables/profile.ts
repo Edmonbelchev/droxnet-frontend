@@ -14,18 +14,31 @@ const updateProfile = async (form: Object | any) => {
 
     const uploadedFile: any = await uploadFiles(form.profile_image, "avatars/");
 
-    // Update the form with the new profile_image
-    form.profile_image = uploadedFile.value.url;
+    if(uploadedFile.status.value == "success") {
+      // Update the form with the new profile_image
+      form.profile_image = uploadedFile.data.value.url;
 
-    // Update the toast to show that the image has been uploaded
-    setTimeout(() => {
-      toast.update("toastAvatar", {
-        type: "success",
-        text: "Profile image uploaded successfully",
-        isLoading: false,
-        autoClose: 600,
-      });
-    }, 100)
+      setTimeout(() => {
+        toast.update("toastAvatar", {
+          type: "success",
+          text: "Profile avatar image uploaded successfully",
+          isLoading: false,
+          autoClose: 1000,
+        });
+      }, 100)
+    } else {
+      // Update the form with the new profile_image
+      form.profile_image = "";
+
+      setTimeout(() => {
+        toast.update("toastAvatar", {
+          type: "error",
+          text: "Profile avatar image upload failed",
+          isLoading: false,
+          autoClose: 1000,
+        });
+      }, 100)
+    }
   }
 
   // Check if the profile_banner is different from the user's profile_banner
@@ -44,15 +57,27 @@ const updateProfile = async (form: Object | any) => {
       [1920, 460]
     );
 
-    // Update the form with the new profile_banner
-    form.profile_banner = uploadedFile.value.url;
+    if(uploadedFile.status.value == "success") {
+      // Update the form with the new profile_banner
+      form.profile_banner = uploadedFile.data.value.url;
 
-    toast.update("toastBanner", {
-      type: "success",
-      text: "Profile image uploaded successfully",
-      isLoading: false,
-      autoClose: 800,
-    });
+      toast.update("toastBanner", {
+        type: "success",
+        text: "Profile banner image uploaded successfully",
+        isLoading: false,
+        autoClose: 1000,
+      });
+    } else {
+      // Update the form with the new profile_banner
+      form.profile_banner = "";
+
+      toast.update("toastBanner", {
+        type: "error",
+        text: "Profile banner image upload failed",
+        isLoading: false,
+        autoClose: 1000,
+      });
+    }
   }
 
   let { data, status, error }: any = await dataFetch("/profile/update", {

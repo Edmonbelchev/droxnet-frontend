@@ -32,7 +32,7 @@ const authStore: any = useAuthStore();
 
     <div class="border-b px-4" v-if="authStore.loggedIn">
       <div class="flex items-center gap-4 py-4">
-        <ProfileAvatar />
+        <ProfileAvatar :avatar="authStore.user.profile_image" />
 
         <div class="flex flex-col">
           <span class="text-sm">

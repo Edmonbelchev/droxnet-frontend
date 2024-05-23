@@ -58,7 +58,7 @@ watch(
     </div>
 
     <div
-      class="flex flex-col absolute w-full bg-white border-x rounded-t-sm shadow-lg"
+      class="flex flex-col absolute w-full bg-white border-x rounded-t-sm shadow-lg z-10"
       :class="
         showDropdown
           ? 'max-h-[300px] overflow-y-scroll'

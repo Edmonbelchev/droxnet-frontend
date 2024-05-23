@@ -116,7 +116,7 @@ const signOut = async () => {
           class="flex items-center py-4 gap-4 group/parent relative"
           v-if="authStore.loggedIn"
         >
-          <ProfileAvatar />
+          <ProfileAvatar :avatar="authStore.user.profile_image" />
 
           <span>
             {{ authStore.user.first_name }}

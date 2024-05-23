@@ -11,12 +11,12 @@ const uploadFiles = async (
     formData.append(`dimension[${index}]`, dim);
   });
 
-  const { data } = await dataFetch("/upload-file", {
+  const { data, status, error } = await dataFetch("/upload-file", {
     method: "post",
     body: formData,
   });
 
-  return data;
+  return {data, status, error };
 };
 
 export { uploadFiles };

@@ -55,11 +55,10 @@ const submitRegister = () => {
 </script>
 
 <template>
-  <FormElementsInput
+  <FormElementsCountrySelect
     v-model="form.location"
-    type="text"
-    placeholder="Location"
-    name="location"
+    placeholder="Select a country"
+    :selectedOption="form.location"
   />
 
   <div class="flex flex-col sm:flex-row gap-4 w-full">

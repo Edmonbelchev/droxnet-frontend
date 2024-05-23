@@ -72,7 +72,7 @@ const categories = [
             </div>
 
             <!-- grid grid-cols-4 -->
-            <div class="py-10 px-4 sm:px-10 md:px-10 xl:py-20 xl:px-10 flex flex-col justify-center items-center">
+            <div class="py-10 px-4 md:px-10 xl:py-20 xl:px-10 flex flex-col justify-center items-center">
                 <div class="flex flex-col gap-2 mb-14 lg:mb-20 text-center">
                     <h2 class="text-3xl xl:text-4xl text-gray-800 font-bold">Explore Categories</h2>
                     <span

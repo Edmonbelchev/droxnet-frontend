@@ -17,6 +17,11 @@ export default defineNuxtConfig({
     },
   },
 
+  routeRules: {
+    "/": { swr: true },
+    "/**": { ssr: false },
+  },
+
   fontawesome: {
     icons: {
       solid: ["chevronDown", "magnifyingGlass"],

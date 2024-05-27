@@ -5,11 +5,11 @@ definePageMeta({
 </script>
 
 <template>
-    <header class="relative z-10">
+    <header class="relative z-10" ref="header">
         <NavigationNavbar />
     </header>
     <slot />
 
-    <Footer />
+    <Footer ref="footer" />
 </template>
   

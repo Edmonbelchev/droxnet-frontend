@@ -21,7 +21,7 @@ const updateProfile = async (form: Object | any) => {
       setTimeout(() => {
         toast.update("toastAvatar", {
           type: "success",
-          text: "Profile avatar image uploaded successfully",
+          render: "Avatar uploaded successfully",
           isLoading: false,
           autoClose: 1000,
         });
@@ -33,7 +33,7 @@ const updateProfile = async (form: Object | any) => {
       setTimeout(() => {
         toast.update("toastAvatar", {
           type: "error",
-          text: "Profile avatar image upload failed",
+          render: "Avatar upload failed",
           isLoading: false,
           autoClose: 1000,
         });
@@ -63,7 +63,7 @@ const updateProfile = async (form: Object | any) => {
 
       toast.update("toastBanner", {
         type: "success",
-        text: "Profile banner image uploaded successfully",
+        render: "Banner uploaded successfully",
         isLoading: false,
         autoClose: 1000,
       });
@@ -73,12 +73,16 @@ const updateProfile = async (form: Object | any) => {
 
       toast.update("toastBanner", {
         type: "error",
-        text: "Profile banner image upload failed",
+        render: "Banner upload failed",
         isLoading: false,
         autoClose: 1000,
       });
     }
   }
+
+  toast.loading("Updating profile", {
+    toastId: "toastUpdateProfile",
+  });
 
   let { data, status, error }: any = await dataFetch("/profile/update", {
     method: "put",
@@ -88,8 +92,22 @@ const updateProfile = async (form: Object | any) => {
   if (status.value == "success") {
     const authStore: any = useAuthStore();
     authStore.user = data.value.data;
+
+    toast.update("toastUpdateProfile", {
+      type: "success",
+      render: "Updated successfully",
+      isLoading: false,
+      autoClose: 1000,
+    });
   } else {
     error = error._object[error._key].data.message;
+
+    toast.update("toastUpdateProfile", {
+      type: "error",
+      render: error,
+      isLoading: false,
+      autoClose: 1000,
+    });
   }
 
   return { data, status, error };

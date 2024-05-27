@@ -30,7 +30,7 @@ const login = async () => {
   
     if(response.status.value != "error") {
       // Redirect to the homepage
-      router.push("/");
+      router.push("/profile");
     }else{
       // Show error message
       toast.error(response.errorMessage, {

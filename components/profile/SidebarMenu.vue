@@ -20,17 +20,20 @@ const toggleDropdown = (index: number) => {
 <template>
   <div
     class="flex flex-col absolute h-full bg-white left-0 top-0 z-10 shadow-md transition-all duration-300 ease-in-out"
-    :class="{ 'w-[270px]': sideBarIsActive, 'w-[50px]': !sideBarIsActive }"
+    :class="{
+      'w-[270px]': sideBarIsActive,
+      'w-[0px] md:w-[50px]': !sideBarIsActive,
+    }"
   >
     <button
-      class="rounded-full bg-white text-[--text-color] h-10 w-10 absolute -right-5 top-5 text-lg shadow-xl"
+      class="rounded-full bg-white text-[--text-color] h-10 w-10 absolute text-xl -right-7 top-3 md:-right-5 md:top-5 md:text-lg shadow-xl"
       type="button"
       @click="sideBarIsActive = !sideBarIsActive"
     >
       <Icon
         :name="
           sideBarIsActive
-            ? 'heroicons-solid:arrow-right'
+            ? 'heroicons-solid:arrow-left'
             : 'heroicons-solid:menu'
         "
       />

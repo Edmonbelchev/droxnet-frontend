@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import {
-  required,
-  minLength,
-  maxLength,
-  numeric,
-  helpers,
-} from "@vuelidate/validators";
+import { required, minLength, maxLength, helpers } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
 const props: any = defineProps({
@@ -32,7 +26,12 @@ const form = ref({
   profile_image: props.user.profile_image ?? "",
   profile_banner: props.user.profile_banner ?? "",
   company_name: props.user.company_name ?? "",
+  skills: [],
 });
+
+const updateFormSkills = ($event: Event | any) => {
+  form.value.skills = $event;
+};
 
 const loading = ref(false);
 
@@ -75,15 +74,7 @@ const submit = async () => {
   v$.value.$validate();
 
   if (!v$.value.$error) {
-    const response: any = await updateProfile(form.value);
-
-    if (response.status.value === "success") {
-      toast.success("Profile updated successfully");
-    } else {
-      toast.error(response.error, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    }
+    await updateProfile(form.value);
   } else {
     toast.error("Please fill in all required fields", {
       position: toast.POSITION.TOP_RIGHT,
@@ -95,12 +86,14 @@ const submit = async () => {
 </script>
 
 <template>
-  <form @submit.prevent="submit" class="flex flex-col p-6 gap-2">
-    <h4 class="bg-[--background-color] text-[--text-color] py-3 px-4 mb-4 border-l-4 border-[--primary-color] text-base">
+  <form @submit.prevent="submit" class="flex flex-col p-4 md:p-6 gap-2">
+    <h4
+      class="bg-[--background-color] text-[--text-color] py-3 px-4 mb-4 border-l-4 border-[--primary-color] text-base"
+    >
       Your Details
     </h4>
 
-    <div class="flex gap-2 px-6">
+    <div class="flex gap-2 md:px-6">
       <FormElementsInput
         v-model="form.first_name"
         type="text"
@@ -124,7 +117,7 @@ const submit = async () => {
       />
     </div>
 
-    <div class="flex gap-2 px-6">
+    <div class="flex gap-2 md:px-6">
       <div class="flex-1">
         <select
           class="bg-white border rounded-md px-4 w-full h-[50px] uppercase"
@@ -147,7 +140,7 @@ const submit = async () => {
       />
     </div>
 
-    <div class="flex gap-2 mb-6 px-6">
+    <div class="flex gap-2 mb-6 md:px-6">
       <FormElementsTextarea
         name="about"
         v-model="form.about"
@@ -166,7 +159,7 @@ const submit = async () => {
         Profile Photo
       </h4>
 
-      <div class="flex flex-col px-6">
+      <div class="flex flex-col md:px-6">
         <p class="mb-4">
           Upload a profile photo to make your profile stand out
         </p>
@@ -188,7 +181,7 @@ const submit = async () => {
         Banner Photo
       </h4>
 
-      <div class="flex flex-col px-6">
+      <div class="flex flex-col md:px-6">
         <p class="mb-4">Upload a banner photo to make your profile stand out</p>
 
         <FormElementsFileUpload
@@ -198,6 +191,7 @@ const submit = async () => {
           width="800"
           height="166"
           className="profile-banner"
+          fileName="Profile Banner"
         />
       </div>
     </div>
@@ -205,10 +199,10 @@ const submit = async () => {
     <h4
       class="bg-[--background-color] text-[--text-color] py-3 px-4 mb-4 border-l-4 border-[--primary-color] text-base"
     >
-      Your Details
+      Your Location
     </h4>
 
-    <div class="flex gap-2 mb-6 px-6">
+    <div class="flex flex-col sm:flex-row gap-2 mb-6 md:px-6">
       <div class="flex-1">
         <FormElementsCountrySelect
           v-model="form.country"
@@ -225,7 +219,15 @@ const submit = async () => {
       />
     </div>
 
-    <div class="flex justify-end p-6 w-full bg-white rounded-md">
+    <h4
+      class="bg-[--background-color] text-[--text-color] py-3 px-4 mb-4 border-l-4 border-[--primary-color] text-base"
+    >
+      My Skills
+    </h4>
+
+    <ProfileFormSkills @updateForm="updateFormSkills($event)" />
+
+    <div class="flex justify-end pb-2 md:p-6 w-full bg-white rounded-md">
       <button
         type="submit"
         class="primary-button uppercase flex gap-2 items-center"

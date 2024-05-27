@@ -97,7 +97,7 @@ const removeFile = () => {
 <template>
   <label
     :for="id"
-    class="border-dashed border-2 p-4 flex gap-8 items-center relative"
+    class="border-dashed border-2 p-4 flex flex-col gap-2 md:flex-row md:gap-8 items-center relative text-xs md:text-sm"
     :class="fileDraggedOver ? 'border-[--primary-color]' : 'border-gray-200'"
     @dragover="handleDragOver"
     @dragleave="handleDragLeave"

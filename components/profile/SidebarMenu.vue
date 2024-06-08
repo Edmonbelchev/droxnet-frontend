@@ -56,7 +56,7 @@ const toggleDropdown = (index: number) => {
           <img
             :src="user.profile_image"
             :class="[
-              'border-white rounded-full shadow-xl transition-all duration-300 ease-in-out bg-gray-200',
+              'border-white rounded-full shadow-xl transition-all duration-300 ease-in-out bg-gray-200 object-cover',
               {
                 'w-24 h-24 border-[6px]': sideBarIsActive,
                 'w-10 h-10 border-[4px]': !sideBarIsActive,

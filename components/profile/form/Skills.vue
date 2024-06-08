@@ -1,9 +1,11 @@
 <script setup lang="ts">
 const emit = defineEmits(["updateForm"]);
 
+const skillStore = useSkillStore();
+
 const skills: Ref<any> = ref([]);
 const selectedSkill: Ref<any> = ref([]);
-const skillRate: Ref<Number | null> = ref(null);
+const skillRate: Ref<Number | String | null> = ref(null);
 const userSkills: Ref<Object> = ref([{}]);
 const openedSkill: Ref<any> = ref({ id: null });
 const openedSkillRate: Ref<Number | null> = ref(null);
@@ -27,6 +29,9 @@ const retrieveSkills = async ($event: any = "") => {
     });
   }
 
+  // Update the skill store
+  skillStore.storeValues(skills.value);
+
   loadingSearch.value = false;
 };
 
@@ -42,6 +47,9 @@ const retrieveUserSkills = async () => {
       };
     });
 
+    // Update the skill store
+    skillStore.storeValues(userSkills.value, true);
+
     emit("updateForm", userSkills.value);
 
     return userSkills.value;
@@ -49,7 +57,11 @@ const retrieveUserSkills = async () => {
 };
 
 const addSkill = () => {
-  if (selectedSkill.value.length != 0 && (skillRate.value != null && skillRate.value != "")) {
+  if (
+    selectedSkill.value.length != 0 &&
+    skillRate.value != null &&
+    skillRate.value != ""
+  ) {
     const formatObject: any = {
       name: selectedSkill.value.label,
       id: selectedSkill.value.value,
@@ -57,6 +69,9 @@ const addSkill = () => {
     };
 
     userSkills.value.push(formatObject);
+
+    // Update the skill store
+    skillStore.storeValues(userSkills.value, true);
 
     emit("updateForm", userSkills.value);
 
@@ -89,6 +104,9 @@ const deleteSkill = (id: number) => {
   // Remove the element from userSkills
   userSkills.value = userSkills.value.filter((skill: any) => skill.id !== id);
 
+  // Update the skill store
+  skillStore.storeValues(userSkills.value, true);
+
   emit("updateForm", userSkills.value);
 };
 
@@ -103,14 +121,31 @@ const saveSkill = (id: number) => {
 };
 
 onMounted(async () => {
-  await retrieveUserSkills();
-  await retrieveSkills();
+  if (skillStore.userSkills.length > 0) {
+    userSkills.value = skillStore.userSkills;
+
+    emit("updateForm", skillStore.userSkills);
+  } else {
+    await retrieveUserSkills();
+  }
+
+  if (skillStore.skills.length > 0) {
+    skills.value = skillStore.skills;
+  } else {
+    await retrieveSkills();
+  }
 
   loadingSkills.value = false;
 });
 </script>
 
 <template>
+  <h4
+    class="bg-[--background-color] text-[--text-color] py-3 px-4 mb-4 border-l-4 border-[--primary-color] text-base"
+  >
+    My Skills
+  </h4>
+
   <div v-if="!loadingSkills">
     <div class="flex flex-col gap-2 mb-4 md:px-6 md:flex-row">
       <div class="flex flex-col md:flex-row gap-2 md:gap-0 flex-1">
@@ -140,7 +175,8 @@ onMounted(async () => {
         type="button"
         class="primary-button max-h-[50px]"
         :class="{
-          'cursor-not-allowed opacity-50': (skillRate == null || skillRate == 0) || selectedSkill.length == 0,
+          'cursor-not-allowed opacity-50':
+            skillRate == null || skillRate == 0 || selectedSkill.length == 0,
         }"
         @click="addSkill()"
       >

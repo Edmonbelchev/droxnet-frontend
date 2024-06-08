@@ -5,7 +5,7 @@ defineProps({
   },
   className: {
     type: String,
-    default: "w-9 h-9 rounded-full",
+    default: "w-9 h-9 rounded-full object-cover",
   },
 });
 </script>

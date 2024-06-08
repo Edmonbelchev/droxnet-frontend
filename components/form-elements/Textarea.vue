@@ -45,7 +45,7 @@ defineProps({
         @input="$emit('update:modelValue', $event.target.value)"
         @change="$emit('touch')"
         :placeholder="placeholder"
-        class="text-xs md:text-sm w-full pr-8"
+        class="text-xs md:text-sm w-full pr-10"
         :class="[
           inputClass,
           { 'border-red-500': error },

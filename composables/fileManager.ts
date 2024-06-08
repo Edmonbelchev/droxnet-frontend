@@ -1,4 +1,4 @@
-const uploadFiles = async (
+const uploadImage = async (
   file: File,
   path: string,
   dimension: Array<Number> = [512, 512]
@@ -11,7 +11,7 @@ const uploadFiles = async (
     formData.append(`dimension[${index}]`, dim);
   });
 
-  const { data, status, error } = await dataFetch("/upload-file", {
+  const { data, status, error } = await dataFetch("/image-upload", {
     method: "post",
     body: formData,
   });
@@ -19,4 +19,21 @@ const uploadFiles = async (
   return {data, status, error };
 };
 
-export { uploadFiles };
+const uploadFile = async (
+  file: File,
+  path: string,
+) => {
+  const formData = new FormData();
+
+  formData.append("file", file);
+  formData.append("path", path);
+
+  const { data, status, error } = await dataFetch("/file-upload", {
+    method: "post",
+    body: formData,
+  });
+
+  return {data, status, error };
+};
+
+export { uploadImage, uploadFile };

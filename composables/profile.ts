@@ -12,7 +12,7 @@ const updateProfile = async (form: Object | any) => {
       toastId: "toastAvatar",
     });
 
-    const uploadedFile: any = await uploadFiles(form.profile_image, "avatars/");
+    const uploadedFile: any = await uploadImage(form.profile_image, "avatars/");
 
     if(uploadedFile.status.value == "success") {
       // Update the form with the new profile_image
@@ -51,7 +51,7 @@ const updateProfile = async (form: Object | any) => {
       toastId: "toastBanner",
     });
 
-    const uploadedFile: any = await uploadFiles(
+    const uploadedFile: any = await uploadImage(
       form.profile_banner,
       "banners/",
       [1920, 460]

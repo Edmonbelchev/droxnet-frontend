@@ -113,4 +113,30 @@ const updateProfile = async (form: Object | any) => {
   return { data, status, error };
 };
 
-export { updateProfile };
+const changePassword = async (form: Object) => {
+  let { data, status, error }: any = await dataFetch("/change-password",{
+    method: "put",
+    body: form,
+  });
+
+  if(status.value === "error"){
+    error = error._object[error._key].data.message;
+  }
+
+  return { data, status, error };
+}
+
+const deleteProfile = async (form: Object) => {
+  let { data, status, error }: any = await dataFetch("/profile/delete",{
+    method: "delete",
+    body: form,
+  });
+
+  if(status.value === "error") { 
+    error = error._object[error._key].data.message;
+  }
+
+  return { data, status, error };
+}
+
+export { updateProfile, changePassword, deleteProfile };

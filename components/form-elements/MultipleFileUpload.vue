@@ -9,7 +9,7 @@ const props = defineProps({
     required: true,
   },
   name: {
-    type: String
+    type: String,
   },
   className: {
     type: String,
@@ -68,7 +68,7 @@ const handleFileChange = (event: Event) => {
 
     // Update files
     uploadedFiles.value = [...uploadedFiles.value, ...validFiles];
-    
+
     emit("update:modelValue", uploadedFiles.value);
 
     // Update previews
@@ -134,14 +134,14 @@ const formatFileSize = (sizeInBytes: number): string => {
 
   <div v-if="uploadedFiles.length" :class="`${className} w-full mt-4`">
     <div
-      class="flex flex-row justify-between gap-2 p-4 pr-8 relative border-x border-t"
+      class="flex flex-row justify-between gap-2 p-2 pr-8 sm:p-4 sm:pr-10 relative border-x border-t"
       :class="{ 'border-b': index === uploadedFiles.length - 1 }"
       v-for="(file, index) in uploadedFiles"
       :key="index"
     >
-      <div v-if="file" class="flex gap-2">
+      <div v-if="file" class="flex flex-wrap gap-2 w-full">
         <span
-          class="text-xs text-[--text-color]"
+          class="text-xs text-[--text-color] truncate"
           v-if="!file.name && !file.size"
           v-html="file"
         ></span>

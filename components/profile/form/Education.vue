@@ -111,9 +111,9 @@ onMounted(async () => {
       </button>
     </div>
 
-    <div class="px-4" v-for="(item, index) in form" :key="index">
+    <div class="sm:px-4" v-for="(item, index) in form" :key="index">
       <div
-        class="p-4 border-x border-t rounded-sm flex justify-between items-center rounded-t-sm"
+        class="p-3 sm:py-4 sm:px-6 border-x border-t rounded-sm flex justify-between sm:items-center rounded-t-sm gap-2"
         :class="{
           'border-red-500': !item.opened && v$[index].$error,
           'rounded-t-md': index === 0,
@@ -122,7 +122,7 @@ onMounted(async () => {
         }"
       >
         <div
-          class="flex gap-1 text-[--text-color] items-center"
+          class="flex flex-wrap gap-1 text-[--text-color] sm:items-center"
           v-if="item.school_name"
         >
           {{ item.school_name }}
@@ -162,7 +162,7 @@ onMounted(async () => {
         :class="item.opened ? 'max-h-[999px]' : 'max-h-0'"
       >
         <div
-          class="flex flex-col gap-2 p-6 bg-[--background-color] overflow-hidden"
+          class="flex flex-col gap-2 p-4 sm:p-6 bg-[--background-color] overflow-hidden"
           :class="{ 'rounded-b-md': index === form.length - 1 }"
         >
           <FormElementsInput
@@ -176,7 +176,7 @@ onMounted(async () => {
             @touch="v$[index].school_name.$touch"
           />
 
-          <div class="flex gap-2">
+          <div class="flex flex-col sm:flex-row gap-2">
             <FormElementsInput
               v-model="item.degree"
               type="text"
@@ -200,7 +200,7 @@ onMounted(async () => {
             />
           </div>
 
-          <div class="flex gap-2">
+          <div class="flex flex-col sm:flex-row gap-2">
             <FormElementsInput
               v-model="item.start_date"
               type="date"

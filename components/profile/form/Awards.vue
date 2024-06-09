@@ -139,9 +139,9 @@ onMounted(async () => {
       </button>
     </div>
 
-    <div class="px-4" v-for="(item, index) in form" :key="index">
+    <div class="sm:px-4" v-for="(item, index) in form" :key="index">
       <div
-        class="py-4 px-6 border-x border-t rounded-sm flex justify-between items-center rounded-t-sm"
+        class="p-3 sm:py-4 sm:px-6 border-x border-t rounded-sm flex flex-col sm:flex-row justify-between sm:items-center rounded-t-sm gap-2"
         :class="{
           'border-red-500': !item.opened && v$[index].$error,
           'rounded-t-md': index === 0,
@@ -150,22 +150,22 @@ onMounted(async () => {
         }"
       >
         <div
-          class="flex gap-1 text-[--text-color] items-center"
+          class="flex flex-col sm:flex-row gap-2 text-[--text-color] sm:items-center order-2 sm:order-1"
           v-if="item.title"
         >
           <img
             :src="itemMainImage(item.files)"
-            class="w-14 h-14 object-cover rounded-md mr-2 image-preview"
+            class="w-20 h-20 sm:w-14 sm:h-14 object-cover rounded-md mr-2 image-preview"
           />
 
           {{ item.title }}
         </div>
 
-        <div v-else>
+        <div class="order-2 sm:order-1" v-else>
           <p class="text-[--gray-color]">No award added yet</p>
         </div>
 
-        <div class="flex gap-2">
+        <div class="flex gap-2 ml-auto order-1 sm:order-2">
           <button
             type="button"
             class="text-[--text-color] flex items-center justify-center bg-[--light-blue] w-8 h-8 text-white rounded-[3px] text-xs hover:bg-[--primary-color] duration-300"
@@ -189,10 +189,10 @@ onMounted(async () => {
         :class="item.opened ? 'max-h-[999px]' : 'max-h-0'"
       >
         <div
-          class="flex flex-col gap-2 p-6 bg-[--background-color] overflow-hidden"
+          class="flex flex-col gap-2 p-4 sm:p-6 bg-[--background-color] overflow-hidden"
           :class="{ 'rounded-b-md': index === form.length - 1 }"
         >
-          <div class="flex gap-2">
+          <div class="flex flex-col sm:flex-row gap-2">
             <FormElementsInput
               v-model="item.title"
               type="text"

@@ -18,7 +18,7 @@ const profileSidebarMenuItems = () => {
     {
       title: "My Profile",
       icon: "fa:briefcase",
-      url: "/",
+      url: "profile",
     },
     {
       title: "All Jobs",
@@ -65,6 +65,7 @@ const profileSidebarMenuItems = () => {
     {
       title: "Account Settings",
       icon: "fa-solid:cog",
+      url: "account-settings"
     },
     {
       title: "Help & Support",
@@ -72,7 +73,7 @@ const profileSidebarMenuItems = () => {
     },
     {
       title: "Logout",
-      icon: "fa-solid:sign-out-alt",
+      icon: "fa-solid:sign-out-alt"
     },
   ];
 };

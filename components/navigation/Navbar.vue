@@ -61,7 +61,7 @@ const profileMenu = [
   },
   {
     text: "Settings",
-    route: "/",
+    route: "/account-settings",
   },
   {
     text: "Sign out",

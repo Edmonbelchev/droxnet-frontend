@@ -1,7 +1,7 @@
 <script setup>
-definePageMeta({
-  middleware: 'auth'
-})
+// definePageMeta({
+//   middleware: 'auth'
+// })
 
 const user = ref(
     {

@@ -32,7 +32,7 @@ defineProps({
 </script>
 
 <template>
-  <div class="overflow-hidden mb-10 bg-white rounded-lg transition-shadow duration-500 flex relative hover:shadow-xl">
+  <div class="bg-[#fffdf3] sm:mx-[50px] overflow-hidden mb-10 bg-white rounded-lg transition-shadow duration-500 flex relative hover:shadow-xl flex-col xl:flex-row">
     <span
       class="absolute top-0 left-0 w-10 h-10 z-50 border-t-[40px] border-r-[40px] border-r-transparent"
       :class="{
@@ -44,7 +44,7 @@ defineProps({
     >
     </span>
 
-    <div class="w-4/6 py-10 px-10 relative">
+    <div class="w-4/6 w-full py-10 px-10 relative">
       <span>
         <img
           src="https://amentotech.com/htmls/worktern/images/featured.png"
@@ -62,7 +62,7 @@ defineProps({
       <p class="text-gray-500">{{ description }}</p>
     </div>
 
-    <div class="w-2/6 border-l">
+    <div class="w-full w-2/6 sm:border-t xl:border-l">
       <ul class="py-10 px-8 leading-8">
         <li>
           <Icon name="fluent-emoji-flat:heavy-dollar-sign" class="w-4 h-4" />

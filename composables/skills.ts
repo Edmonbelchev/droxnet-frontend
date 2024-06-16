@@ -26,7 +26,7 @@ const fetchSkills = async (
 };
 
 const fetchUserSkills = async () => {
-    let { data, status, error }: any = await dataFetch("/user/skills");
+    let { data, status, error }: any = await dataFetch("/user-skills");
     
     return { data, status, error };
 }

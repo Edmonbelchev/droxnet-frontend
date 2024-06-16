@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  ssr: true, // Disable Server Side rendering
+  ssr: false, // Disable Server Side rendering
 
   modules: [
     "@pinia/nuxt",
@@ -17,10 +17,10 @@ export default defineNuxtConfig({
     },
   },
 
-  routeRules: {
-    "/": { swr: true },
-    "/**": { ssr: false },
-  },
+  // routeRules: {
+  //   "/": { swr: true },
+  //   "/**": { ssr: false },
+  // },
 
   fontawesome: {
     icons: {

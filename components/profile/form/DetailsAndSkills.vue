@@ -64,6 +64,12 @@ const rules = computed(() => {
         maxLength(512)
       ),
     },
+    country: {
+      required: helpers.withMessage(
+        "The country field is required",
+        required
+      ),
+    },
   };
 });
 

@@ -56,9 +56,9 @@ const submitRegister = () => {
 
 <template>
   <FormElementsCountrySelect
-    v-model="form.location"
+    v-model="form.country"
     placeholder="Select a country"
-    :selectedOption="form.location"
+    :selectedOption="form.country"
   />
 
   <div class="flex flex-col sm:flex-row gap-4 w-full">

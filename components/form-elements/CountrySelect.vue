@@ -7,6 +7,10 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  errorMessages: {
+    type: Array,
+    default: () => [],
+  },
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -45,7 +49,10 @@ watch(
   >
     <div
       class="bg-white cursor-pointer flex gap-2 items-center justify-between w-full border rounded-md p-3 min-h-[46px] sm:min-h-[50px]"
-    >
+      :class="{
+        'border-red-500': errorMessages.length > 0
+      }"
+      >
       <span v-if="placeholder && selected.length == 0 && !selectedOption">{{
         placeholder
       }}</span>
@@ -59,11 +66,7 @@ watch(
 
     <div
       class="flex flex-col absolute w-full bg-white border-x rounded-t-sm shadow-lg z-10 overflow-hidden"
-      :class="
-        showDropdown
-          ? 'max-h-[300px]'
-          : 'max-h-[0]'
-      "
+      :class="showDropdown ? 'max-h-[300px]' : 'max-h-[0]'"
     >
       <input
         type="text"
@@ -98,5 +101,13 @@ watch(
         </label>
       </div>
     </div>
+
+    <span
+      class="text-red-500 text-xs"
+      v-for="(error, index) in errorMessages"
+      :key="index"
+    >
+      {{ error.$message }}
+    </span>
   </div>
 </template>

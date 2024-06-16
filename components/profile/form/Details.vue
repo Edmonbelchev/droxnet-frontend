@@ -135,6 +135,7 @@ defineProps({
         v-model="form.country"
         placeholder="Select a country"
         :selectedOption="form.country"
+        :errorMessages="v$.country.$errors"
       />
     </div>
 

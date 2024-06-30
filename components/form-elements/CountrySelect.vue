@@ -19,16 +19,16 @@ const selected: Ref<String> = ref("");
 const showDropdown: Ref<Boolean> = ref(false);
 
 const selectedCountry = computed(() => {
-  return countries().find((country) => country.code == props.selectedOption);
+  return fetchCountries().find((country) => country.code == props.selectedOption);
 });
 
-const countriesList: Ref = ref(countries());
+const countriesList: Ref = ref(fetchCountries());
 
 const search = (event: Event) => {
   const target = event.target as HTMLInputElement;
   const value = target.value;
 
-  countriesList.value = countries().filter((country) =>
+  countriesList.value = fetchCountries().filter((country) =>
     country.name.toLowerCase().includes(value.toLowerCase())
   );
 };

@@ -15,6 +15,7 @@ const toast: any = useNuxtApp().$toast;
 const form = ref({
   first_name: props.user.first_name ?? "",
   last_name: props.user.last_name ?? "",
+  tagline: props.user.tagline ?? "",
   hourly_rate: props.user.hourly_rate ?? "",
   gender: props.user.gender ?? "male",
   about: props.user.about ?? "",

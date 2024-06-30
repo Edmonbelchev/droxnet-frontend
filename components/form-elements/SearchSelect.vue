@@ -91,7 +91,7 @@ watch(
       <div class="flex flex-col overflow-y-scroll" v-if="select.length > 0">
         <label
           :for="option.value"
-          v-for="(option, index) in select"
+          v-for="option in select"
           :key="option.value"
           class="p-3 text-sm border-b cursor-pointer hover:bg-gray-100/50 transition-all duration-300"
           :class="{ 'bg-gray-100/50': selected == option.value }"

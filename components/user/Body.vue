@@ -1,159 +1,66 @@
 <script setup>
-const projects = [
-    {
-        image: "http://amentotech.com/htmls/worktern/images/projects/img-01.jpg",
-        title: "Themeforest",
-        information: "www.themeforest.net"
-    },
-    {
-        image: "http://amentotech.com/htmls/worktern/images/projects/img-02.jpg",
-        title: "Videohive",
-        information: "www.videohive.net"
-    },
-    {
-        image: "http://amentotech.com/htmls/worktern/images/projects/img-03.jpg",
-        title: "Codecanyon",
-        information: "www.codecanyon.net"
-    },
-    {
-        image: "http://amentotech.com/htmls/worktern/images/projects/img-04.jpg",
-        title: "Graphicriver",
-        information: "www.graphicriver.net"
-    },
-    {
-        image: "http://amentotech.com/htmls/worktern/images/projects/img-05.jpg",
-        title: "Photodune",
-        information: "www.photodune.net"
-    },
-    {
-        image: "http://amentotech.com/htmls/worktern/images/projects/img-06.jpg",
-        title: "Audiojungle",
-        information: "www.audiojungle.net"
-    },
-];
-
-
-const awards = [
-    {
-        image: "http://amentotech.com/htmls/worktern/images/thumbnail/img-07.jpg",
-        title: "Top PHP Excel Skills",
-        date: "Jun 27, 2018"
-    },
-    {
-        image: "http://amentotech.com/htmls/worktern/images/thumbnail/img-08.jpg",
-        title: "Monster Developer Award",
-        date: "Apr 27, 2018"
-    },
-    {
-        image: "http://amentotech.com/htmls/worktern/images/thumbnail/img-09.jpg",
-        title: "Best Communication 2015",
-        date: "May 27, 2018"
-    },
-    {
-        image: "http://amentotech.com/htmls/worktern/images/thumbnail/img-10.jpg",
-        title: "Best Logo Design Winner",
-        date: "Aug 27, 2018"
-    },
-
-];
-
-const experiences = [
-    {
-        job_title: "Web & Apps Project Manager",
-        company_name: "Amento Tech",
-        start_date: "Aug 2017",
-        end_date: "Jul 2018",
-        description: '“ Consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliquaenim ad minim veniamac quis nostrud exercitation ullamco laboris. ”'
-    },
-    {
-        job_title: "Sr. PHP & Laravel Developer",
-        company_name: "Amento Tech",
-        start_date: "Jun 2017",
-        end_date: "Jul 2018",
-        description: '“ Consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliquaenim ad minim veniamac quis nostrud exercitation ullamco laboris. ”'
-    },
-    {
-        job_title: "PHP Developer",
-        company_name: "Amento Tech",
-        start_date: "Apr 2016",
-        end_date: "Jul 2017",
-        description: '“ Consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliquaenim ad minim veniamac quis nostrud exercitation ullamco laboris. ”'
-    },
-];
-const educations = [
-    {
-        job_title: "Web & Apps Project Manager",
-        company_name: "Amento Tech",
-        start_date: "Aug 2017",
-        end_date: "Jul 2018",
-        description: '“ Consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliquaenim ad minim veniamac quis nostrud exercitation ullamco laboris. ”'
-
-    },
-    {
-        job_title: "Sr. PHP & Laravel Developer",
-        company_name: "Amento Tech",
-        start_date: "Jun 2017",
-        end_date: "Jul 2018",
-        description: '“ Consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliquaenim ad minim veniamac quis nostrud exercitation ullamco laboris. ”'
-
-    },
-    {
-        job_title: "PHP Developer",
-        company_name: "Amento Tech",
-        start_date: "Apr 2016",
-        end_date: "Jul 2017",
-        description: '“ Consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliquaenim ad minim veniamac quis nostrud exercitation ullamco laboris. ”'
-
-    },
-];
+defineProps({
+  user: {
+    type: Object,
+    required: true,
+  },
+});
 </script>
 
-
-
 <template>
-    <div class="flex flex-col lg:flex-row gap-10 max-w-[1140px] w-full mx-auto">
-
-        <div class="max-w-[580px] lg:max-w-[730px] mx-auto">
-            <div class="px-10 py-4">
-                <h3 class="text-xl text-black">
-                    Crafted Projects
-                </h3>
-            </div>
-            <div class="flex flex-wrap text-center">
-                <UserProjectItem :project="project" v-for="(project, index) in projects" :key="index" />
-            </div>
-            <div>
-                <div>
-                    <h3 class="px-10 py-8 text-xl text-black">
-                        Experience
-                    </h3>
-                </div>
-                <UserExperienceItem :experience="experience" v-for="(experience, index) in experiences" :key="index" />
-
-            </div>
-
-            <div>
-                <div>
-                    <h3 class="px-10 py-8 text-xl text-black">
-                        Education
-                    </h3>
-                </div>
-                <UserEducationItem :education="education" v-for="(education, index) in educations" :key="index" />
-
-            </div>
-
+  <div class="px-4 py-8">
+    <div class="flex flex-col lg:flex-row max-w-[1110px] gap-8 w-full mx-auto">
+      <div class="lg:max-w-[730px] flex flex-col gap-6 w-full">
+        <div class="bg-white rounded-md" v-if="user.projects && user.projects.length > 0">
+          <h3 class="text-xl text-black p-6">Crafted Projects</h3>
+          <div class="flex flex-wrap">
+            <UserProjectItem
+              :project="project"
+              v-for="(project, index) in user.projects"
+              :key="index"
+            />
+          </div>
         </div>
 
-
-        <div class="p-[30px] max-w-[580px]  lg:max-w-[350px] mx-auto w-full">
-            <div>
-                <UserAwardItem :award="award" v-for="(award, index) in awards" :key="index" />
-            </div>
-
+        <div class="bg-white rounded-md pb-6" v-if="user.experiences && user.experiences.length > 0">
+          <h3 class="text-xl text-black p-6">Experience</h3>
+          <UserExperienceItem
+            :experience="experience"
+            v-for="(experience, index) in user.experiences"
+            :key="index"
+            :className="[
+              index % 2 === 0 ? 'p-6 bg-[#fafafa]' : 'p-5 bg-white',
+            ]"
+          />
         </div>
 
-        
-      
+        <div class="bg-white rounded-md pb-6" v-if="user.educations && user.educations.length > 0">
+          <h3 class="text-xl text-black p-6">Education</h3>
+          <UserEducationItem
+            :education="education"
+            v-for="(education, index) in user.educations"
+            :key="index"
+            :className="[
+              index % 2 === 0 ? 'p-6 bg-[#fafafa]' : 'p-5 bg-white',
+            ]"
+          />
+        </div>
+      </div>
+
+      <div class="max-w-[580px] lg:max-w-[350px] w-full">
+        <div class="flex flex-col bg-white p-6 rounded-md" v-if="user.awards && user.awards.length > 0">
+          <h4 class="border-b mb-6 pb-4 text-xl text-[--text-color]">
+            Awards & Certifications
+          </h4>
+
+          <UserAwardItem
+            :award="award"
+            v-for="(award, index) in user.awards"
+            :key="index"
+            :className="['flex', index != (user.awards.length - 1) ? 'mb-6' : 'mb-0']"
+          />
+        </div>
+      </div>
     </div>
-
+  </div>
 </template>

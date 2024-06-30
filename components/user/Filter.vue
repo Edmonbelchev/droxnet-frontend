@@ -1,0 +1,58 @@
+<script setup lang="ts">
+const props = defineProps({
+  loading: {
+    type: Boolean,
+    required: true,
+  },
+  form: {
+    type: Object,
+    required: true,
+  },
+})
+
+const emits = defineEmits(["submit"]);
+
+const disabledButton = computed(() => {
+  if (
+    props.form.hourly_rate.start === "" ||
+    props.form.hourly_rate.end === "" ||
+    props.form.hourly_rate.start >= props.form.hourly_rate.end ||
+    props.form.hourly_rate.end <= props.form.hourly_rate.start
+  ) {
+    return true;
+  }
+});
+
+const submit = () => {
+  emits("submit");
+};
+</script>
+
+<template>
+  <div class="rounded-md flex flex-col gap-6">
+    <FilterSkills v-model="form.skills" />
+
+    <FilterLocations v-model="form.countries" />
+
+    <FilterHourlyRates v-model="form.hourly_rate" />
+
+    <div class="bg-white px-10 p-6 flex flex-col gap-4 rounded-md text-center">
+      <p class="text-xs leading-5 text-[--gray-color]">
+        Click “Apply Filter” to apply latest changes made by you.
+      </p>
+      <button
+        @click="submit"
+        type="button"
+        class="primary-button w-fit mx-auto flex gap-2 items-center"
+        :class="{
+          'cursor-not-allowed opacity-50': disabledButton || loading,
+        }"
+        :disabled="disabledButton || loading"
+      >
+        Apply Filters
+
+        <Loader width="14" v-if="loading" />
+      </button>
+    </div>
+  </div>
+</template>

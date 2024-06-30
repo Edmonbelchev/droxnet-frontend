@@ -1,4 +1,4 @@
-const countries = () => {
+const fetchCountries = () => {
   return [
     {
       name: "Ascension Island",
@@ -2091,4 +2091,14 @@ const countries = () => {
   ];
 };
 
-export default countries;
+const countryFlag = (code: string, emoji: false) => {
+  const country = fetchCountries().find((c) => c.code === code);
+  
+  if(emoji) {
+    return country?.emoji;
+  }
+
+  return country?.image;
+}
+
+export { fetchCountries, countryFlag };

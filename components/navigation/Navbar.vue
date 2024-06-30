@@ -50,7 +50,7 @@ const navigationItems = [
   },
   {
     text: "View Freelancers",
-    route: "/",
+    route: "/users",
   },
 ];
 

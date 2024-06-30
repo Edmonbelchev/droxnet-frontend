@@ -46,11 +46,12 @@ const signOut = async () => {
       </button>
 
       <div class="flex flex-col overflow-hidden">
-        <figure class="h-[150px] w-full block">
+        <figure class="h-[150px] w-full block bg-gray-200">
           <img
-            class="w-full h-full object-cover bg-gray-200"
+            class="w-full h-full object-cover"
             :src="user.profile_banner"
-            alt=""
+            alt="Profile Banner"
+            v-if="user.profile_banner"
           />
         </figure>
 
@@ -58,17 +59,26 @@ const signOut = async () => {
           class="flex flex-col items-center justify-center px-1 pb-10"
           :class="{ '-mt-14': sideBarIsActive, '-mt-5': !sideBarIsActive }"
         >
-          <figure class="mb-4">
+          <figure
+            class="mb-4 border-white rounded-full shadow-xl transition-all duration-300 ease-in-out bg-gray-200 overflow-hidden"
+            :class="[
+              {
+                'w-24 h-24 border-[6px]': sideBarIsActive,
+                'w-10 h-10 border-[4px]': !sideBarIsActive,
+              },
+            ]"
+          >
             <img
+              class="object-cover h-full w-full"
               :src="user.profile_image"
-              :class="[
-                'border-white rounded-full shadow-xl transition-all duration-300 ease-in-out bg-gray-200 object-cover',
-                {
-                  'w-24 h-24 border-[6px]': sideBarIsActive,
-                  'w-10 h-10 border-[4px]': !sideBarIsActive,
-                },
-              ]"
+              v-if="user.profile_image"
             />
+            <span
+              class="w-full h-full rounded-md flex justify-center items-center"
+              v-else
+            >
+              <IconsAvatar width="100px" height="100px" fill="#d1d5db" />
+            </span>
           </figure>
 
           <div class="flex flex-col" v-if="sideBarIsActive">

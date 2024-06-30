@@ -69,6 +69,15 @@ defineProps({
     />
   </div>
 
+  <div class="flex gap-2 md:px-6">
+    <FormElementsInput
+      v-model="form.tagline"
+      type="text"
+      placeholder="Add Your Tagline Here"
+      name="tagline"
+    />
+  </div>
+
   <div class="flex gap-2 mb-6 md:px-6">
     <FormElementsTextarea
       name="about"

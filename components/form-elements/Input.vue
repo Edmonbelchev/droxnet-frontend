@@ -35,6 +35,14 @@ defineProps({
     type: String,
     required: true,
   },
+  icon: {
+    type: String,
+    default: false,
+  },
+  iconClass: {
+    type: String,
+    default: "text-[--primary-color]",
+  },
 });
 </script>
 
@@ -63,6 +71,13 @@ defineProps({
         class="absolute right-4 h-full text-xl text-green-500"
         :class="{ 'text-red-500': error, 'text-green-500': valid }"
         :name="`heroicons-solid:${error ? 'exclamation' : 'check-circle'}`"
+      />
+
+      <Icon
+        class="absolute top-3 right-3 h-full text-xl text-green-500"
+        :class="iconClass"
+        :name="icon"
+        v-if="icon"
       />
     </div>
 

@@ -9,7 +9,7 @@ const fetchSkills = async (
     page: page,
   };
 
-  if (query.length >= 2) {
+  if (query.length) {
     params.query = query;
     params.page = 1;
   }

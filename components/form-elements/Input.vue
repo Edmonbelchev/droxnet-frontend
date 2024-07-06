@@ -41,7 +41,7 @@ defineProps({
   },
   iconClass: {
     type: String,
-    default: "text-[--primary-color]",
+    default: "absolute top-3 right-3 h-full text-xl text-green-500",
   },
 });
 </script>
@@ -74,7 +74,6 @@ defineProps({
       />
 
       <Icon
-        class="absolute top-3 right-3 h-full text-xl text-green-500"
         :class="iconClass"
         :name="icon"
         v-if="icon"

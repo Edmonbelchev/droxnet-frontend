@@ -1,9 +1,15 @@
 <script setup lang="ts">
+defineProps({
+  form: {
+    type: Object,
+    required: true,
+  }
+})
+
 const emits = defineEmits(["update:modelValue"]);
 
 const countries = ref(fetchCountries());
 const search = ref("");
-const selectedCountries = ref([]);
 const disabledSearch = ref(true);
 
 const submit = () => {
@@ -23,10 +29,6 @@ watch(() => search.value, (newValue: String, oldValue: String) => {
     disabledSearch.value = false;
   }
 }, { deep: true })
-
-watch(selectedCountries, () => {
-  emits("update:modelValue", selectedCountries.value);
-});
 </script>
 
 <template>
@@ -64,7 +66,7 @@ watch(selectedCountries, () => {
           :id="country.code"
           :label="country.name"
           :value="country.code"
-          v-model="selectedCountries"
+          v-model="form.countries"
         >
           <template #content>
             <img :src="country.image" class="w-6" />

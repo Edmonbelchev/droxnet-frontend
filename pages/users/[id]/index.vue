@@ -14,8 +14,6 @@ const retrieveUser = async () => {
     user.value = response.data.value.data;
   }
 
-  console.log(response.data.value.data);
-
   loadingUser.value = false;
 };
 

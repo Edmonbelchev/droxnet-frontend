@@ -30,11 +30,12 @@ const submit = () => {
 
 <template>
   <div class="rounded-md flex flex-col gap-6">
-    <FilterSkills v-model="form.skills" />
 
-    <FilterLocations v-model="form.countries" />
+    <FilterCategories :form="form" />
 
-    <FilterHourlyRates v-model="form.hourly_rate" />
+    <FilterLocations :form="form" />
+
+    <FilterHourlyRates :form="form" />
 
     <div class="bg-white px-10 p-6 flex flex-col gap-4 rounded-md text-center">
       <p class="text-xs leading-5 text-[--gray-color]">

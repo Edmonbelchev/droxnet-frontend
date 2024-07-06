@@ -13,7 +13,6 @@ const props = defineProps({
 const awardMainImage = () => {
     // Retrive from string url the first file with image extension
     const image = props.award.files.find((file) => {
-        console.log(file)
         return file.url.endsWith('.png') || file.url.endsWith('.jpg') || file.url.endsWith('.jpeg') || file.url.endsWith('.gif') || file.url.endsWith('.webp')
     })
 

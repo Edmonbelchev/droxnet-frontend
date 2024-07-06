@@ -29,7 +29,7 @@ defineProps<{
           {{ user.first_name }} {{ user.last_name }}
         </NuxtLink>
 
-        <h2 class="text-base text-[--text-color]">{{ user.tagline }}</h2>
+        <h2 class="text-base text-[--text-color] mb-2" v-if="user.tagline">{{ user.tagline }}</h2>
 
         <div
           class="flex justify-center mt-2 md:justify-start sm:flex gap-2 text-base"

@@ -23,5 +23,14 @@ export const useSkillStore = defineStore("skill", {
       else
         this.skills = values;
     },
+    accumulateSkills(newSkills: Array<Skill>) {
+      const skillMap = new Map(this.skills.map(skill => [skill.id, skill]));
+      
+      newSkills.forEach(newSkill => {
+        if (!skillMap.has(newSkill.id)) {
+          this.skills.push(newSkill);
+        }
+      });
+    }
   },
 });

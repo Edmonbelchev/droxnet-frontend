@@ -1,9 +1,15 @@
 <script setup lang="ts">
-const emits = defineEmits(["update:modelValue"]);
+defineProps({
+  form: {
+    type: Object,
+    required: true,
+  }
+});
+
+const skillStore = useSkillStore();
 
 const skills = ref();
 const search = ref("");
-const selectedSkills = ref([]);
 const loadingSkills = ref(true);
 const disabledSearch = ref(true);
 
@@ -14,14 +20,13 @@ const retrieveSkills = async () => {
 
   if (response.status.value === "success") {
     skills.value = response.data.value.data;
+
+    // Accumulate new skills in the store without duplication
+    skillStore.accumulateSkills(skills.value);
   }
 
   loadingSkills.value = false;
 };
-
-watch(selectedSkills, () => {
-  emits("update:modelValue", selectedSkills.value);
-});
 
 const submit = () => {
   disabledSearch.value = true;
@@ -90,7 +95,7 @@ onMounted(() => {
           :id="skill.id"
           :label="skill.name"
           :value="skill.id"
-          v-model="selectedSkills"
+          v-model="form.category"
         >
           <template #content>
             <span class="text-[--gray-color]">{{ skill.name }}</span>

@@ -15,6 +15,22 @@ export default {
             transform: "translateY(0)",
           }
         },
+        move: {
+          "0%": {
+            backgroundPosition: "0 0",
+          },
+          "100%": {
+            backgroundPosition: "50px 50px",
+          }
+        },
+        expandWidth: {
+          "0%": {
+            width: "0%",
+          },
+          "100%": {
+            width: "100%",
+          }
+        }
       },
     },
     plugins: [],

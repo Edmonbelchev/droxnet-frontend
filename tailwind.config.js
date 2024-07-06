@@ -30,6 +30,14 @@ export default {
           "100%": {
             width: "100%",
           }
+        },
+        fadeIn: {
+          "0%": {
+            opacity: 0,
+          },
+          "100%": {
+            opacity: 1,
+          }
         }
       },
     },

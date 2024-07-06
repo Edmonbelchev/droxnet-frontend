@@ -39,7 +39,7 @@ onMounted(() => {
       class="relative bg-[--background-color] w-full h-[5px] rounded-md overflow-hidden"
     >
       <div
-        class="absolute left-0 bg-[--green-color] h-full rounded-md transition-all duration-1000 ease-out"
+        class="absolute left-0 bg-[--green-color] h-full rounded-md duration-1000 ease-out"
         :class="{ 'w-0': !isVisible }"
         :style="{ width: isVisible ? `${skill.rate}%` : '0%' }"
       >

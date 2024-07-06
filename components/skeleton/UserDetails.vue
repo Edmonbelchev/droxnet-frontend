@@ -45,7 +45,7 @@
     <div
       class="flex flex-col lg:flex-row justify-between max-w-[1110px] gap-8 w-full mx-auto"
     >
-      <div class="lg:max-w-[730px] flex flex-col gap-6">
+      <div class="lg:max-w-[730px] flex flex-col gap-6 w-full">
         <div class="bg-white rounded-md p-6">
           <Skeleton className="animate-pulse w-full h-[30px] mb-6 rounded-md" />
 

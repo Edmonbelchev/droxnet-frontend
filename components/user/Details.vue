@@ -15,7 +15,7 @@ const toggleDescription = () => {
 <template>
   <div class="relative z-0">
     <img
-      class="absolute w-full h-full min-h-[250px] md:min-h-[400px] object-cover"
+      class="absolute w-full h-full min-h-[250px] md:min-h-[400px] object-cover animate-[fadeIn_300ms_ease-in_forwards]"
       :src="user.profile_banner"
       alt="Profile Banner"
       v-if="user.profile_banner"
@@ -30,7 +30,7 @@ const toggleDescription = () => {
         class="flex flex-col w-full max-w-[255px] md:max-w-[180px] lg:max-w-[255px]"
       >
         <div
-          class="relative mb-4 w-[255px] h-[255px] md:w-[180px] md:h-[180px] lg:w-[255px] lg:h-[255px]"
+          class="relative mb-4 w-[255px] h-[255px] md:w-[180px] md:h-[180px] lg:w-[255px] lg:h-[255px] animate-[fadeIn_300ms_ease-in_forwards]"
         >
           <div
             class="rounded-[50%] absolute -top-[6px] -right-[6px] bg-[#57E50C] w-[20px] h-[20px] border-[3px] border-white"

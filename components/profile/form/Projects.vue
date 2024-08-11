@@ -26,7 +26,7 @@ const projectStore = useProjectStore();
 
 const retrieveUserProjects = async () => {
   //   Fetch user projects
-  const response = await fetchUserProjects(props.user.id);
+  const response = await fetchUserProjects(props.user.uuid);
   if (response.status.value === "success") {
     const result = response.data.value.data.map((project: any) => {
       return {

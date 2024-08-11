@@ -11,7 +11,7 @@ defineProps<{
     :class="{ 'animate-pulse': loading }"
   >
     <div class="flex gap-4 w-full">
-      <NuxtLink :to="`/users/${user.id}`" class="text-sm text-[--text-color]">
+      <NuxtLink :to="`/users/${user.uuid}`" class="text-sm text-[--text-color]">
         <figure
           class="w-[100px] h-[100px] bg-[--background-color] rounded-md overflow-hidden"
         >
@@ -25,7 +25,7 @@ defineProps<{
       </NuxtLink>
 
       <div class="flex flex-col">
-        <NuxtLink :to="`/users/${user.id}`" class="text-sm text-[--text-color]">
+        <NuxtLink :to="`/users/${user.uuid}`" class="text-sm text-[--text-color]">
           {{ user.first_name }} {{ user.last_name }}
         </NuxtLink>
 
@@ -75,7 +75,7 @@ defineProps<{
           <span class="text-lg text-[--text-color]">4.5/</span>
           <span class="text-md text-[--gray-color] pt-2">5</span>
         </div>
-        <NuxtLink :to="`/users/${user.id}`" class="text-xs text-[--blue-color]">
+        <NuxtLink :to="`/users/${user.uuid}`" class="text-xs text-[--blue-color]">
           (860 Feedback)
         </NuxtLink>
       </div>

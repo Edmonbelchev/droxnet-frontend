@@ -15,7 +15,12 @@ const activeTab = ref(getParam("tab") ?? 1);
   >
     <div class="flex flex-col bg-white rounded-md w-full">
       <h2 class="border-b p-4 md:p-6 text-[--text-color] text-base md:text-lg">
-        My Profile
+        <span v-if="user.role === 'freelancer'">
+          My Profile
+        </span>
+        <span v-else>
+          Company Profile
+        </span> 
       </h2>
 
       <div class="flex flex-col lg:flex-row">
@@ -31,7 +36,12 @@ const activeTab = ref(getParam("tab") ?? 1);
             type="button"
             @click="activeTab = addParam('tab', 1)"
           >
-            Personal Details & Skills
+            <span v-if="user.role === 'freelancer'">
+              Personal Details & Skills
+            </span>
+            <span v-else>
+              Company Details
+            </span>
           </button>
 
           <button
@@ -42,6 +52,7 @@ const activeTab = ref(getParam("tab") ?? 1);
             }"
             type="button"
             @click="activeTab = addParam('tab', 2)"
+            v-if="user.role === 'freelancer'"
           >
             Experience & Education
           </button>
@@ -54,12 +65,13 @@ const activeTab = ref(getParam("tab") ?? 1);
             }"
             type="button"
             @click="activeTab = addParam('tab', 3)"
+            v-if="user.role === 'freelancer'"
           >
             Projects & Awards
           </button>
         </div>
 
-        <div class="flex-1 max-w-[740px]">
+        <div class="flex-1 max-w-[740px]" v-if="user.role === 'freelancer'">
           <ProfileFormDetailsAndSkills :user="user" v-if="activeTab == 1" />
 
           <ProfileFormExperienceAndEducation
@@ -68,6 +80,10 @@ const activeTab = ref(getParam("tab") ?? 1);
           />
 
           <ProfileFormProjectsAndAwards :user="user" v-if="activeTab == 3" />
+        </div>
+
+        <div class="flex-1 max-w-[740px]" v-else>
+          <ProfileFormCompanyDetails :user="user" v-if="activeTab == 1" />
         </div>
       </div>
     </div>

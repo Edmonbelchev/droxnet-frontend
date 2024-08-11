@@ -18,7 +18,7 @@ const profileSidebarMenuItems = () => {
     {
       title: "My Profile",
       icon: "fa:briefcase",
-      url: "profile",
+      url: "/profile",
     },
     {
       title: "All Jobs",
@@ -65,7 +65,7 @@ const profileSidebarMenuItems = () => {
     {
       title: "Account Settings",
       icon: "fa-solid:cog",
-      url: "account-settings"
+      url: "/account-settings"
     },
     {
       title: "Help & Support",

@@ -25,7 +25,7 @@ const emit = defineEmits(["update", "loaded"]);
 const educationStore = useEducationStore();
 
 const retrieveUserEducations = async () => {
-  const response: any = await fetchUserEducations(props.user.id);
+  const response: any = await fetchUserEducations(props.user.uuid);
 
   if (response.status.value === "success") {
     const result = response.data.value.data.map((experience: any) => {

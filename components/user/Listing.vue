@@ -7,6 +7,6 @@ defineProps<{
 
 <template>
     <div class="rounded-md gap-8 flex flex-col">
-        <UserCard v-for="user in users" :key="user.id" :user="user" :loading="loading" />
+        <UserCard v-for="(user, index) in users" :key="index" :user="user" :loading="loading" />
     </div>
 </template>

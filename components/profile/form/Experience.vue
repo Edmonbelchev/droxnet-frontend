@@ -25,7 +25,7 @@ const emit = defineEmits(["update", "loaded"]);
 const experienceStore = useExperienceStore();
 
 const retrieveUserExperiences = async () => {
-  const response: any = await fetchUserExperiences(props.user.id);
+  const response: any = await fetchUserExperiences(props.user.uuid);
 
   if (response.status.value === "success") {
     const result = response.data.value.data.map((experience: any) => {

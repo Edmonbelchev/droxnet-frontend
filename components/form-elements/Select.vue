@@ -11,14 +11,27 @@ defineProps({
   selectOptions: {
     type: Object,
     required: true,
-  }
+  },
+  optionClass: {
+    type: String,
+    default:
+      "p-4 lg:text-lg rounded-md bg-white cursor-pointer hover:bg-gray-100/50 transition-all duration-300",
+  },
+  wrapperClass: {
+    type: String,
+    default: "absolute w-full flex flex-col bg-white rounded-b-md top-10 lg:top-14 max-h-0 overflow-hidden transition-all duration-300 shadow-lg",
+  },
+  trailing: {
+    type: String,
+    default: "",
+  },
 });
 
-const selected: Ref<String>      = ref("");
+const selected: Ref<String> = ref("");
 const showDropdown: Ref<Boolean> = ref(false);
 
 // Generate random ID in order to have unique radio input IDs
-const randomID = generateRandomID(4)
+const randomID = generateRandomID(4);
 
 const emit = defineEmits(["update:modelValue"]);
 
@@ -31,7 +44,7 @@ watch(
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative" v-click-outside="() => (showDropdown = false)">
     <div
       class="bg-white cursor-pointer flex gap-2 items-center justify-between w-full"
       :class="selectClass"
@@ -39,27 +52,34 @@ watch(
     >
       <span v-if="placeholder && selected.length == 0">{{ placeholder }}</span>
 
-      <span v-else-if="!placeholder && selected.length == 0">
-        In: {{ selectOptions[0].label }}
-      </span>
+      <div v-else-if="!placeholder && selected.length == 0">
+        <span class="text-gray-400" v-if="trailing">
+          {{ trailing }}
+        </span>
 
-      <span v-else>
-        In: {{ selectOptions.find((option) => option.value == selected).label }}
-      </span>
+        {{ selectOptions[0].label }}
+      </div>
+
+      <div v-else>
+        <span class="text-gray-400" v-if="trailing">
+          {{ trailing }}
+        </span>
+        {{ selectOptions.find((option) => option.value == selected).label }}
+      </div>
 
       <font-awesome icon="chevron-down" />
     </div>
 
-    <div 
-        class="absolute w-full flex flex-col bg-white rounded-b-md top-10 lg:top-14 max-h-0 overflow-hidden transition-all duration-300 shadow-lg"
-        :class="{ 'max-h-[200px]': showDropdown }"
-    >
+    <div :class="[wrapperClass, { 'max-h-[200px]': showDropdown }]">
       <label
         :for="`${randomID}_${option.value}`"
         v-for="(option, index) in selectOptions"
         :key="index"
-        class="p-4 lg:text-lg rounded-md bg-white cursor-pointer hover:bg-gray-100/50 transition-all duration-300"
-        :class=" {'bg-gray-100/50' : selected.value == option.value } "
+        :class="[
+          optionClass,
+          { 'bg-gray-100/50': selected.value == option.value },
+        ]"
+        @click="showDropdown = false"
       >
         <span>
           {{ option.label }}

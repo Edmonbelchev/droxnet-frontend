@@ -1,7 +1,7 @@
 const fetchUserEducations = async (userID: number) => {
     let { data, status, error }: any = await dataFetch("/user-educations", {
       params: {
-        user_id: userID,
+        user_uuid: userID,
       },
     });
   

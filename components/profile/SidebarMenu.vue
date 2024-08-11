@@ -6,7 +6,7 @@ defineProps({
   },
 });
 
-let sideBarIsActive = ref(true);
+let sideBarIsActive = ref(false);
 
 const sideBarMenuList = profileSidebarMenuItems();
 
@@ -93,7 +93,7 @@ const signOut = async () => {
               {{ user.email }}
             </p>
 
-            <button type="button" class="primary-button">Post a Job</button>
+            <NuxtLink to="/profile/post-job" class="primary-button">Post a Job</NuxtLink>
           </div>
         </div>
 

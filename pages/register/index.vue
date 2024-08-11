@@ -69,7 +69,7 @@ const verifyCode = async (code: any) => {
           <div class="lg:px-8 flex flex-col gap-4">
             <h2 class="text-xl lg:text-2xl text-gray-800 font-bold text-center">
               <span v-if="visibleStep == 3"> You're Almost There </span>
-              <span v-else>Join For a Good Start</span>
+              <span v-else>Congratulations!</span>
             </h2>
 
             <span class="text-sm lg:text-base text-center mb-4">
@@ -126,11 +126,19 @@ const verifyCode = async (code: any) => {
           />
         </div>
 
-        <div class="border-t py-6">
+        <div class="border-t py-6" v-if="visibleStep !== 4">
           <p class="text-center text-xs md:text-sm text-gray-500">
             Already have an account?
             <NuxtLink to="/login" class="text-[--blue-color]">
               Login Now
+            </NuxtLink>
+          </p>
+        </div>
+
+        <div class="border-t py-6" v-else>
+          <p class="text-center text-xs md:text-sm text-gray-500">
+            <NuxtLink to="/profile" class="primary-button">
+              View Profile
             </NuxtLink>
           </p>
         </div>

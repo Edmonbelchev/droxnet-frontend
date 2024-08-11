@@ -27,12 +27,13 @@ const form = ref({
   country: props.user.country ?? "",
   profile_image: props.user.profile_image ?? "",
   profile_banner: props.user.profile_banner ?? "",
-  skills: [],
+  company_details: {
+    company_name: props.user.company_details?.company_name ?? "",
+    company_size: props.user.company_details?.company_size ?? "",
+    department: props.user.company_details?.department ?? "",
+    company_website: props.user.company_details?.company_website ?? "",
+  },
 });
-
-const updateFormSkills = ($event: Event | any) => {
-  form.value.skills = $event;
-};
 
 const loading = ref(false);
 
@@ -65,10 +66,15 @@ const rules = computed(() => {
       ),
     },
     country: {
-      required: helpers.withMessage(
-        "The country field is required",
-        required
-      ),
+      required: helpers.withMessage("The country field is required", required),
+    },
+    company_details: {
+      department: {
+        required: helpers.withMessage(
+          "The department field is required",
+          required
+        ),
+      },
     },
   };
 });
@@ -95,8 +101,6 @@ const submit = async () => {
 <template>
   <form @submit.prevent="submit" class="flex flex-col p-4 md:p-6 gap-2">
     <ProfileFormDetails :user="user" :form="form" :v$="v$" />
-
-    <ProfileFormSkills @updateForm="updateFormSkills($event)" />
 
     <div class="flex justify-end pb-2 md:p-6 w-full bg-white rounded-md">
       <button

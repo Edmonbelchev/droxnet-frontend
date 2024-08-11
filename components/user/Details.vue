@@ -51,21 +51,9 @@ const toggleDescription = () => {
 
         <div class="text-center flex flex-col">
           <h3
-            class="text-lg text-[--text-color] gap-1 flex items-center justify-center mb-2"
+            class="text-lg text-[--text-color] mb-2"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1.3em"
-              height="1.3em"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fill="#00cc8d"
-                fill-rule="evenodd"
-                d="M12 21a9 9 0 1 0 0-18a9 9 0 0 0 0 18m-.232-5.36l5-6l-1.536-1.28l-4.3 5.159l-2.225-2.226l-1.414 1.414l3 3l.774.774z"
-                clip-rule="evenodd"
-              />
-            </svg>
+            <Icon name="lets-icons:check-fill" class="text-xl text-green-400" />
             {{ user.first_name }} {{ user.last_name }}
           </h3>
 

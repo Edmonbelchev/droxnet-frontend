@@ -33,13 +33,15 @@ const showDropdown: Ref<Boolean> = ref(false);
 
 const search: Ref<String> = debouncedRef("", 300, false);
 
+const options = computed(() => {
+  return props.select.filter((element: any) =>
+    element.label.toLowerCase().includes(search.value.toLowerCase())
+  );
+});
+
 watch(search, (value: any) => {
   if (props.asyncSearch) {
     emit("searchMethod", value);
-  } else {
-    props.select = props.select.filter((element: any) =>
-      element.label.toLowerCase().includes(value.toLowerCase())
-    );
   }
 });
 
@@ -66,7 +68,7 @@ watch(
         <span v-if="placeholder && (!selected || selected.length == 0)">{{
           placeholder
         }}</span>
-  
+
         <span v-else>
           {{ selected.label }}
         </span>
@@ -91,7 +93,7 @@ watch(
       <div class="flex flex-col overflow-y-scroll" v-if="select.length > 0">
         <label
           :for="option.value"
-          v-for="option in select"
+          v-for="option in options"
           :key="option.value"
           class="p-3 text-sm border-b cursor-pointer hover:bg-gray-100/50 transition-all duration-300"
           :class="{ 'bg-gray-100/50': selected == option.value }"

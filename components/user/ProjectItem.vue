@@ -9,10 +9,10 @@ const props = defineProps({
 const projectMainImage = () => {
     // Retrive from string url the first file with image extension
     const image = props.project.files.find((file) => {
-        return file.url.endsWith('.png') || file.url.endsWith('.jpg') || file.url.endsWith('.jpeg') || file.url.endsWith('.gif') || file.url.endsWith('.webp')
+        return file.url !== null && (file.url.endsWith('.png') || file.url.endsWith('.jpg') || file.url.endsWith('.jpeg') || file.url.endsWith('.gif') || file.url.endsWith('.webp'))
     })
 
-    return image.url
+    return image !== undefined ? image.url : null
 }
 </script>
 
@@ -21,11 +21,11 @@ const projectMainImage = () => {
     <img class="rounded-md w-[200px] h-[140px] object-cover" :src="projectMainImage()" alt="Project Image" />
 
     <div class="p-4">
-      <h3 class="text-black text-base text-center">
+      <h3 class="text-black text-base text-center mb-2">
         {{ project.title }}
       </h3>
       <span class="text-center">
-        <a class="text-blue-400" :href="project.url"> {{ project.url }}</a>
+        <a class="text-blue-400" :href="project.url" target="_blank"> {{ project.url }}</a>
       </span>
     </div>
   </div>

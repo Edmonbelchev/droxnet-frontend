@@ -26,7 +26,7 @@ const awardStore = useAwardStore();
 
 const retrieveUserAwards = async () => {
   //   Fetch user awards
-  const response = await fetchUserAwards(props.user.id);
+  const response = await fetchUserAwards(props.user.uuid);
   if (response.status.value === "success") {
     const result = response.data.value.data.map((award: any) => {
       return {

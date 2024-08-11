@@ -22,7 +22,16 @@ const appliedFilters: Ref = ref({
   language: [],
 });
 
-const currentForm: Ref = ref({ ...appliedFilters.value });
+const currentForm: Ref = ref({
+  countries: [],
+  category: [],
+  type: [],
+  hourly_rate: {
+    start: 0,
+    end: 100,
+  },
+  language: [],
+});
 
 /* Retrieve users */
 const retrieveUsers = async (firstPageLoad: boolean = false) => {

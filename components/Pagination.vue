@@ -107,10 +107,10 @@ watch(
       type="button"
       class="border rounded-md p-2 w-11 h-11 flex justify-center items-center bg-white text-[--text-gray] "
       :class="{
-        'opacity-50' : currentPage === totalPages,
-        'hover:bg-[--primary-color] hover:text-white hover:border-[--primary-color] duration-300' : currentPage !== totalPages
+        'opacity-50' : currentPage === totalPages || totalPages === 0,
+        'hover:bg-[--primary-color] hover:text-white hover:border-[--primary-color] duration-300' : currentPage !== totalPages && totalPages !== 0,
       }"
-      :disabled="currentPage === totalPages"
+      :disabled="currentPage === totalPages || totalPages === 0"
       @click="changePage(currentPage + 1)"
     >
       <Icon name="fa6-solid:chevron-right" />

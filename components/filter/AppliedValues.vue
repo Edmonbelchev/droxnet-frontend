@@ -2,13 +2,19 @@
 const props = defineProps<{
   appliedFilters: {
     countries: string[];
-    category: string[];
+    skills: string[];
     type: string[];
     hourly_rate: {
       start: number;
       end: number;
     };
+    budget: {
+      start: number;
+      end: number;
+    },
+    budget_type: string;
     language: string[];
+    duration: string[];
   };
 }>();
 
@@ -21,7 +27,7 @@ const selectedFilters = computed(() => {
   for (const [key, value] of Object.entries(props.appliedFilters)) {
     if (Array.isArray(value) && value.length > 0) {
       filters.push(...value.map((v) => ({ key, value: v })));
-    } else if (key === "hourly_rate" && (value.start > 0 || value.end < 100)) {
+    } else if (key === "hourly_rate" || key === "budget" && (value.start > 0 || value.end < 100)) {
       filters.push({ key, value: `$${value.start} - $${value.end}` });
     }
   }
@@ -69,13 +75,21 @@ const removeFilter = (filter: { key: string; value: any }) => {
       @click="removeFilter(filter)"
     >
       <Icon name="mdi:close-thick" class="text-xs -left-[100%] absolute duration-300 group-hover:left-2" />
-
-      <span v-if="filter.key === 'category'">
+    
+      <span v-if="filter.key === 'skills'">
         {{ skills.find((skill) => skill.id === filter.value).name }}
       </span>
 
       <span v-else-if="filter.key === 'countries'">
         {{ countries.find((country) => country.code === filter.value).name }}
+      </span>
+
+      <span v-else-if="filter.key === 'duration'">
+        {{ durationOptions().find((duration) => duration.value === filter.value).label }}
+      </span>
+
+      <span v-else-if="filter.key === 'budget_type'">
+        {{ budgetTypes().find((budget) => budget.value === filter.value).label }}
       </span>
 
       <span v-else>{{ filter.value }}</span>

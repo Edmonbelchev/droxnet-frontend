@@ -122,7 +122,7 @@ watchEffect(() => {
         <div class="flex flex-col sm:flex-row gap-2 relative z-20">
           <div class="flex-1">
             <FormElementsSelect
-              v-model="form.type"
+              v-model="form.budget_type"
               :selectOptions="budgetTypeOptions"
               placeholder="Budget Type"
               name="type"

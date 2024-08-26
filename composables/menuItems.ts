@@ -45,6 +45,7 @@ const profileSidebarMenuItems = () => {
     {
       title: "Manage Jobs",
       icon: "zondicons:announcement",
+      url: "/profile/manage-jobs",
     },
     {
       title: "Messages",

@@ -93,7 +93,13 @@ const signOut = async () => {
               {{ user.email }}
             </p>
 
-            <NuxtLink to="/profile/post-job" class="primary-button">Post a Job</NuxtLink>
+            <NuxtLink 
+              to="/profile/post-job" 
+              class="primary-button duration-300 animate-[fadeIn_300ms_ease-in_forwards]"
+              v-if="sideBarIsActive"
+            >
+              Post a Job
+            </NuxtLink>
           </div>
         </div>
 

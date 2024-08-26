@@ -13,7 +13,7 @@ const skeletonLoading: Ref<boolean> = ref(true);
 
 const appliedFilters: Ref = ref({
   countries: [],
-  category: [],
+  skills: [],
   type: [],
   hourly_rate: {
     start: 0,
@@ -24,7 +24,7 @@ const appliedFilters: Ref = ref({
 
 const currentForm: Ref = ref({
   countries: [],
-  category: [],
+  skills: [],
   type: [],
   hourly_rate: {
     start: 0,

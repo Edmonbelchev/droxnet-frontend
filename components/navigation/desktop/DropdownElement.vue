@@ -2,7 +2,7 @@
 defineProps({
   dropdownElements: {
     type: Object,
-  }
+  },
 });
 
 const dropdownLeft = ref(false);

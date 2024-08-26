@@ -1,16 +1,26 @@
 const fetchJobs = async (
   perPage: number = 15,
   page: number = 1,
-  query: string = ""
+  body: Array<Object> = []
 ) => {
   const params: any = {
-    perPage: perPage,
+    per_page: perPage,
     page: page,
   };
 
-  if (query.length) {
-    params.query = query;
-    params.page = 1;
+   // Iterate over body keys and add them to params, handling arrays properly
+   for (let key in body) {
+    if (Array.isArray(body[key]) && body[key].length > 0) {
+      body[key].forEach((value: any, index: number) => {
+        params[`${key}[${index}]`] = value; // Format array parameters properly
+      });
+    } else if (
+      body[key] !== null &&
+      body[key] !== undefined &&
+      body[key] !== ""
+    ) {
+      params[key] = body[key];
+    }
   }
 
   let { data, status, error }: any = await dataFetch("/jobs", {
@@ -25,6 +35,22 @@ const fetchJob = async (id: number) => {
 
   return { data, status, error };
 };
+
+const fetchUserJobs = async (
+  perPage: number = 15,
+  page: number = 1,
+) => {
+  const params: any = {
+    per_page: perPage,
+    page: page,
+  };
+
+  let { data, status, error }: any = await dataFetch("/user-jobs", {
+    params: params,
+  });
+
+  return { data, status, error };
+}
 
 const createJob = async (form: any) => {
   const toast: any = useNuxtApp().$toast;
@@ -97,7 +123,9 @@ const createJob = async (form: any) => {
     body: form,
   });
 
-  error = error._object[error._key].data.message;
+  if (status._value == "error") {  
+    error = error._object[error._key].data.message;
+  }
 
   return { data, status, error };
 };
@@ -108,7 +136,9 @@ const updateJob = async (job: any) => {
     body: job,
   });
 
-  error = error._object[error._key].data.message;
+  if (status._value == "error") {  
+    error = error._object[error._key].data.message;
+  }
 
   return { data, status, error };
 };
@@ -121,4 +151,4 @@ const deleteJob = async (id: number) => {
   return { data, status, error };
 };
 
-export { fetchJobs, fetchJob, createJob, updateJob, deleteJob };
+export { fetchJobs, fetchJob, fetchUserJobs, createJob, updateJob, deleteJob };

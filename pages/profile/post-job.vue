@@ -12,6 +12,7 @@ const form: Ref<Object> = ref({
   level: "",
   type: "",
   budget: "",
+  budget_type: "",
   duration: "",
   skills: [],
   languages: [],
@@ -27,7 +28,7 @@ const submit = async () => {
 
   const response = await createJob(form.value);
 
-  if (response.status === "success") {
+  if (response.status.value === "success") {
     // Redirect to the job page
     toast.success("Job created successfully");
   } else {

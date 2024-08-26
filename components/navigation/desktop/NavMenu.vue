@@ -14,11 +14,11 @@ defineProps({
 <template>
     <ul :class="className">
         <NavigationDesktopNavItem
-             :text="item.text"
-             :route="item.route"
-             :dropdownElements="item.dropdownElements"
-             v-for="(item, index) in navigationItems"
+            :text="item.text"
+            :route="item.route"
+            :dropdownElements="item.dropdownElements"
+            v-for="(item, index) in navigationItems"
             :key="index"
-           />
+        />
     </ul>
 </template>

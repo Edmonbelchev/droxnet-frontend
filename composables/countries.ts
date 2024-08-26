@@ -2101,4 +2101,9 @@ const countryFlag = (code: string, emoji: false) => {
   return country?.image;
 }
 
-export { fetchCountries, countryFlag };
+const countryName = (code: string) => {
+  const country = fetchCountries().find((c) => c.code === code);
+  return country?.name;
+}
+
+export { fetchCountries, countryFlag, countryName };

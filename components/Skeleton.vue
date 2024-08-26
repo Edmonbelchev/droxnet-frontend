@@ -8,6 +8,6 @@ defineProps({
 </script>
 
 <template>
-  <div :class="['pulse bg-gray-100', className]"></div>
+  <div :class="['animate-pulse bg-gray-100', className]"></div>
 </template>
   

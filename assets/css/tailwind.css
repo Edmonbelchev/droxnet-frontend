@@ -59,7 +59,21 @@
         transition: ease-in-out 300ms;
     }
 
-    .primary-button:hover {
+    .primary-button-sm {
+        padding: 0 20px;
+        color: #fff;
+        background: var(--primary-color);
+        position: relative;
+        text-align: center;
+        border-radius: 5px;
+        display: inline-block;
+        vertical-align: middle;
+        text-transform: uppercase;
+        font: 700 13px/36px 'Poppins', Arial, Helvetica, sans-serif;
+        transition: ease-in-out 300ms;
+    }
+
+    .primary-button:hover, .primary-button-sm:hover {
         -webkit-box-shadow: 10px 10px 25px 0 rgba(0, 0, 0, 0.25);
         box-shadow: 10px 10px 25px 0 rgba(0, 0, 0, 0.25);
     }

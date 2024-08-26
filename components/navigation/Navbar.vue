@@ -32,7 +32,7 @@ const navigationItems = [
   },
   {
     text: "Browse Jobs",
-    route: "/",
+    route: "/jobs",
     dropdownElements: {
       element1: {
         text: "Element 1",

@@ -1,101 +1,112 @@
 <script setup>
 defineProps({
-  heading: {
-    type: String,
+  job: {
+    type: Object,
     required: true,
   },
-  badge: String,
-  text: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  professional: {
-    type: String,
-    required: true,
-  },
-  icon: String,
-  folderIcon: String,
-  clockIcon: String,
-  heartIcon: String,
-  jobIcon: String,
-  national: String,
-  typeTime: String,
-  duration: String,
-  job: String,
-  save: String,
-  aButton: String,
 });
 </script>
 
 <template>
-  <div class="bg-[#fffdf3] sm:mx-[50px] overflow-hidden mb-10 bg-white rounded-lg transition-shadow duration-500 flex relative hover:shadow-xl flex-col xl:flex-row">
-    <span
-      class="absolute top-0 left-0 w-10 h-10 z-50 border-t-[40px] border-r-[40px] border-r-transparent"
-      :class="{
-        'border-[#f1c40f]': badge == 'default',
-        'border-[#e67e22]': badge == 'member',
-        'border-[#2ecc71]': badge == 'premium',
-      }"
-      v-if="badge"
-    >
-    </span>
-
-    <div class="w-4/6 w-full py-10 px-10 relative">
-      <span>
-        <img
-          src="https://amentotech.com/htmls/worktern/images/featured.png"
-          alt=""
-        />
-      </span>
-
-      <div class="flex items-center gap-2">
-        <Icon
-          name="material-symbols:check"
-          class="text-white bg-green-400 rounded-full"
-        /><a class="text-base font-semibold">{{ heading }}</a>
+  <div class="flex flex-col md:flex-row bg-white rounded">
+    <div class="flex flex-col p-6 w-full md:w-4/5">
+      <div class="mb-1 flex items-center gap-1">
+        <Icon name="lets-icons:check-fill" class="text-[--green-color]" />
+        <h3 class="text-[--text-color] text-sm">
+          {{ job.user.company_details.company_name }}
+        </h3>
       </div>
-      <h2 class="text-xl text-gray-600 my-3">{{ text }}</h2>
-      <p class="text-gray-500">{{ description }}</p>
+
+      <h4 class="text-[--text-color] text-lg mb-2">
+        {{ job.title }}
+      </h4>
+
+      <div
+        v-html="job.description"
+        class="max-h-[65px] truncated overflow-hidden"
+      ></div>
+
+      <div
+        class="mt-4 gap-2 flex flex-wrap"
+        v-if="job.skills && job.skills.length > 0"
+      >
+        <a
+          href="#"
+          class="text-xs py-2 px-4 border rounded-[30px] text-[--gray-color]"
+          v-for="(skill, index) of job.skills"
+          :key="index"
+        >
+          {{ skill.name }}
+        </a>
+      </div>
     </div>
 
-    <div class="w-full w-2/6 sm:border-t xl:border-l">
-      <ul class="py-10 px-8 leading-8">
-        <li>
-          <Icon name="fluent-emoji-flat:heavy-dollar-sign" class="w-4 h-4" />
-          {{ professional }}
-        </li>
-        <li>
-          <Icon :name="icon" class="w-5 h-5" />
-          {{ national }}
-        </li>
-        <li>
-          <Icon :name="folderIcon" class="text-blue-600 w-5 h-5" />
-          {{ typeTime }}
-        </li>
-        <li>
-          <Icon :name="clockIcon" class="text-red-600 w-4 h-4" />
+    <div class="flex flex-col gap-3 border-l p-6 md:w-2/5">
+      <div
+        class="grid grid-cols-[auto_1fr] gap-2 items-center"
+        v-if="job.budget_type"
+      >
+        <Icon
+          name="lucide:dollar-sign"
+          class="text-[--green-color] text-base"
+        />
 
-          {{ duration }}
-        </li>
-        <li>
-          <Icon :name="jobIcon" class="text-purple-500" />
+        <span class="text-sm text-[--text-color]">
+          {{ job.budget_type }}
+        </span>
+      </div>
 
-          {{ job }}
-        </li>
-        <li>
-          <Icon :name="heartIcon" />
-          {{ save }}
-        </li>
-        <li class="flex justify-center mt-5">
-          <a href="#" class="primary-button w-full">
-            {{ aButton }}
-          </a>
-        </li>
-      </ul>
+      <div
+        class="grid grid-cols-[auto_1fr] gap-2 items-center"
+        v-if="job.country"
+      >
+        <img
+          :src="countryFlag(job.country)"
+          :alt="job.country"
+          class="w-[18px]"
+        />
+
+        <span class="text-sm text-[--text-color]">
+          {{ countryName(job.country) }}
+        </span>
+      </div>
+
+      <div class="grid grid-cols-[auto_1fr] gap-2 items-center" v-if="job.type">
+        <Icon
+          name="material-symbols:folder-outline"
+          class="text-blue-500 text-base"
+        />
+
+        <span class="text-sm text-[--text-color]"> Type: {{ job.type }} </span>
+      </div>
+
+      <div
+        class="grid grid-cols-[auto_1fr] gap-2 items-center"
+        v-if="job.duration"
+      >
+        <Icon name="ph:clock" class="text-[--primary-color] text-lg" />
+
+        <span class="text-sm text-[--text-color]">
+          Duration: {{ job.duration }}
+        </span>
+      </div>
+
+      <div  class="grid grid-cols-[auto_1fr] gap-2 items-center">
+        <Icon name="ph:heart" class="text-[--primary-color] text-base" />
+
+        <button type="button" class="w-fit">
+          <span class="text-sm text-[--text-color]"> Click to save </span>
+        </button>
+      </div>
+
+      <div class="mt-auto pt-4">
+        <NuxtLink
+          :to="`jobs/${job.id}`"
+          class="primary-button-sm w-full"
+        >
+          View Job
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>

@@ -1,163 +1,157 @@
-<script setup>
-const divItems = [
-  {
-    heading: "Light Bulb Association",
-    text: "I Want Some Customization And Installation",
-    description:
-      "Nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit inati voluptate velit esse cillum dolore eutates fugiat nulla pariatur sunt in culpa asequi officia deserunt mollit anim id est laborum ut perspiciatis...",
-    professional: "Professional",
-    icon: "openmoji:flag-england",
-    folderIcon: "material-symbols-light:folder-outline",
-    clockIcon: "octicon:clock-24",
-    heartIcon: "mdi:heart",
-    jobIcon: "fa:tag",
-    national: "England",
-    typeTime: "Type: Per Hour",
-    duration: "Duration: 03 Months",
-    job: "Job Id: gy3yV2Vm5u",
-    save: "Save",
-    aButton: "VIEW JOB",
-    badge: "default",
+<script setup lang="ts">
+definePageMeta({
+  middleware: "auth",
+  breadcrumb: "Jobs",
+});
+
+const jobs: Ref<Array<object>>     = ref([]);
+const page: Ref<number>             = ref(1);
+const perPage: Ref<number>          = ref(8);
+const total: Ref<number>            = ref(0);
+const loadingPage: Ref<boolean>     = ref(false);
+const skeletonLoading: Ref<boolean> = ref(true);
+
+const appliedFilters: Ref = ref({
+  countries: [],
+  skills: [],
+  type: [],
+  budget_type: "any",
+  budget: {
+    start: 0,
+    end: 100,
   },
-  {
-    heading: "Point Trend Studio",
-    text: "Website Changes In HTML & PHP",
-    description:
-      "Nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit inati voluptate velit esse cillum dolore eutates fugiat nulla pariatur sunt in culpa asequi officia deserunt mollit anim id est laborum ut perspiciatis...",
-    professional: "Professional",
-    icon: "openmoji:flag-united-states",
-    folderIcon: "material-symbols-light:folder-outline",
-    clockIcon: "octicon:clock-24",
-    heartIcon: "mdi:heart",
-    jobIcon: "fa:tag",
-    national: "United States",
-    typeTime: "Type: Per Fixed",
-    duration: "Duration: 15 Days",
-    job: "Job Id: 5aUQgM2ZbW",
-    save: "Click to Save",
-    aButton: "VIEW JOB",
-    badge: "member",
+  language: [],
+});
+
+const currentForm: Ref = ref({
+  countries: [],
+  skills: [],
+  budget_type: "any",
+  budget: {
+    start: 0,
+    end: 100,
   },
-  {
-    heading: "Vortex Association",
-    text: "Need Amazon MWS Handshaking",
-    description:
-      "Nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit inati voluptate velit esse cillum dolore eutates fugiat nulla pariatur sunt in culpa asequi officia deserunt mollit anim id est laborum ut perspiciatis...",
-    professional: "Professional",
-    icon: "openmoji:flag-united-arab-emirates",
-    folderIcon: "material-symbols-light:folder-outline",
-    clockIcon: "octicon:clock-24",
-    heartIcon: "mdi:heart",
-    jobIcon: "fa:tag",
-    national: "United Emirates",
-    typeTime: "Type: Per Hour",
-    duration: "Duration: 03 Months",
-    job: "Job Id: gy3yV2Vm5u",
-    save: "Click to Save",
-    aButton: "VIEW JOB",
-    badge: "premium",
-  },
-  {
-    heading: "Traprator House",
-    text: "Form-Slider Plugin For Wordpress",
-    description:
-      "Nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit inati voluptate velit esse cillum dolore eutates fugiat nulla pariatur sunt in culpa asequi officia deserunt mollit anim id est laborum ut perspiciatis...",
-    professional: "Professional",
-    icon: "openmoji:flag-united-arab-emirates",
-    folderIcon: "material-symbols-light:folder-outline",
-    clockIcon: "octicon:clock-24",
-    heartIcon: "mdi:heart",
-    jobIcon: "fa:tag",
-    national: "United Emirates",
-    typeTime: "Type: Per Hour",
-    duration: "Duration: 03 Months",
-    job: "Job Id: gy3yV2Vm5u",
-    save: "Save",
-    aButton: "VIEW JOB",
-  },
-  {
-    heading: "Alfredo Bossard",
-    text: "Classifieds Posting, Data Entry, Typing",
-    description:
-      "Nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit inati voluptate velit esse cillum dolore eutates fugiat nulla pariatur sunt in culpa asequi officia deserunt mollit anim id est laborum ut perspiciatis...",
-    professional: "Itermediate",
-    icon: "openmoji:flag-canada",
-    folderIcon: "material-symbols-light:folder-outline",
-    clockIcon: "octicon:clock-24",
-    heartIcon: "mdi:heart",
-    jobIcon: "fa:tag",
-    national: "Canada",
-    typeTime: "Type: Per Fixed",
-    duration: "Duration: 15 Days",
-    job: "Job Id: bsf3NAxTMj",
-    save: "Save",
-    aButton: "VIEW JOB",
-  },
-  {
-    heading: "Web Revolutions",
-    text: "Develop A Transportation Company Website",
-    description:
-      "Nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit inati voluptate velit esse cillum dolore eutates fugiat nulla pariatur sunt in culpa asequi officia deserunt mollit anim id est laborum ut perspiciatis...",
-    professional: "Professional",
-    icon: "openmoji:flag-united-states",
-    folderIcon: "material-symbols-light:folder-outline",
-    clockIcon: "octicon:clock-24",
-    heartIcon: "mdi:heart",
-    jobIcon: "fa:tag",
-    national: "United States",
-    typeTime: "Type: Per Fixed",
-    duration: "Duration: 15 Days",
-    job: "Job Id: 5aUQgM2ZbW",
-    save: "Click to Save",
-    aButton: "VIEW JOB",
-  },
-  {
-    heading: "Alfredo Bossard",
-    text: "Designer Finger Change temp to Arabic and install on alloi",
-    description:
-      "Nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit inati voluptate velit esse cillum dolore eutates fugiat nulla pariatur sunt in culpa asequi officia deserunt mollit anim id est laborum ut perspiciatis...",
-    professional: "Professional",
-    icon: "openmoji:flag-united-arab-emirates",
-    folderIcon: "material-symbols-light:folder-outline",
-    clockIcon: "octicon:clock-24",
-    heartIcon: "mdi:heart",
-    jobIcon: "fa:tag",
-    national: "United Emirates",
-    typeTime: "Type: Per Hour",
-    duration: "Duration: 03 Months",
-    job: "Job Id: gy3yV2Vm5u",
-    save: "Click to Save",
-    aButton: "VIEW JOB",
-  },
-];
+  language: [],
+  duration: []
+});
+
+/* Retrieve jobs */
+const retrieveJobs = async (firstPageLoad: boolean = false) => {
+  if (!firstPageLoad) loadingPage.value = true;
+
+  const response = await fetchJobs(perPage.value, page.value, appliedFilters.value);
+
+  if (response.status.value === "success") {
+    jobs.value = response.data.value.data;
+    total.value = response.data.value.meta.total;
+  }
+
+  if (!firstPageLoad) loadingPage.value = false;
+
+  else skeletonLoading.value = false;
+};
+
+/* Calculate the start and end range */
+const startRange = computed(() => (page.value - 1) * perPage.value + 1);
+const endRange   = computed(() => Math.min(page.value * perPage.value, total.value));
+
+/* Watch for page and perPage changes */
+watch([page, perPage], async () => {
+  await retrieveJobs();
+});
+
+/* Apply filters and re-run the retrieve user method */
+const applyFilters = async () => {
+  appliedFilters.value = JSON.parse(JSON.stringify(currentForm.value));
+  await retrieveJobs();
+};
+
+/* Clear all filters */
+const clearAllFilters = async () => {
+  const emptyForm = {
+    countries: [],
+    skills: [],
+    budget_type: "any",
+    budget: {
+      start: 0,
+      end: 100,
+    },
+    language: [],
+    duration: []
+  };
+
+  currentForm.value = JSON.parse(JSON.stringify(emptyForm));
+
+  appliedFilters.value = JSON.parse(JSON.stringify(emptyForm));
+
+  await retrieveJobs();
+};
+
+/* Remove individual filter */
+const removeFilter = async (filter: { key: string, value: any }) => {
+  if (filter.key === 'budget') {
+    appliedFilters.value.budget = { start: 0, end: 100 };
+    currentForm.value.budget = { start: 0, end: 100 };
+  } else {
+    appliedFilters.value[filter.key] = appliedFilters.value[filter.key].filter((v: any) => v !== filter.value);
+    currentForm.value[filter.key] = [...appliedFilters.value[filter.key]];
+  }
+
+  await retrieveJobs();
+};
+
+/* On mounted, retrieve jobs */
+onMounted(async () => {
+  await retrieveJobs(true);
+});
 </script>
 
 <template>
   <NuxtLayout name="default">
-    <div class="bg-[--background-color] py-20 px-10">
-      <div class="max-w-screen-xl flex mx-auto">
-        <div class="w-2/6"></div>
-        <div class="w-4/6">
-          <JobsCard
-            :heading="item.heading"
-            :text="item.text"
-            :description="item.description"
-            :professional="item.professional"
-            :icon="item.icon"
-            :folderIcon="item.folderIcon"
-            :clockIcon="item.clockIcon"
-            :heartIcon="item.heartIcon"
-            :jobIcon="item.jobIcon"
-            :national="item.national"
-            :typeTime="item.typeTime"
-            :duration="item.duration"
-            :job="item.job"
-            :save="item.save"
-            :aButton="item.aButton"
-            :badge="item.badge"
-            v-for="(item, index) in divItems"
-            :key="index"
+    <AppBreadcrumbs title="Search Result" />
+
+    <div class="flex bg-[--background-color] justify-center py-20">
+      <div class="flex max-w-[1140px] w-full">
+        <div class="flex flex-col w-1/3 px-4">
+          <JobsFilter
+            @submit="applyFilters"
+            :form="currentForm"
+            :loading="loadingPage"
           />
+        </div>
+
+        <div class="relative flex flex-col w-3/4 px-4 h-fit">
+          <div
+            class="flex flex-col gap-2 absolute inset-0 w-full h-full justify-center items-center z-10 cursor-wait"
+            v-if="loadingPage"
+          >
+            <Loader width="60" height="60" strokeWidth="7px" />
+            <span>Loading...</span>
+          </div>
+
+          <FilterAppliedValues
+            :applied-filters="appliedFilters"
+            @clear-all="clearAllFilters"
+            @remove-filter="removeFilter"
+          />
+
+          <div class="flex text-base mb-4">
+            <span>{{ startRange }} - {{ endRange }} of {{ total }} results</span>
+          </div>
+
+          <SkeletonUserListing v-if="skeletonLoading" />
+
+          <JobsListing :jobs="jobs" :loading="loadingPage" v-else />
+
+          <div class="flex justify-center mt-8">
+            <Pagination
+              :page="page"
+              :perPage="perPage"
+              :total="total"
+              @update:currentPage="page = $event"
+              v-if="!skeletonLoading && total > 0"
+            />
+          </div>
         </div>
       </div>
     </div>

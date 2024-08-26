@@ -95,7 +95,7 @@ onMounted(() => {
           :id="skill.id"
           :label="skill.name"
           :value="skill.id"
-          v-model="form.category"
+          v-model="form.skills"
         >
           <template #content>
             <span class="text-[--gray-color]">{{ skill.name }}</span>

@@ -4,13 +4,17 @@ const props: any = defineProps({
     type: Array,
     required: true,
   },
+  selectedSkills: {
+    type: Array,
+    required: true,
+  }
 });
 
 const emit = defineEmits(["updateForm"]);
 
 const skills: Ref<any> = ref([]);
-const selectedSkills: Ref<any> = ref([]);
-const addedSkills: Ref<any> = ref([]);
+const selectedSkills: Ref<any> = ref(props.selectedSkills ?? []);
+const addedSkills: Ref<any> = ref(props.addedSkills ?? []);
 const selectedSkillsKey: Ref<number> = ref(0);
 
 // Define loaders
@@ -69,9 +73,25 @@ const removeSkill = (skill: any) => {
   selectedSkillsKey.value += 1;
 };
 
+watch(selectedSkills, (value: any) => {
+  // Remove from addedSkills if not in value
+  addedSkills.value = addedSkills.value.filter((skill: any) =>
+    value.some((selectedSkill: any) => selectedSkill.value === skill)
+  );
+}, { deep: true });
+
 onMounted(async () => {
   await retrieveSkills();
   loadingSkills.value = false;
+
+  if(props.selectedSkills) {
+    selectedSkills.value = props.selectedSkills.map((skill: any) => {
+      return {
+        value: skill.id,
+        label: skill.name,
+      };
+    });
+  }
 });
 </script>
 
@@ -83,7 +103,7 @@ onMounted(async () => {
   </h4>
 
   <div v-if="!loadingSkills">
-    <div class="flex flex-col gap-2 mb-4 md:px-6 md:flex-row">
+    <div class="flex flex-col gap-2 mb-4 md:px-6 sm:flex-row">
       <div class="flex flex-col md:flex-row gap-2 md:gap-0 md:w-3/4">
         <FormElementsMultiSelect
           v-model="selectedSkills"
@@ -93,12 +113,13 @@ onMounted(async () => {
           :loading="loadingSearch"
           @searchMethod="retrieveSkills($event)"
           className="bg-white cursor-pointer min-h-[46px] sm:min-h-[50px] flex gap-2 items-center justify-between w-full border rounded-md p-3 sm:max-w-[425px]"
+          :key="selectedSkillsKey"
         />
       </div>
 
       <button
         type="button"
-        class="primary-button max-h-[50px] min-w-[200px] md:w-1/3"
+        class="primary-button max-h-[50px] sm:min-w-[130px] lg:min-w-[200px] md:w-1/3"
         :class="{
           'cursor-not-allowed opacity-50': selectedSkills.length == 0,
         }"
@@ -107,37 +128,37 @@ onMounted(async () => {
         Add skills
       </button>
     </div>
+
+    <div class="flex flex-col">
+      <div
+        v-for="(skill, index) in addedSkills"
+        :key="index"
+        class="bg-[#fcfcfc] p-3 md:px-6 border-x border-t flex justify-between items-center relative"
+        :class="{
+          'border-b': index == addedSkills.length - 1,
+        }"
+      >
+        <span
+          v-if="
+            selectedSkills.find((selectedSkill) => selectedSkill.value === skill)
+          "
+        >
+          {{
+            selectedSkills.find((selectedSkill) => selectedSkill.value === skill)
+              .label
+          }}
+        </span>
+  
+        <button
+          @click="removeSkill(skill)"
+          type="button"
+          class="text-white w-8 h-8 rounded-[3px] bg-[--primary-color] hover:bg-orange-600 duration-300"
+        >
+          <Icon name="fa-solid:trash" />
+        </button>
+      </div>
+    </div>
   </div>
 
   <div v-else>Loading...</div>
-
-  <div class="flex flex-col">
-    <div
-      v-for="(skill, index) in addedSkills"
-      :key="index"
-      class="bg-[#fcfcfc] p-3 md:px-6 border-x border-t flex justify-between items-center relative"
-      :class="{
-        'border-b': index == addedSkills.length - 1,
-      }"
-    >
-      <span
-        v-if="
-          selectedSkills.find((selectedSkill) => selectedSkill.value === skill)
-        "
-      >
-        {{
-          selectedSkills.find((selectedSkill) => selectedSkill.value === skill)
-            .label
-        }}
-      </span>
-
-      <button
-        @click="removeSkill(skill)"
-        type="button"
-        class="text-white w-8 h-8 rounded-[3px] bg-[--primary-color] hover:bg-orange-600 duration-300"
-      >
-        <Icon name="fa-solid:trash" />
-      </button>
-    </div>
-  </div>
 </template>

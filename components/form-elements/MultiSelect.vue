@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from "vue";
 
 const props = defineProps({
   placeholder: {
@@ -22,6 +22,14 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  errorMessages: {
+    type: Array,
+    default: () => [],
+  },
+  modelValue: {
+    type: Array,
+    default: () => [],
+  },
 });
 
 const emit = defineEmits([
@@ -30,9 +38,9 @@ const emit = defineEmits([
   "searchMethod",
 ]);
 
-const selected: Ref<any[]> = ref([]);
-const showDropdown: Ref<Boolean> = ref(false);
-const search: Ref<String> = ref("");
+const selected = ref(props.modelValue);
+const showDropdown = ref(false);
+const search = ref("");
 
 const computedOptions = computed(() => {
   return props.options.filter((element: any) =>
@@ -50,7 +58,16 @@ watch(
   () => selected.value,
   (value: any[]) => {
     emit("update:modelValue", value);
-  }, { deep: true }
+  },
+  { deep: true }
+);
+
+watch(
+  () => props.modelValue,
+  (value: any[]) => {
+    selected.value = value;
+  },
+  { immediate:true, deep: true }
 );
 
 const toggleSelection = (option: any) => {
@@ -80,12 +97,14 @@ const removeSelected = (option: any) => {
     @click="showDropdown = true"
     v-click-outside="() => (showDropdown = false)"
   >
-    <div :class="className">
+    <div :class="[{ 'border-red-500': errorMessages.length > 0 }, className]">
       <span class="flex gap-2 items-center" v-if="loading">
         <Loader /> Loading...
       </span>
       <div v-else class="flex gap-2 truncate overflow-hidden w-full">
-        <span v-if="placeholder && selected.length === 0">{{ placeholder }}</span>
+        <span v-if="placeholder && selected.length === 0">{{
+          placeholder
+        }}</span>
         <template v-else>
           <span
             v-for="item in selected"
@@ -93,7 +112,10 @@ const removeSelected = (option: any) => {
             class="bg-gray-200 px-2 py-1 rounded-md text-sm flex items-center gap-1"
           >
             {{ item.label }}
-            <button @click.stop="removeSelected(item)" class="text-gray-500 hover:text-gray-700">
+            <button
+              @click.stop="removeSelected(item)"
+              class="text-gray-500 hover:text-gray-700"
+            >
               &times;
             </button>
           </span>
@@ -137,5 +159,12 @@ const removeSelected = (option: any) => {
         <div class="p-3 text-sm">No results found</div>
       </div>
     </div>
+    <span
+      class="text-red-500 text-xs"
+      v-for="(error, index) in errorMessages"
+      :key="index"
+    >
+      {{ error.$message }}
+    </span>
   </div>
 </template>

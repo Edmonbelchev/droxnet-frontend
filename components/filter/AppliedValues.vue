@@ -2,6 +2,7 @@
 const props = defineProps<{
   appliedFilters: {
     countries: string[];
+    languages: string[];
     skills: string[];
     type: string[];
     hourly_rate: {
@@ -37,6 +38,7 @@ const selectedFilters = computed(() => {
 const filtersApplied = computed(() => selectedFilters.value.length > 0);
 
 const countries = fetchCountries();
+const languages = retrieveLanguages();
 const skills = ref(skillStore.skills);
 
 const clearAllFilters = () => {
@@ -84,12 +86,16 @@ const removeFilter = (filter: { key: string; value: any }) => {
         {{ countries.find((country) => country.code === filter.value).name }}
       </span>
 
+      <span v-else-if="filter.key === 'languages'">
+        {{ languages.find((language) => language.code === filter.value).name }}
+      </span>
+
       <span v-else-if="filter.key === 'duration'">
-        {{ durationOptions().find((duration) => duration.value === filter.value).label }}
+        {{ retrieveDurationOptions().find((duration) => duration.value === filter.value).label }}
       </span>
 
       <span v-else-if="filter.key === 'budget_type'">
-        {{ budgetTypes().find((budget) => budget.value === filter.value).label }}
+        {{ retrieveBudgetTypes().find((budget) => budget.value === filter.value).label }}
       </span>
 
       <span v-else>{{ filter.value }}</span>

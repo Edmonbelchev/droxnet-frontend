@@ -62,7 +62,7 @@ defineProps({
         :class="[
           inputClass,
           { 'border-red-500': error },
-          { 'border-green-500': valid },
+          { 'border': valid },
         ]"
       />
 
@@ -74,7 +74,10 @@ defineProps({
       />
 
       <Icon
-        :class="iconClass"
+        :class="[
+          iconClass, 
+          { '!right-10' : error || valid }
+        ]"
         :name="icon"
         v-if="icon"
       />

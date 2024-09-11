@@ -98,46 +98,7 @@ onMounted(async () => {
           </div>
         </div>
 
-        <div class="w-full order-1 md:order-2 md:w-[275px] flex flex-col gap-4">
-          <div class="flex bg-white shadow rounded-md p-6">
-            <img
-              class="w-14 h-14 object-contain"
-              src="/images/jobs/ongoing_jobs.webp"
-              alt=""
-            />
-
-            <div class="border-l pl-4 ml-4 gap-1 flex flex-col">
-              <span class="font-bold text-3xl text-[--green-color]">150</span>
-              <span class="text-xs">Total Ongoing jobs</span>
-            </div>
-          </div>
-
-          <div class="flex bg-white shadow rounded-md p-6">
-            <img
-              class="w-14 h-14 object-contain"
-              src="/images/jobs/completed_jobs.webp"
-              alt=""
-            />
-
-            <div class="border-l pl-4 ml-4 gap-1 flex flex-col">
-              <span class="font-bold text-3xl text-blue-500">150</span>
-              <span class="text-xs">Total Completed jobs</span>
-            </div>
-          </div>
-
-          <div class="flex bg-white shadow rounded-md p-6">
-            <img
-              class="w-14 h-14 object-contain"
-              src="/images/jobs/cancelled_jobs.webp"
-              alt=""
-            />
-
-            <div class="border-l pl-4 ml-4 gap-1 flex flex-col">
-              <span class="font-bold text-purple-600 text-3xl">150</span>
-              <span class="text-xs">Total cancelled jobs</span>
-            </div>
-          </div>
-        </div>
+        <JobsCounter />
       </div>
     </div>
   </NuxtLayout>

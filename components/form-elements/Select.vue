@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-defineProps({
+const props = defineProps({
   placeholder: {
     type: String,
   },
@@ -9,8 +9,9 @@ defineProps({
     default: "p-4 text-lg rounded-md min-w-[255px]",
   },
   selectOptions: {
-    type: Object,
+    type: Array,
     required: true,
+    default: () => [],
   },
   optionClass: {
     type: String,
@@ -19,15 +20,23 @@ defineProps({
   },
   wrapperClass: {
     type: String,
-    default: "absolute w-full flex flex-col bg-white rounded-b-md top-10 lg:top-14 max-h-0 overflow-hidden transition-all duration-300 shadow-lg",
+    default:
+      "absolute w-full flex flex-col bg-white rounded-b-md top-10 lg:top-14 max-h-0 overflow-hidden transition-all duration-300 shadow-lg",
   },
   trailing: {
     type: String,
     default: "",
   },
+  errorMessages: {
+    type: Array,
+    default: () => [],
+  },
+  modelValue: {
+    type: String,
+    required: true,
+  }
 });
 
-const selected: Ref<String> = ref("");
 const showDropdown: Ref<Boolean> = ref(false);
 
 // Generate random ID in order to have unique radio input IDs
@@ -35,24 +44,29 @@ const randomID = generateRandomID(4);
 
 const emit = defineEmits(["update:modelValue"]);
 
-watch(
-  () => selected.value,
-  (value: any) => {
-    emit("update:modelValue", value);
+const selectedLabel = computed(() => {
+  if (!Array.isArray(props.selectOptions) || props.selectOptions.length === 0) {
+    return '';
   }
-);
+  const selectedOption = props.selectOptions.find((option) => option.value === props.modelValue);
+  return selectedOption ? selectedOption.label : props.selectOptions[0].label;
+});
+
+function updateValue(value: string) {
+  emit("update:modelValue", value);
+}
 </script>
 
 <template>
   <div class="relative" v-click-outside="() => (showDropdown = false)">
     <div
       class="bg-white cursor-pointer flex gap-2 items-center justify-between w-full"
-      :class="selectClass"
+      :class="[errorMessages.length > 0 ? 'border-red-500' :  'border', selectClass]"
       @click="showDropdown = !showDropdown"
     >
-      <span v-if="placeholder && selected.length == 0">{{ placeholder }}</span>
+      <span v-if="placeholder && modelValue.length == 0">{{ placeholder }}</span>
 
-      <div v-else-if="!placeholder && selected.length == 0">
+      <div v-else-if="!placeholder && !modelValue && selectOptions.length > 0">
         <span class="text-gray-400" v-if="trailing">
           {{ trailing }}
         </span>
@@ -64,7 +78,7 @@ watch(
         <span class="text-gray-400" v-if="trailing">
           {{ trailing }}
         </span>
-        {{ selectOptions.find((option) => option.value == selected).label }}
+        {{ selectedLabel }}
       </div>
 
       <font-awesome icon="chevron-down" />
@@ -77,7 +91,7 @@ watch(
         :key="index"
         :class="[
           optionClass,
-          { 'bg-gray-100/50': selected.value == option.value },
+          { 'bg-gray-100/50': modelValue == option.value },
         ]"
         @click="showDropdown = false"
       >
@@ -90,11 +104,20 @@ watch(
           :name="`${randomID}_option`"
           :id="`${randomID}_${option.value}`"
           :value="option.value"
-          v-model="selected"
+          :checked="modelValue === option.value"
+          @change="updateValue(option.value)"
           class="hidden"
         />
       </label>
     </div>
+    
+    <span
+      class="text-red-500 text-xs"
+      v-for="(error, index) in errorMessages"
+      :key="index"
+    >
+      {{ error.$message }}
+    </span>
   </div>
 </template>
 

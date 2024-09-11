@@ -26,20 +26,16 @@ const profileSidebarMenuItems = () => {
       dropdown: [
         {
           title: "Completed Jobs",
-          url: "/",
+          url: "/profile/jobs?status=completed",
         },
         {
           title: "Cancelled Jobs",
-          url: "/",
+          url: "/profile/jobs?status=cancelled",
         },
         {
           title: "Ongoing Jobs",
-          url: "/",
-        },
-        {
-          title: "Pending Single",
-          url: "/",
-        },
+          url: "/profile/jobs?status=ongoing",
+        }
       ],
     },
     {
@@ -62,6 +58,7 @@ const profileSidebarMenuItems = () => {
     {
       title: "Proposals",
       icon: "fa-solid:file-signature",
+      url: "/profile/proposals",
     },
     {
       title: "Account Settings",

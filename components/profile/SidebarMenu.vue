@@ -23,7 +23,7 @@ const signOut = async () => {
 </script>
 
 <template>
-  <div class="sticky top-0 z-10">
+  <div class="sticky top-0 z-50">
     <div
       class="flex flex-col absolute h-screen bg-white left-0 top-0 z-10 shadow-md transition-all duration-300 ease-in-out"
       :class="{
@@ -136,7 +136,7 @@ const signOut = async () => {
                 v-else
               >
                 <Icon :name="item.icon" v-if="item.icon" />
-                <span v-if="sideBarIsActive">
+                <span class="animate-[fadeIn_300ms_ease-in_forwards]" v-if="sideBarIsActive">
                   {{ item.title }}
                 </span>
               </NuxtLink>
@@ -168,9 +168,9 @@ const signOut = async () => {
                       class="absolute left-0 top-0 bottom-0 my-auto w-4 border-dashed border-gray-400"
                     />
 
-                    <NuxtLink :to="'/'" class="py-2 pl-2 text-xs flex-1">
+                    <a :href="dropdownItem.url" class="py-2 pl-2 text-xs flex-1">
                       {{ dropdownItem.title }}
-                    </NuxtLink>
+                    </a>
                   </li>
                 </ul>
               </div>

@@ -39,6 +39,8 @@ const submit = () => {
 
     <FilterProjectLength :form="form" />
 
+    <FilterLanguages :form="form" />
+
     <div class="bg-white px-10 p-6 flex flex-col gap-4 rounded-md text-center">
       <p class="text-xs leading-5 text-[--gray-color]">
         Click “Apply Filter” to apply latest changes made by you.

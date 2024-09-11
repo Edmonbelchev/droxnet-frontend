@@ -2,7 +2,8 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  ssr: false, // Disable Server Side rendering
+  // Disable Server Side rendering
+  ssr: false,
 
   modules: [
     "@pinia/nuxt",
@@ -35,4 +36,6 @@ export default defineNuxtConfig({
       ],
     },
   },
+
+  compatibilityDate: "2024-09-09",
 });

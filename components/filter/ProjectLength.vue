@@ -20,7 +20,7 @@ const emits = defineEmits(["update:modelValue"]);
         :options="durationOptions"
         :label="durationOption.label"
         :value="durationOption.value"
-        v-for="(durationOption, index) in durationOptions()"
+        v-for="(durationOption, index) in retrieveDurationOptions()"
         :key="index"
       />
     </div>

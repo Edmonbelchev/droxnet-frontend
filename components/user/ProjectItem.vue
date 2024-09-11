@@ -20,13 +20,11 @@ const projectMainImage = () => {
   <div class="w-full sm:w-2/4 md:w-1/3 flex flex-col items-center p-2 px-6">
     <img class="rounded-md w-[200px] h-[140px] object-cover" :src="projectMainImage()" alt="Project Image" />
 
-    <div class="p-4">
+    <div class="p-4 w-full">
       <h3 class="text-black text-base text-center mb-2">
         {{ project.title }}
       </h3>
-      <span class="text-center">
-        <a class="text-blue-400" :href="project.url" target="_blank"> {{ project.url }}</a>
-      </span>
+      <a class="text-blue-400 text-center break-words block" :href="project.url" target="_blank"> {{ project.url }}</a>
     </div>
   </div>
 </template>

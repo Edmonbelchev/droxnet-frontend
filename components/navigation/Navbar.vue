@@ -5,48 +5,10 @@ const navigationItems = [
   {
     text: "How It Works",
     route: "/how-it-works",
-    dropdownElements: {
-      element1: {
-        text: "Element 1",
-        route: "/",
-      },
-      element2: {
-        text: "Element 2",
-        route: "/",
-      },
-      element3: {
-        text: "Element 3",
-        route: "/",
-        dropdownElements: {
-          element1: {
-            text: "Element 1",
-            route: "/",
-          },
-          element2: {
-            text: "Element 2",
-            route: "/",
-          },
-        },
-      },
-    },
   },
   {
     text: "Browse Jobs",
     route: "/jobs",
-    dropdownElements: {
-      element1: {
-        text: "Element 1",
-        route: "/",
-      },
-      element2: {
-        text: "Element 2",
-        route: "/",
-      },
-      element3: {
-        text: "Element 3",
-        route: "/",
-      },
-    },
   },
   {
     text: "View Freelancers",
@@ -85,7 +47,9 @@ const signOut = async () => {
 </script>
 
 <template>
-  <div class="flex p-4 md:py-0 lg:px-4 justify-between items-center max-w-[1920px] mx-auto">
+  <div
+    class="flex p-4 md:py-0 lg:px-4 justify-between items-center max-w-[1920px] mx-auto"
+  >
     <Logo class="w-36 md:w-44 lg:auto" />
 
     <div class="flex gap-4 items-center">
@@ -142,15 +106,21 @@ const signOut = async () => {
     </div>
   </div>
 
-  <div 
+  <div
     class="fixed top-0 bg-black/50 w-full h-full z-10 transition-all duration-300 cursor-pointer"
-    :class="{ 'visible opacity-[100%]': showNavMenu, 'invisible opacity-0': !showNavMenu}"
+    :class="{
+      'visible opacity-[100%]': showNavMenu,
+      'invisible opacity-0': !showNavMenu,
+    }"
     @click="showNavMenu = false"
   ></div>
 
-  <div 
+  <div
     class="fixed inset-0 w-full h-full flex justify-center items-center transition-all bg-gray-200/50 z-50"
-    :class="{ 'visible opacity-[100%]': showLoader, 'invisible opacity-0': !showLoader}"
+    :class="{
+      'visible opacity-[100%]': showLoader,
+      'invisible opacity-0': !showLoader,
+    }"
   >
     <Loader width="100" height="100" />
   </div>

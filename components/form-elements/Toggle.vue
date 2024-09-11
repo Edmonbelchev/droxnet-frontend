@@ -19,7 +19,7 @@ defineEmits(["update:modelValue"]);
 
 <template>
   <div class="inline-flex items-center gap-2">
-    <span v-if="label" class="ml-3 text-gray-500">
+    <span v-if="label" class="sm:ml-3 text-gray-500">
         {{ label }}
     </span>
 

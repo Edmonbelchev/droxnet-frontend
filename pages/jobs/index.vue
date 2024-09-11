@@ -20,7 +20,7 @@ const appliedFilters: Ref = ref({
     start: 0,
     end: 100,
   },
-  language: [],
+  languages: [],
 });
 
 const currentForm: Ref = ref({
@@ -31,7 +31,7 @@ const currentForm: Ref = ref({
     start: 0,
     end: 100,
   },
-  language: [],
+  languages: [],
   duration: []
 });
 

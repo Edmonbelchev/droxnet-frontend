@@ -4,10 +4,6 @@ defineProps({
     type: Object,
     required: true,
   },
-  showButtons: {
-    type: Boolean,
-    default: true,
-  }
 });
 </script>
 
@@ -25,7 +21,7 @@ defineProps({
         {{ job.title }}
       </h4>
 
-      <div class="flex flex-wrap mb-8">
+      <div class="flex flex-wrap mb-8 xl:mb-16">
         <span
           class="text-[13px] text-[--text-color] border-gray-300 pr-3 flex items-center gap-1"
           v-if="job.budget_type"
@@ -66,43 +62,22 @@ defineProps({
           Duration: {{ job.duration }}
         </span>
       </div>
-
-      <div class="ml-auto flex gap-2" v-if="showButtons">
-        <NuxtLink
-          :to="`/profile/post-job/${job.id}`"
-          class="w-fit primary-button-sm"
-        >
-          Edit
-        </NuxtLink>
-
-        <NuxtLink :to="`/jobs/${job.id}`" class="w-fit primary-button-sm">
-          View Details
-        </NuxtLink>
-      </div>
+      <NuxtLink :to="`/profile/jobs/${job.id}`" class="w-fit ml-auto primary-button-sm">
+        View Details
+      </NuxtLink>
     </div>
 
     <div
-      class="flex flex-col items-center justify-center w-full md:w-1/4 border-t-4 md:border-t-0 md:border-l-4 border-white"
+      class="flex flex-col items-center justify-center py-4 md:py-0 w-full md:w-1/4 border-t-4 md:border-t-0 md:border-l-4 border-white"
     >
-      <NuxtLink :to="`/profile/proposals?job_id=${job.id}`" class="md:mx-4 px-4 py-2 flex flex-col" v-if="job.proposals_count > 0">
-        <span class="font-bold text-lg text-[--green-color] text-center">
-          {{ job.proposals_count }}
-        </span>
+      <span class="font-bold text-xl text-[--green-color] mb-2 px-4">Hired</span>
 
-        <span>Proposals</span>
-      </NuxtLink>
-      <div class="md:mx-4 px-4 py-2 flex flex-col" v-else>
-        <span class="font-bold text-lg text-[--green-color] text-center">
-          {{ job.proposals_count }}
-        </span>
+      <span class="mb-2 px-4">
+        {{ job.accepted_proposals[0].user.first_name }}
+        {{ job.accepted_proposals[0].user.last_name }}
+      </span>
 
-        <span>Proposals</span>
-      </div>
-
-      <div
-        class="flex relative w-full justify-center p-2"
-        v-if="job.proposals_count > 0"
-      >
+      <div class="flex relative w-full justify-center p-2">
         <div
           class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10"
         ></div>
@@ -112,13 +87,10 @@ defineProps({
 
         <div
           class="border-[3px] border-white bg-white rounded-full w-8 h-8 overflow-hidden"
-          v-for="(proposal, index) in job.proposals"
-          :key="index"
-          :class="{ '-ml-2': index !== 0 }"
         >
           <img
-            :src="proposal.user.profile_image"
-            :alt="proposal.user.name"
+            :src="job.accepted_proposals[0].user.profile_image"
+            :alt="job.accepted_proposals[0].user.first_name"
             class="rounded-full w-8 h-8 object-cover"
           />
         </div>

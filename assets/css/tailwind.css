@@ -45,6 +45,125 @@
         appearance: textfield
     }
 
+    .ck.ck-content {
+        min-height: 200px;
+    }
+
+    .ck.ck-content h3.category {
+        font-size: 20px;
+        font-weight: bold;
+        color: #555;
+        letter-spacing: 10px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .ck.ck-content h2,
+    .description-element h2 {
+        font-size: 30px;
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .ck.ck-content h3,
+    .description-element h3 {
+        font-size: 20px;
+        color: #555;
+        margin: 0 0 1em;
+        font-weight: bold;
+        padding: 0;
+    }
+
+    .ck.ck-content h4,
+    .description-element h4 {
+        font-size: 18px;
+        color: #555;
+        margin: 0 0 1em;
+        font-weight: bold;
+        padding: 0;
+    }
+
+    .ck.ck-content blockquote.side-quote,
+    .description-element blockquote.side-quote {
+        font-style: normal;
+        float: right;
+        width: 35%;
+        position: relative;
+        border: 0;
+        overflow: visible;
+        z-index: 1;
+        margin-left: 1em;
+    }
+
+    .ck.ck-content blockquote.side-quote::before,
+    .description-element blockquote.side-quote::before {
+        content: "“";
+        position: absolute;
+        top: -37px;
+        left: -10px;
+        display: block;
+        font-size: 200px;
+        color: #e7e7e7;
+        z-index: -1;
+        line-height: 1;
+    }
+
+    .ck.ck-content blockquote.side-quote p,
+    .description-element blockquote.side-quote p {
+        font-size: 2em;
+        line-height: 1;
+    }
+
+    .ck.ck-content blockquote.side-quote p:last-child:not(:first-child),
+    .description-element blockquote.side-quote p:last-child:not(:first-child) {
+        font-size: 1.3em;
+        text-align: right;
+        color: #555;
+    }
+
+    .ck.ck-content ul,
+    .ck.ck-content ol,
+    .description-element ul,
+    .description-element ol {
+        padding-left: 20px;
+    }
+
+    .ck.ck-content ul,
+    .description-element ul {
+        list-style-type: none;
+    }
+
+    .ck.ck-content ul li,
+    .description-element ul li {
+        position: relative;
+        display: flex;
+    }
+
+    .ck.ck-content ul li:before,
+    .description-element ul li:before {
+        content: "";
+        margin-right: 10px;
+        width: 20px;
+        height: 10px;
+        --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1280'%3E%3Cpath fill='%23000' d='M1575 310q0 40-28 68l-724 724l-136 136q-28 28-68 28t-68-28l-136-136L53 740q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 295l656-657q28-28 68-28t68 28l136 136q28 28 28 68'/%3E%3C/svg%3E");
+        background-color: var(--green-color);
+        -webkit-mask-image: var(--svg);
+        mask-image: var(--svg);
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+        top: 7px;
+        position: relative;
+        min-width: 20px;
+    }
+
+    .ckeditor-error .ck.ck-editor__top .ck-sticky-panel .ck-sticky-panel__content, .ckeditor-error .ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
+        border-color: red;
+    }
+
     .primary-button {
         color: #fff;
         padding: 0 50px;
@@ -73,7 +192,8 @@
         transition: ease-in-out 300ms;
     }
 
-    .primary-button:hover, .primary-button-sm:hover {
+    .primary-button:hover,
+    .primary-button-sm:hover {
         -webkit-box-shadow: 10px 10px 25px 0 rgba(0, 0, 0, 0.25);
         box-shadow: 10px 10px 25px 0 rgba(0, 0, 0, 0.25);
     }
@@ -81,6 +201,13 @@
     @media screen and (max-width: 992px) {
         .primary-button {
             padding: 0 30px;
+        }
+
+        .ck.ck-content ul,
+        .ck.ck-content ol,
+        .description-element ul,
+        .description-element ol {
+            padding-left: 10px;
         }
     }
 
@@ -90,7 +217,6 @@
             font: 700 12px/44px 'Poppins', Arial, Helvetica, sans-serif;
         }
     }
-
 }
 
 @layer utilities {

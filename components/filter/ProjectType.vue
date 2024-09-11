@@ -18,9 +18,9 @@ const emits = defineEmits(["update:modelValue"]);
         v-model="form.budget_type"
         name="budget_type"
         :options="budgetTypes"
-        :label="budgetType.name"
+        :label="budgetType.label"
         :value="budgetType.value"
-        v-for="(budgetType, index) in budgetTypes()"
+        v-for="(budgetType, index) in retrieveBudgetTypes()"
         :key="index"
       />
     </div>

@@ -13,24 +13,11 @@ const retrieveJob = async () => {
 
   if (response.status.value === "success") {
     job.value = response.data.value.data;
+
+    console.log(job.value.accepted_proposals[0]);
   }
 
   loading.value = false;
-};
-
-const updateStatus = async (value: string) => {
-  loadingForm.value = true;
-  status.value = value;
-
-  const response = await updateJobStatus(route.params.id, value);
-
-  if (response.status.value === "success") {
-    router.push("/profile/jobs");
-  } else {
-    toast.error(response.error);
-  }
-
-  loadingForm.value = false;
 };
 
 onMounted(async () => {
@@ -90,7 +77,7 @@ onMounted(async () => {
           >
             Job Details
           </h2>
-          <ProposalsCard :job="job" />
+          <!-- <ProposalsCard :job="job.accepted_proposals[0]" /> -->
         </div>
       </div>
     </div>

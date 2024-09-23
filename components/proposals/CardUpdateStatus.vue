@@ -1,15 +1,51 @@
-<script setup>
-defineProps({
+<script setup lang="ts">
+const props = defineProps({
   proposal: {
     type: Object,
     required: true,
   },
+  status: {
+    type: String,
+    required: true,
+  },
 });
+
+const selectOptions = [
+  {
+    value: "ongoing",
+    label: "Ongoing",
+  },
+  {
+    value: "cancelled",
+    label: "Cancelled",
+  },
+  {
+    value: "completed",
+    label: "Completed",
+  },
+];
+
+const authStore = useAuthStore();
+const user = authStore.user;
+
+const selectedStatus: Ref<string | null> = ref(props.status ?? null);
+
+const emit = defineEmits(["submit"]);
+
+const statusColors = {
+  ongoing: 'bg-blue-100 text-blue-800',
+  cancelled: 'bg-red-100 text-red-800',
+  completed: 'bg-green-100 text-green-800',
+};
+
+function handleSubmit() {
+  emit("submit", selectedStatus.value);
+}
 </script>
 
 <template>
   <div
-    class="flex flex-col xl:flex-row bg-[--background-color] rounded-md xl:gap-4"
+    class="flex flex-col items-center xl:flex-row bg-[--background-color] rounded-md xl:gap-4"
   >
     <div class="flex gap-4 p-4 w-full xl:w-2/6">
       <NuxtLink :to="`/users/${proposal.user.uuid}`">
@@ -27,7 +63,7 @@ defineProps({
         </div>
       </NuxtLink>
 
-      <div class="flex flex-col">
+      <div class="flex flex-col justify-center">
         <NuxtLink
           :to="`/users/${proposal.user.uuid}`"
           class="text-[--text-color]"
@@ -48,15 +84,29 @@ defineProps({
     </div>
 
     <div
-      class="flex flex-col border-t xl:border-t-0 sm:flex-row xl:mt-12 xl:items-end xl:justify-end w-full xl:w-4/6"
+      class="flex flex-col border-t xl:border-t-0 sm:flex-row xl:items-end xl:justify-end w-full xl:w-4/6"
     >
       <div class="p-4 flex sm:justify-end items-center xl:p-6 w-full sm:w-2/4">
-        <NuxtLink
-          :to="`/profile/proposals/${proposal.id}`"
-          class="primary-button-sm h-fit sm:w-fit"
-        >
-          View Details
-        </NuxtLink>
+        <FormElementsSelectSubmit
+          v-model="selectedStatus"
+          :selectOptions="selectOptions"
+          :errorMessages="[]"
+          wrapperClass="absolute w-full flex flex-col bg-white rounded-b-md top-10 lg:top-12 max-h-0 overflow-hidden transition-all duration-300 shadow-xl"
+          optionClass="p-3 text-sm"
+          selectClass="p-3 text-sm rounded-l border-r-0 flex-2 min-w-[130px]"
+          buttonClass="p-3 flex items-center justify-center bg-[--primary-color] text-white rounded-r text-2xl min-w-[45px]"
+          @submit="handleSubmit"
+          v-if="user.role === 'employer'"
+        />
+
+        <div v-else class="flex items-center">
+          <span
+            class="px-3 py-1 rounded-full text-sm font-medium capitalize"
+            :class="statusColors[status] || 'bg-gray-100 text-gray-800'"
+          >
+            {{ status }}
+          </span>
+        </div>
       </div>
 
       <div

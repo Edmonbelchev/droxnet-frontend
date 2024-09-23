@@ -22,6 +22,28 @@ const profileMenu = [
     route: "/profile",
   },
   {
+    text: "All Jobs",
+    route: "/profile/jobs",
+    dropdownElements: [
+      {
+        text: "Completed Jobs",
+        route: "/profile/jobs?status=completed",
+      },
+      {
+        text: "Cancelled Jobs",
+        route: "/profile/jobs?status=cancelled",
+      },
+      {
+        text: "Ongoing Jobs",
+        route: "/profile/jobs?status=ongoing",
+      },
+    ],
+  },
+  {
+    text: "Manage Jobs",
+    route: "/profile/manage-jobs",
+  },
+  {
     text: "Settings",
     route: "/account-settings",
   },

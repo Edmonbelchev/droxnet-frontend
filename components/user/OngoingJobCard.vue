@@ -5,6 +5,9 @@ defineProps({
     required: true,
   },
 });
+
+const authStore = useAuthStore();
+const user = authStore.user;
 </script>
 
 <template>
@@ -21,7 +24,7 @@ defineProps({
         {{ job.title }}
       </h4>
 
-      <div class="flex flex-wrap mb-8 xl:mb-16">
+      <div class="flex flex-wrap mb-8">
         <span
           class="text-[13px] text-[--text-color] border-gray-300 pr-3 flex items-center gap-1"
           v-if="job.budget_type"
@@ -72,7 +75,7 @@ defineProps({
     >
       <span class="font-bold text-xl text-[--green-color] mb-2 px-4">Hired</span>
 
-      <span class="mb-2 px-4">
+      <span class="mb-2 px-4" v-if="user.role === 'employer'">
         {{ job.accepted_proposals[0].user.first_name }}
         {{ job.accepted_proposals[0].user.last_name }}
       </span>
@@ -87,10 +90,22 @@ defineProps({
 
         <div
           class="border-[3px] border-white bg-white rounded-full w-8 h-8 overflow-hidden"
+          v-if="user.role === 'employer'"
         >
           <img
             :src="job.accepted_proposals[0].user.profile_image"
             :alt="job.accepted_proposals[0].user.first_name"
+            class="rounded-full w-8 h-8 object-cover"
+          />
+        </div>
+
+        <div
+          class="border-[3px] border-white bg-white rounded-full w-8 h-8 overflow-hidden"
+          v-else-if="user.role  === 'freelancer'"
+        >
+          <img
+            :src="user.profile_image"
+            :alt="user.first_name"
             class="rounded-full w-8 h-8 object-cover"
           />
         </div>

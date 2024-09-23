@@ -1,10 +1,82 @@
-<script setup>
-defineProps({
+<script setup lang="ts">
+const props = defineProps({
   job: {
     type: Object,
     required: true,
   },
+  jobs: {
+    type: Array,
+    required: true,
+  },
 });
+
+const emit = defineEmits(["update:jobs"]);
+
+const authStore = useAuthStore();
+const user = authStore.user;
+
+const toast: any = useNuxtApp().$toast;
+const loading: Ref<boolean> = ref(false);
+const loadingRepost: Ref<boolean> = ref(false);
+
+const isModalOpen = ref(false);
+
+const openModal = () => {
+  isModalOpen.value = true;
+};
+
+const closeModal = () => {
+  isModalOpen.value = false;
+};
+
+const deleteJob = async () => {
+  loading.value = true;
+
+  try {
+    const response = await destroyJob(props.job.id);
+    if (response.status.value === "success") {
+      toast.success("Job deleted successfully");
+
+      // Remove the deleted job from the jobs array
+      const updatedJobs = props.jobs.filter((j: any) => j.id !== props.job.id);
+
+      // Emit the updated jobs array to the parent component
+      emit("update:jobs", updatedJobs);
+    } else {
+      toast.error("Failed to delete job");
+    }
+  } catch (error) {
+    console.error("Error deleting job:", error);
+    toast.error("An error occurred while deleting the job");
+  }
+
+  loading.value = false;
+};
+
+const repostJob = async () => {
+  loadingRepost.value = true;
+
+  try {
+    const response = await updateJobStatus(props.job.id, "proposal");
+
+    if (response.status.value === "success") {
+      toast.success("Job reposted successfully");
+
+      // Remove the deleted job from the jobs array
+      const updatedJobs = props.jobs.filter((j: any) => j.id !== props.job.id);
+
+      // Emit the updated jobs array to the parent component
+      emit("update:jobs", updatedJobs);
+    } else {
+      toast.error("Failed to repost job");
+    }
+  } catch (error) {
+    console.error("Error reposting job:", error);
+    toast.error("An error occurred while reposting the job");
+  }
+
+  loadingRepost.value = false;
+};
 </script>
 
 <template>
@@ -66,11 +138,42 @@ defineProps({
 
     <div
       class="flex gap-4 items-center justify-center py-4 md:py-0 w-full md:w-1/4"
+      v-if="user.role === 'employer'"
     >
-      <button type="button" class="primary-button-sm">Repost</button>
-      <button type="button" class="font-bold uppercase p-3 text-gray-500/80">
+      <button
+        type="button"
+        class="primary-button-sm flex items-center justify-center"
+        @click="repostJob"
+      >
+        <Loader width="12" height="12" class="mr-2" v-if="loadingRepost" />
+        Repost
+      </button>
+      <button
+        type="button"
+        class="font-bold uppercase p-3 text-gray-500/80"
+        @click="openModal"
+      >
         Delete
       </button>
     </div>
+
+    <div
+      class="flex gap-4 items-center justify-center py-4 md:py-0 w-full md:w-1/4"
+      v-if="user.role === 'freelancer'"
+    >
+      <NuxtLink
+        :to="`/profile/jobs/${job.id}`"
+        class="primary-button-sm flex items-center justify-center"
+        >View Job</NuxtLink
+      >
+    </div>
   </div>
+
+  <Modal
+    :is-open="isModalOpen"
+    message="Are you sure you want to delete this job? This action cannot be undone."
+    @close="closeModal"
+    @submit="deleteJob"
+    :loading="loading"
+  />
 </template>

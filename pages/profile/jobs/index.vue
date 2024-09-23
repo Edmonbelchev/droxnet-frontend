@@ -33,6 +33,28 @@ watch([page, perPage], async () => {
   await retrieveUserJobs();
 });
 
+/* Watch for status changes in the URL */
+watch(
+  () => route.query.status,
+  (newStatus: any) => {
+    if (newStatus) {
+      status.value = newStatus as string;
+    } else {
+      status.value = "";
+    }
+  },
+  { immediate: true }
+);
+
+/* Watch for status changes and retrieve jobs */
+watch(
+  () => status.value,
+  async () => {
+    page.value = 1; // Reset page to 1 when status changes
+    await retrieveUserJobs();
+  }
+);
+
 onMounted(async () => {
   await retrieveUserJobs();
   firstComponentLoad.value = false;
@@ -56,7 +78,7 @@ onMounted(async () => {
         v-else
       >
         <div
-          class="flex flex-col order-2 md:order-1 w-full md:w-[1014px] shadow-lg bg-white rounded-md"
+          class="flex flex-col order-2 md:order-1 w-full md:w-[1200px] shadow-lg bg-white rounded-md"
         >
           <div class="flex flex-col rounded-md w-full">
             <h2
@@ -90,11 +112,11 @@ onMounted(async () => {
 
             <div class="flex flex-col gap-4 px-4 mb-4 relative">
               <div
-                class="flex flex-col gap-2 absolute inset-0 w-full h-full justify-center items-center z-10 cursor-wait"
+                class="text-gray-500 p-4 absolute inset-0 w-full h-full m-auto bg-white/50 z-10 flex items-center justify-center gap-2 rounded-md animate-[fadeIn_300ms_ease-in_forwards]"
                 v-if="loading"
               >
                 <span
-                  class="absolute inset-0 bg-white opacity-50 pointer-events-none z-0"
+                  class="absolute inset-0 bg-white opacity-70 pointer-events-none z-0"
                 ></span>
                 <div class="flex flex-col z-10">
                   <Loader width="60" height="60" strokeWidth="7px" />
@@ -129,7 +151,7 @@ onMounted(async () => {
                 </p>
               </div>
 
-              <div v-if="status === 'completed'">
+              <div class="flex flex-col gap-4" v-if="status === 'completed'">
                 <UserCompletedJobCard
                   :job="job"
                   :key="index"
@@ -137,7 +159,7 @@ onMounted(async () => {
                 />
               </div>
 
-              <div v-else-if="status === 'ongoing'">
+              <div class="flex flex-col gap-4" v-else-if="status === 'ongoing'">
                 <UserOngoingJobCard
                   :job="job"
                   :key="index"
@@ -145,8 +167,23 @@ onMounted(async () => {
                 />
               </div>
 
-              <div v-else-if="status === 'cancelled'">
+              <div
+                class="flex flex-col gap-4"
+                v-else-if="status === 'cancelled'"
+              >
                 <UserCancelledJobCard
+                  :job="job"
+                  :key="index"
+                  v-for="(job, index) in jobs"
+                  v-model:jobs="jobs"
+                />
+              </div>
+
+              <div
+                class="flex flex-col gap-4"
+                v-else
+              >
+                <UserJobCard
                   :job="job"
                   :key="index"
                   v-for="(job, index) in jobs"

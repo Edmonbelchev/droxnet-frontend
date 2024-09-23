@@ -13,7 +13,7 @@ defineProps({
       <li
         v-for="(item, index) in breadcrumbs"
         :key="index"
-        class="flex items-center text-white text-lg"
+        class="flex items-center text-white md:text-lg"
       >
         <NuxtLink
           :to="item.path"

@@ -8,8 +8,8 @@ const fetchJobs = async (
     page: page,
   };
 
-   // Iterate over body keys and add them to params, handling arrays properly
-   for (let key in body) {
+  // Iterate over body keys and add them to params, handling arrays properly
+  for (let key in body) {
     if (Array.isArray(body[key]) && body[key].length > 0) {
       body[key].forEach((value: any, index: number) => {
         params[`${key}[${index}]`] = value; // Format array parameters properly
@@ -55,7 +55,7 @@ const fetchUserJobs = async (
   });
 
   return { data, status, error };
-}
+};
 
 const createJob = async (form: any) => {
   const toast: any = useNuxtApp().$toast;
@@ -63,7 +63,7 @@ const createJob = async (form: any) => {
 
   // Iterate over the form and check if there are files to upload
   for (let [key, value] of Object.entries(form)) {
-    if (key === 'files' && value.length > 0) {
+    if (key === "files" && value.length > 0) {
       // Reset the filesForUpload array
       filesForUpload = value.filter((file: File) => file instanceof File);
 
@@ -71,14 +71,9 @@ const createJob = async (form: any) => {
       if (filesForUpload.length > 0) {
         // Add a toast to show that file is uploading
         setTimeout(() => {
-          toast.loading(
-            `Uploading files 0/${
-              filesForUpload.length
-            }`,
-            {
-              toastId: `${key}_jobFileUpload`,
-            }
-          );
+          toast.loading(`Uploading files 0/${filesForUpload.length}`, {
+            toastId: `${key}_jobFileUpload`,
+          });
         }, 100);
 
         for (let fileKey = 0; fileKey < filesForUpload.length; fileKey++) {
@@ -128,20 +123,20 @@ const createJob = async (form: any) => {
     body: form,
   });
 
-  if (status._value == "error") {  
+  if (status._value == "error") {
     error = error._object[error._key].data.message;
   }
 
   return { data, status, error };
 };
 
-const updateJob = async (form:any, id: number) => {
+const updateJob = async (form: any, id: number) => {
   const toast: any = useNuxtApp().$toast;
   let filesForUpload: any = [];
 
   // Iterate over the form and check if there are files to upload
   for (let [key, value] of Object.entries(form)) {
-    if (key === 'files' && value.length > 0) {
+    if (key === "files" && value.length > 0) {
       // Reset the filesForUpload array
       filesForUpload = value.filter((file: File) => file instanceof File);
 
@@ -149,14 +144,9 @@ const updateJob = async (form:any, id: number) => {
       if (filesForUpload.length > 0) {
         // Add a toast to show that file is uploading
         setTimeout(() => {
-          toast.loading(
-            `Uploading files 0/${
-              filesForUpload.length
-            }`,
-            {
-              toastId: `${key}_jobFileUpload`,
-            }
-          );
+          toast.loading(`Uploading files 0/${filesForUpload.length}`, {
+            toastId: `${key}_jobFileUpload`,
+          });
         }, 100);
 
         for (let fileKey = 0; fileKey < filesForUpload.length; fileKey++) {
@@ -206,14 +196,14 @@ const updateJob = async (form:any, id: number) => {
     body: form,
   });
 
-  if (status._value == "error") {  
+  if (status._value == "error") {
     error = error._object[error._key].data.message;
   }
 
   return { data, status, error };
 };
 
-const deleteJob = async (id: number) => {
+const destroyJob = async (id: number) => {
   let { data, status, error }: any = await dataFetch(`/jobs/${id}`, {
     method: "DELETE",
   });
@@ -224,11 +214,38 @@ const deleteJob = async (id: number) => {
 const jobCounter = async (value: string) => {
   let { data, status, error }: any = await dataFetch("/jobs/counter", {
     params: {
-      status: value
-    }
+      status: value,
+    },
   });
 
   return { data, status, error };
-}
+};
 
-export { fetchJobs, fetchJob, fetchUserJobs, createJob, updateJob, deleteJob, jobCounter };
+const updateJobStatus = async (id: number, value: string) => {
+  let { data, status, error }: any = await dataFetch(
+    `/jobs/${id}/update-status`,
+    {
+      method: "PATCH",
+      body: {
+        status: value,
+      },
+    }
+  );
+
+  if (status._value == "error") {
+    error = error._object[error._key].data.message;
+  }
+
+  return { data, status, error };
+};
+
+export {
+  fetchJobs,
+  fetchJob,
+  fetchUserJobs,
+  createJob,
+  updateJob,
+  destroyJob,
+  jobCounter,
+  updateJobStatus,
+};

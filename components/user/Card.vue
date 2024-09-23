@@ -1,8 +1,40 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   user: Array<Object>;
   loading: Boolean;
 }>();
+
+const toast = useNuxtApp().$toast;
+const saveLoading = ref(false);
+const authStore = useAuthStore();
+
+const save = async () => {
+  saveLoading.value = true;
+
+  const response = await saveItem("user", props.user.id);
+
+  if (response.status.value === "success") {
+    toast.success("User saved");
+
+    props.user.saved_item = response.data.value.data.saved_item;
+  }
+
+  saveLoading.value = false;
+};
+
+const unsave = async () => {
+  saveLoading.value = true;
+
+  const response = await unsaveItem(props.user.saved_item.id);
+
+  if (response.status.value === "success") {
+    toast.success("User unsaved");
+
+    props.user.saved_item = null;
+  }
+
+  saveLoading.value = false;
+};
 </script>
 
 <template>
@@ -25,11 +57,16 @@ defineProps<{
       </NuxtLink>
 
       <div class="flex flex-col">
-        <NuxtLink :to="`/users/${user.uuid}`" class="text-sm text-[--text-color]">
+        <NuxtLink
+          :to="`/users/${user.uuid}`"
+          class="text-sm text-[--text-color]"
+        >
           {{ user.first_name }} {{ user.last_name }}
         </NuxtLink>
 
-        <h2 class="text-base text-[--text-color] mb-2" v-if="user.tagline">{{ user.tagline }}</h2>
+        <h2 class="text-base text-[--text-color] mb-2" v-if="user.tagline">
+          {{ user.tagline }}
+        </h2>
 
         <div
           class="flex justify-center mt-2 md:justify-start sm:flex gap-2 text-base"
@@ -52,14 +89,31 @@ defineProps<{
             {{ user.country }}
           </span>
 
-          <button
-            type="button"
-            class="flex items-center gap-1 text-red-400 text-xs"
-          >
-            <Icon name="mdi:heart" class="text-sm" />
+          <div v-if="authStore.user.id !== user.id">
+            <button
+              type="button"
+              class="flex items-center gap-1 text-red-400 text-xs"
+              @click="unsave()"
+              v-if="user.saved_item"
+            >
+              <Icon name="ph:heart-fill" class="text-sm" />
 
-            Save
-          </button>
+              <span v-if="saveLoading">Unsaving...</span>
+              <span v-else>Unsave</span>
+            </button>
+
+            <button
+              type="button"
+              class="flex items-center gap-1 text-red-400 text-xs"
+              @click="save()"
+              v-else
+            >
+              <Icon name="ph:heart" class="text-sm" />
+
+              <span v-if="saveLoading">Saving...</span>
+              <span v-else>Save</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -75,7 +129,10 @@ defineProps<{
           <span class="text-lg text-[--text-color]">4.5/</span>
           <span class="text-md text-[--gray-color] pt-2">5</span>
         </div>
-        <NuxtLink :to="`/users/${user.uuid}`" class="text-xs text-[--blue-color]">
+        <NuxtLink
+          :to="`/users/${user.uuid}`"
+          class="text-xs text-[--blue-color]"
+        >
           (860 Feedback)
         </NuxtLink>
       </div>

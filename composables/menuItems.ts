@@ -23,6 +23,7 @@ const profileSidebarMenuItems = () => {
     {
       title: "All Jobs",
       icon: "fa-solid:box",
+      url: "/profile/jobs",
       dropdown: [
         {
           title: "Completed Jobs",

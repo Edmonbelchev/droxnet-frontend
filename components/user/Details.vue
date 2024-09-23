@@ -1,14 +1,41 @@
 <script setup>
-defineProps({
+const props = defineProps({
   user: {
     type: Object,
     required: true,
   },
 });
 
-const showMoreDescription = ref(false);
-const toggleDescription = () => {
-  showMoreDescription.value = !showMoreDescription.value;
+const toast = useNuxtApp().$toast;
+const saveLoading = ref(false);
+const authStore = useAuthStore();
+
+const save = async () => {
+  saveLoading.value = true;
+
+  const response = await saveItem("user", props.user.id);
+
+  if (response.status.value === "success") {
+    toast.success("User saved");
+
+    props.user.saved_item = response.data.value.data.saved_item;
+  }
+
+  saveLoading.value = false;
+};
+
+const unsave = async () => {
+  saveLoading.value = true;
+
+  const response = await unsaveItem(props.user.saved_item.id);
+
+  if (response.status.value === "success") {
+    toast.success("User unsaved");
+
+    props.user.saved_item = null;
+  }
+
+  saveLoading.value = false;
 };
 </script>
 
@@ -50,9 +77,7 @@ const toggleDescription = () => {
         </div>
 
         <div class="text-center flex flex-col">
-          <h3
-            class="text-lg text-[--text-color] mb-2"
-          >
+          <h3 class="text-lg text-[--text-color] mb-2">
             <Icon name="lets-icons:check-fill" class="text-xl text-green-400" />
             {{ user.first_name }} {{ user.last_name }}
           </h3>
@@ -107,14 +132,31 @@ const toggleDescription = () => {
             {{ user.country }}
           </span>
 
-          <button
-            type="button"
-            class="flex items-center gap-1 text-red-400 text-sm"
-          >
-            <Icon name="mdi:heart" class="text-xl" />
+          <div v-if="authStore.user.id !== user.id">
+            <button
+              type="button"
+              class="flex items-center gap-1 text-red-400 text-sm"
+              @click="unsave()"
+              v-if="user.saved_item"
+            >
+              <Icon name="ph:heart-fill" class="text-xl" />
 
-            Save
-          </button>
+              <span v-if="saveLoading">Unsaving...</span>
+              <span v-else>Unsave</span>
+            </button>
+
+            <button
+              type="button"
+              class="flex items-center gap-1 text-red-400 text-sm"
+              @click="save()"
+              v-else
+            >
+              <Icon name="ph:heart" class="text-xl" />
+
+              <span v-if="saveLoading">Saving...</span>
+              <span v-else>Save</span>
+            </button>
+          </div>
         </div>
 
         <div class="relative lg:text-base">
@@ -149,7 +191,14 @@ const toggleDescription = () => {
           </div>
         </div>
 
-        <a href="" class="primary-button">Send Offer</a>
+        <a
+          href=""
+          class="primary-button"
+          v-if="
+            authStore.user.id !== user.id && authStore.user.role === 'employer'
+          "
+          >Send Offer</a
+        >
       </div>
     </div>
   </div>

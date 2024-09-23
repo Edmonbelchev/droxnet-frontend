@@ -10,7 +10,7 @@ const authStore = useAuthStore();
   <NuxtLayout name="default">
     <div class="relative">
       <ProfileSidebarMenu :user="authStore.user" />
-      <ProposalsDetails />
+      <ProposalsDetails :user="authStore.user" />
     </div>
   </NuxtLayout>
 </template>

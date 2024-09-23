@@ -96,7 +96,7 @@ const signOut = async () => {
             <NuxtLink 
               to="/profile/post-job" 
               class="primary-button duration-300 animate-[fadeIn_300ms_ease-in_forwards]"
-              v-if="sideBarIsActive"
+              v-if="sideBarIsActive && user.role === 'employer'"
             >
               Post a Job
             </NuxtLink>

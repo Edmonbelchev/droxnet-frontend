@@ -1,4 +1,8 @@
 <script setup lang="ts">
+defineProps<{
+  user: User;
+}>();
+
 const route = useRoute();
 const router = useRouter();
 const toast: any = useNuxtApp().$toast;
@@ -167,7 +171,9 @@ onMounted(async () => {
               </p>
             </div>
 
-            <div class="border-b pb-4 mb-4 w-full">
+            <div
+              class="w-full border-b pb-4 mb-4"
+            >
               <h4 class="mb-2 text-xl text-[--text-color]">Attachments</h4>
 
               <div v-if="proposal.files.data.length === 0">No attachments</div>
@@ -206,42 +212,53 @@ onMounted(async () => {
               </div>
             </div>
 
-            <div
-              class="flex flex-wrap mt-auto gap-4"
-              v-if="proposal.status === 'pending'"
-            >
-              <button
-                class="p-3 bg-red-500 text-white rounded-md w-full sm:flex-1 order-2 sm:order-1 flex items-center justify-center gap-2 hover:bg-red-600 transition-colors duration-300"
-                :class="{ 'pointer-events-none opacity-50': loadingForm }"
-                type="button"
-                @click="updateStatus('rejected')"
+            <div v-if="user.role === 'employer'">
+              <div
+                class="flex flex-wrap mt-auto gap-4"
+                v-if="proposal.status === 'pending'"
               >
-                Reject
-                <Loader
-                  width="14"
-                  v-if="loadingForm && status === 'rejected'"
-                />
-              </button>
+                <button
+                  class="p-3 bg-red-500 text-white rounded-md w-full sm:flex-1 order-2 sm:order-1 flex items-center justify-center gap-2 hover:bg-red-600 transition-colors duration-300"
+                  :class="{ 'pointer-events-none opacity-50': loadingForm }"
+                  type="button"
+                  @click="updateStatus('rejected')"
+                >
+                  Reject
+                  <Loader
+                    width="14"
+                    v-if="loadingForm && status === 'rejected'"
+                  />
+                </button>
 
-              <button
-                class="p-3 bg-[--green-color] text-white rounded-md w-full sm:flex-1 order-1 sm:order-2 flex items-center justify-center gap-2 hover:bg-green-600 transition-colors duration-300"
-                :class="{ 'pointer-events-none opacity-50': loadingForm }"
-                type="button"
-                @click="updateStatus('accepted')"
-              >
-                Accept
-                <Loader
-                  width="14"
-                  v-if="loadingForm && status === 'accepted'"
-                />
-              </button>
+                <button
+                  class="p-3 bg-[--green-color] text-white rounded-md w-full sm:flex-1 order-1 sm:order-2 flex items-center justify-center gap-2 hover:bg-green-600 transition-colors duration-300"
+                  :class="{ 'pointer-events-none opacity-50': loadingForm }"
+                  type="button"
+                  @click="updateStatus('accepted')"
+                >
+                  Accept
+                  <Loader
+                    width="14"
+                    v-if="loadingForm && status === 'accepted'"
+                  />
+                </button>
+              </div>
+
+              <div v-else class="w-full">
+                <p class="text-[--text-color]">
+                  This proposal's status is: {{ proposal.status }}. No further
+                  actions are available.
+                </p>
+              </div>
             </div>
 
-            <div v-else class="w-full">
-              <p class="text-[--text-color]">
-                This proposal's status is: {{ proposal.status }}. No further
-                actions are available.
-              </p>
+            <div v-else-if="user.role === 'freelancer'">
+              <div class="w-full">
+                <p class="text-[--text-color]">
+                  This proposal's status is: {{ proposal.status }}. No further
+                  actions are available.
+                </p>
+              </div>
             </div>
           </div>
         </div>

@@ -7,6 +7,7 @@
 @layer base {
     :root {
         --primary-color: #ff5851;
+        --primary-color-dark: #e64d48;
         --secondary-color: #414489;
         --gray-color: #767676;
         --text-color: #323232;
@@ -43,6 +44,45 @@
     /* Firefox */
     input[type="number"] {
         appearance: textfield
+    }
+
+    /* Add custom scrollbar with blue color */
+    /* Webkit browsers (Chrome, Safari, newer versions of Opera) */
+    .blue-scrollbar::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .blue-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    .blue-scrollbar::-webkit-scrollbar-thumb {
+        background: var(--light-blue);
+        border-radius: 5px;
+    }
+
+    /* Firefox */
+    .blue-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: var(--light-blue) #f1f1f1;
+    }
+
+    /* Internet Explorer and Edge */
+    .blue-scrollbar {
+        -ms-overflow-style: none;
+    }
+
+    .blue-scrollbar::-ms-scrollbar {
+        width: 5px;
+    }
+
+    .blue-scrollbar::-ms-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    .blue-scrollbar::-ms-scrollbar-thumb {
+        background: var(--light-blue);
+        border-radius: 10px;
     }
 
     .ck.ck-content {

@@ -31,13 +31,21 @@ defineProps({
     type: String,
     required: true,
   },
+  labelClass: {
+    type: String,
+    default: "",
+  },
+  resizable: {
+    type: Boolean,
+    default: true,
+  },
 });
 </script>
 
 <template>
   <div class="flex flex-col gap-2 flex-1">
     <div class="relative">
-      <label :for="name" v-if="label">{{ label }}</label>
+      <label :for="name" v-if="label" :class="labelClass">{{ label }}</label>
 
       <textarea
         :name="name"
@@ -50,6 +58,7 @@ defineProps({
           inputClass,
           { 'border-red-500': error },
           { 'border-green-500': valid },
+          { 'resize-none': !resizable }
         ]"
       />
 

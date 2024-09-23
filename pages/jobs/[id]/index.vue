@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 definePageMeta({
   middleware: "auth",
   breadcrumb: "Job Detail",
@@ -6,9 +6,11 @@ definePageMeta({
 
 const route = useRoute();
 const user = useAuthStore().user;
+const toast = useNuxtApp().$toast;
 
 const job = ref();
 const loading = ref(true);
+const saveLoading = ref(false);
 
 const currentDate = new Date().toDateString();
 
@@ -20,6 +22,41 @@ const retrieveJob = async () => {
   }
 
   loading.value = false;
+};
+
+const applied = computed(() => {
+  if (!job.value || !job.value.proposals) return false;
+  return job.value.proposals.some(
+    (proposal: any) => proposal.user_uuid === user.uuid
+  );
+});
+
+const save = async () => {
+  saveLoading.value = true;
+
+  const response = await saveItem("job", job.value.id);
+
+  if (response.status.value === "success") {
+    toast.success("Job saved");
+
+    job.value.saved_item = response.data.value.data.saved_item;
+  }
+
+  saveLoading.value = false;
+};
+
+const unsave = async () => {
+  saveLoading.value = true;
+
+  const response = await unsaveItem(job.value.saved_item.id);
+
+  if (response.status.value === "success") {
+    toast.success("Job unsaved");
+
+    job.value.saved_item = null;
+  }
+
+  saveLoading.value = false;
 };
 
 onMounted(() => {
@@ -90,10 +127,25 @@ onMounted(() => {
               :to="`/jobs/${route.params.id}/proposal`"
               class="primary-button min-w-[210px] h-fit"
               type="button"
-              v-if="user.role === 'freelancer'"
+              v-if="user.role === 'freelancer' && !applied"
             >
               Send proposal
             </NuxtLink>
+
+            <div
+              v-else-if="user.role === 'freelancer' && applied"
+              class="bg-gray-50 rounded-md p-3 border border-gray-300 w-fit mt-auto"
+            >
+              <span class="text-[--text-color] flex items-center gap-1">
+                <Icon
+                  name="mdi:check-circle"
+                  class="text-[--green-color] text-lg"
+                />
+                <span class="font-medium text-xs sm:text-sm"
+                  >You have already applied for this job</span
+                >
+              </span>
+            </div>
 
             <NuxtLink
               :to="`/profile/post-job/${route.params.id}`"
@@ -121,7 +173,10 @@ onMounted(() => {
                   Skills Required
                 </h4>
 
-                <div class="flex flex-wrap gap-2">
+                <div
+                  class="flex flex-wrap gap-2"
+                  v-if="job.skills.length !== 0"
+                >
                   <span
                     class="border text-[--text-color] px-4 py-2 rounded-full"
                     v-for="(skill, index) in job.skills"
@@ -130,6 +185,10 @@ onMounted(() => {
                     {{ skill.name }}
                   </span>
                 </div>
+
+                <span class="text-[--text-color]" v-else>
+                  No skills required
+                </span>
               </div>
 
               <div class="rounded-lg" v-if="job.files && job.files.length > 0">
@@ -179,9 +238,23 @@ onMounted(() => {
                   <button
                     type="button"
                     class="px-8 py-3 border rounded-md border-[--primary-color] font-bold hover:text-[--primary-color] duration-300 flex items-center justify-center gap-2"
+                    @click="unsave()"
+                    v-if="job.saved_item"
+                  >
+                    <Icon name="ph:heart-fill" class="text-lg text-red-400" />
+                    <span v-if="saveLoading">Removing...</span>
+                    <span v-else>Saved</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    class="px-8 py-3 border rounded-md border-[--primary-color] font-bold hover:text-[--primary-color] duration-300 flex items-center justify-center gap-2"
+                    @click="save()"
+                    v-else
                   >
                     <Icon name="ph:heart" class="text-lg" />
-                    Click to save
+                    <span v-if="saveLoading">Saving...</span>
+                    <span v-else>Click to save</span>
                   </button>
                 </div>
               </div>
@@ -192,7 +265,15 @@ onMounted(() => {
                     :src="job.user.profile_banner"
                     class="w-full h-full object-cover"
                     alt="Profile Banner"
+                    v-if="job.user.profile_banner"
                   />
+
+                  <div
+                    class="rounded flex justify-center items-center border bg-gray-200 p-4 w-full md:w-[350px] h-[170px]"
+                    v-else
+                  >
+                    <Icon name="ic:round-wallpaper" class="text-[50px]" />
+                  </div>
                 </div>
 
                 <div
@@ -235,12 +316,12 @@ onMounted(() => {
                       Open Jobs
                     </button>
 
-                    <button
-                      type="button"
+                    <NuxtLink 
+                      :to="`/companies/${job.user.uuid}`"
                       class="text-md pr-3 mr-3 border-r text-[--light-blue]"
                     >
                       Full Profile
-                    </button>
+                    </NuxtLink>
 
                     <button
                       type="button"
@@ -250,6 +331,17 @@ onMounted(() => {
                     </button>
                   </div>
                 </div>
+              </div>
+
+              <div class="flex flex-col bg-white p-6 rounded-md">
+                <h4 class="border-b mb-6 pb-4 text-xl text-[--text-color]">
+                  Report This Job
+                </h4>
+                <ReportForm
+                  reportable_type="job"
+                  :reportable_id="job.id"
+                  :reported="job.is_reported"
+                />
               </div>
             </div>
           </div>

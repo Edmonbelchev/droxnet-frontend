@@ -1,10 +1,12 @@
-<script setup>
+<script setup lang="ts">
 defineProps({
   user: {
     type: Object,
     required: true,
   },
 });
+
+const authStore: any = useAuthStore();
 </script>
 
 <template>
@@ -107,6 +109,18 @@ defineProps({
           <div class="flex" v-else>
             <p class="text-[--text-color]">No awards found.</p>
           </div>
+        </div>
+
+        <div class="flex flex-col bg-white p-6 rounded-md" v-if="user.id != authStore.user.id">
+          <h4 class="border-b mb-6 pb-4 text-xl text-[--text-color]">
+            Report This User
+          </h4>
+
+          <ReportForm
+            reportable_type="user"
+            :reportable_id="user.id"
+            :reported="user.is_reported"
+          />
         </div>
       </div>
     </div>

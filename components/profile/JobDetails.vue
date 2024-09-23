@@ -77,7 +77,7 @@ onMounted(async () => {
           >
             Job Details
           </h2>
-          <!-- <ProposalsCard :job="job.accepted_proposals[0]" /> -->
+          <ProposalsCard :proposal="job.accepted_proposals[0]" />
         </div>
       </div>
     </div>

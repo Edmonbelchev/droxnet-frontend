@@ -152,7 +152,7 @@ const unsave = async () => {
       </div>
 
       <div class="mt-auto pt-4">
-        <NuxtLink :to="`jobs/${job.id}`" class="primary-button-sm w-full">
+        <NuxtLink :to="`/jobs/${job.id}`" class="primary-button-sm w-full">
           View Job
         </NuxtLink>
       </div>

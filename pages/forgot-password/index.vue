@@ -22,8 +22,6 @@ const resetPassword = async () => {
   
     // Call the reset password action (you'll need to implement this in your auth store)
     const response = await authStore.forgotPassword(form.value.email)
-
-    console.log(response)
   
     if (response.status.value != "error") {
       // Show success message

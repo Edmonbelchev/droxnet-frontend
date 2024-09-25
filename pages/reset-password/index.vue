@@ -58,7 +58,6 @@ const v$ = useVuelidate(rules, form);
 
 <template>
   <NuxtLayout name="default">
-    {{ form }}
     <div class="bg-[--background-color] py-10 px-4 md:px-10 md:py-20 flex justify-center">
       <form
         class="flex flex-col p-8 lg:p-10 gap-4 max-w-[500px] w-full bg-white rounded-md"

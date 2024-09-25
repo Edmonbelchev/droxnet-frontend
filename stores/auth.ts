@@ -62,8 +62,8 @@ export const useAuthStore = defineStore("auth", {
       return { user, status };
     },
 
-    async resetPassword(email: string) {
-      const { data: success, error } = await dataFetch(
+    async forgotPassword(email: string) {
+      const { data, status, error } = await dataFetch(
         "/forgot-password",
         {
           method: "post",
@@ -75,11 +75,11 @@ export const useAuthStore = defineStore("auth", {
         useRuntimeConfig().public.publicUrl
       );
 
-      return { success, error };
+      return { data, status, error };
     },
 
-    async newPassword(params: any) {
-      const { data: success, error } = await dataFetch(
+    async resetPassword(params: any) {
+      const { data, status, error } = await dataFetch(
         useRuntimeConfig().public.apiUrl + "/reset-password",
         {
           method: "post",
@@ -88,7 +88,7 @@ export const useAuthStore = defineStore("auth", {
         useRuntimeConfig().public.publicUrl
       );
 
-      return { success, error };
+      return { data, status, error };
     },
 
     async signUp(params: any) {

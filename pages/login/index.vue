@@ -107,7 +107,7 @@ const v$ = useVuelidate(rules, form);
             </div>
             <span v-else>Login</span>
           </button>
-          <NuxtLink to="/" class="text-blue-400 ml-auto">Forgot Password?</NuxtLink>
+          <NuxtLink to="/forgot-password" class="text-blue-400 ml-auto">Forgot Password?</NuxtLink>
         </div>
       </form>
     </div>

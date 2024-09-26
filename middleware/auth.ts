@@ -18,11 +18,11 @@ export default defineNuxtRouteMiddleware(async (to) => {
       return navigateTo("/");
     }
   } else {
-    if (to?.path == "/email-verification") {
-      return navigateTo("/register");
-    }
-
-    if (to?.path !== "/login" && to?.path !== "/register" && to?.path !== "/") {
+    // Allow access to users, companies, and jobs pages (including subpages) for unauthenticated users
+    const allowedPaths = ["/login", "/register", "/"];
+    const allowedPrefixes = ["/users", "/companies", "/jobs"];
+    
+    if (!allowedPaths.includes(to?.path) && !allowedPrefixes.some(prefix => to?.path.startsWith(prefix))) {
       return navigateTo("/");
     }
   }

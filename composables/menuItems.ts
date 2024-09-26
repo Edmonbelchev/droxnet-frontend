@@ -51,6 +51,7 @@ const profileSidebarMenuItems = () => {
     {
       title: "My Saved Items",
       icon: "fa-solid:heart",
+      url: "/profile/saved-items",
     },
     {
       title: "Invoices",

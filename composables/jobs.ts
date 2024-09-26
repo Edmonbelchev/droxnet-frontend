@@ -212,7 +212,7 @@ const destroyJob = async (id: number) => {
 };
 
 const jobCounter = async (value: string) => {
-  let { data, status, error }: any = await dataFetch("/jobs/counter", {
+  let { data, status, error }: any = await dataFetch("/jobs-counter", {
     params: {
       status: value,
     },

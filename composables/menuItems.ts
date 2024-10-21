@@ -47,6 +47,7 @@ const profileSidebarMenuItems = () => {
     {
       title: "Messages",
       icon: "fa-solid:envelope",
+      url: "/profile/messages",
     },
     {
       title: "My Saved Items",

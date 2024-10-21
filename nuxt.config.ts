@@ -15,6 +15,10 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiUrl: process.env.API_URL,
+      pusher: {
+        appKey: process.env.PUSHER_APP_KEY,
+        cluster: process.env.PUSHER_APP_CLUSTER,
+      },
     },
   },
 

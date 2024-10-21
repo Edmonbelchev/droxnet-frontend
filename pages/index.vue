@@ -60,8 +60,7 @@ const categories = [
             "Consectetur adipisicing elitaed eiusmod tempor incididuatna labore et dolore magna.",
         route: "/",
     },
-];  
-
+];
 </script>
 
 <template>

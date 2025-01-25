@@ -15,7 +15,7 @@ const authStore: any = useAuthStore();
 
 <template>
   <div
-    class="flex flex-col lg:hidden fixed top-0 h-full w-3/4 bg-white pt-4 b-8 z-50 border-r transition-all ease-in-out duration-500"
+    class="flex flex-col lg:hidden fixed top-0 h-full w-3/4 bg-white pt-4 b-8 border-r transition-all ease-in-out duration-500 z-40"
     :class="{ 'left-0': showNavMenu, '-left-[100%]': !showNavMenu }"
   >
     <div class="px-4 pb-4 border-b border-gray-200 flex justify-between">

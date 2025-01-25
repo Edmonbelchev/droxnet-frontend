@@ -18,6 +18,7 @@ const props = defineProps({
   },
 });
 
+const router = useRouter();
 const toast: any = useNuxtApp().$toast;
 
 const form: Ref<Object | any> = ref({
@@ -124,6 +125,8 @@ const submit = async () => {
       toast.success(
         props.job ? "Job updated successfully" : "Job created successfully"
       );
+
+      router.push(`/jobs/${response.data.value.data.id}`);
     } else {
       toast.error(response.error, {
         autoClose: false,

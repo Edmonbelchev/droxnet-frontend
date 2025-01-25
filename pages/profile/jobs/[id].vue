@@ -44,7 +44,7 @@ const handleUpdateStatus = async () => {
   if (response.status.value === "success") {
     toast.success("Job status updated successfully");
   } else {
-    toast.error("Failed to update job status");
+    toast.error(response.error);
   }
   isModalOpen.value = false; // Close the modal after submission
   loadingUpdateStatus.value = false;

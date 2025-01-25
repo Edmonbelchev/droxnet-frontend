@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+
 defineProps({
   user: {
     type: Object,
@@ -19,6 +21,18 @@ const toggleDropdown = (index: number) => {
 const signOut = async () => {
   const authStore: any = useAuthStore();
   await authStore.signOut();
+};
+
+const router = useRouter();
+
+const navigateAndCloseSidebar = (url: string) => {
+  // On mobile, close the sidebar when navigating
+  if (window.innerWidth < 768) {
+    sideBarIsActive.value = false;
+  }
+  
+  // Use programmatic navigation
+  router.push(url);
 };
 </script>
 
@@ -133,10 +147,14 @@ const signOut = async () => {
                 :to="item.url"
                 class="flex gap-4 items-center text-sm cursor-pointer"
                 :class="{ 'pr-6': sideBarIsActive }"
+                @click.native.prevent="navigateAndCloseSidebar(item.url)"
                 v-else
               >
                 <Icon :name="item.icon" v-if="item.icon" />
-                <span class="animate-[fadeIn_300ms_ease-in_forwards]" v-if="sideBarIsActive">
+                <span 
+                  class="animate-[fadeIn_300ms_ease-in_forwards]" 
+                  v-if="sideBarIsActive"
+                >
                   {{ item.title }}
                 </span>
               </NuxtLink>
@@ -168,9 +186,12 @@ const signOut = async () => {
                       class="absolute left-0 top-0 bottom-0 my-auto w-4 border-dashed border-gray-400"
                     />
 
-                    <a :href="dropdownItem.url" class="py-2 pl-2 text-xs flex-1">
+                    <NuxtLink 
+                      @click.native.prevent="navigateAndCloseSidebar(dropdownItem.url)"
+                      class="py-2 pl-2 text-xs flex-1 cursor-pointer"
+                    >
                       {{ dropdownItem.title }}
-                    </a>
+                    </NuxtLink>
                   </li>
                 </ul>
               </div>

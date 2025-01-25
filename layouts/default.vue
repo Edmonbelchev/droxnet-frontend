@@ -5,7 +5,7 @@ definePageMeta({
 </script>
 
 <template>
-    <header class="relative z-10" ref="header">
+    <header class="relative z-[60] border-b border-[#eee]" ref="header">
         <NavigationNavbar />
     </header>
     <slot />

@@ -15,12 +15,16 @@ const props = defineProps<{
             profile_image: string;
         };
     }>
-    isLoading: boolean
     user: any
+    isLoading: boolean
+    isLoadingSearch: boolean
 }>();
+
+const emit = defineEmits(['search'])
 
 const messages = inject('messages')
 const initializePusher = inject('initializePusher')
+const search = ref('')
 
 const messagesPerPage = 10
 const messagesPage = ref(1)
@@ -84,8 +88,14 @@ const send = async (message: string) => {
   }
 }
 
-const getOtherUser = (conversation) => {
-  return props.user.role === 'employer' ? conversation.freelancer : conversation.employer;
+const getOtherUser = (conversationID: number | string) => {
+  const conversationUser = Object.values(props.conversations).find((c: any) => c.id === conversationID)
+
+  return props.user.role === 'employer' ? conversationUser?.freelancer : conversationUser?.employer;
+}
+
+const submitSearch = () => {
+  emit('search', search.value)
 }
 
 watch(selectedConversation, (newVal) => {
@@ -106,8 +116,8 @@ watch(selectedConversation, (newVal) => {
       </h2>
     </div>
 
-    <div class="flex w-full">
-      <div class="flex flex-col bg-white border-r w-1/4">
+    <div class="flex flex-col md:flex-row w-full relative min-h-[900px] md:min-h-0">
+      <div class="flex flex-col bg-white border-r md:w-1/4">
         <div class="p-4 border-b">
           <div class="flex">
             <input
@@ -121,11 +131,11 @@ watch(selectedConversation, (newVal) => {
               type="button"
               class="p-2 border-[--primary-color] rounded-r w-[50px] flex items-center justify-center bg-[--primary-color]"
               :class="
-                loadingSearch
+                isLoadingSearch
                   ? 'cursor-not-allowed opacity-50'
                   : 'cursor-pointer'
               "
-              @click="search"
+              @click="submitSearch"
             >
               <Icon
                 name="simple-line-icons:magnifier"
@@ -135,7 +145,7 @@ watch(selectedConversation, (newVal) => {
           </div>
         </div>
 
-        <div class="flex flex-col overflow-y-auto max-h-[500px]" v-if="isLoading">
+        <div class="flex flex-col overflow-y-auto max-h-[300px] md:max-h-[500px]" v-if="isLoading">
           <div v-for="i in 10" :key="i" class="bg-gray-200 p-4 border-b flex items-center gap-3">
             <Skeleton className="w-10 h-10 rounded-full" />
 
@@ -146,7 +156,9 @@ watch(selectedConversation, (newVal) => {
           </div>
         </div>
 
-        <div class="flex flex-col overflow-y-auto max-h-[500px]" v-else>
+        <div 
+          class="flex flex-col overflow-y-auto max-h-100% md:max-h-[500px]"
+          v-else>
             <button
               type="button"
               class="flex items-center border-b gap-3 p-4 bg-white hover:border-l-4 hover:border-l-[--primary-color] duration-100"
@@ -156,10 +168,10 @@ watch(selectedConversation, (newVal) => {
               @click="retrieveMessages(conversation.id)"
             >
               <img
-                :src="getOtherUser(conversation).profile_image"
-                :alt="`${getOtherUser(conversation).first_name} ${getOtherUser(conversation).last_name}`"
+                :src="getOtherUser(conversation.id).profile_image"
+                :alt="`${getOtherUser(conversation.id).first_name} ${getOtherUser(conversation.id).last_name}`"
                 class="w-10 h-10 rounded-full object-cover"
-                v-if="getOtherUser(conversation).profile_image"
+                v-if="getOtherUser(conversation.id).profile_image"
               />
 
               <span
@@ -171,12 +183,12 @@ watch(selectedConversation, (newVal) => {
 
               <div class="flex flex-col overflow-hidden">
                 <h3 class="text-left text-sm font-medium text-[--text-color]">
-                  {{ getOtherUser(conversation).first_name }} {{ getOtherUser(conversation).last_name }}
+                  {{ getOtherUser(conversation.id).first_name }} {{ getOtherUser(conversation.id).last_name }}
                 </h3>
                 <p class="text-xs text-gray-500 truncate w-full text-left" v-if="conversation.last_message">
                   {{ conversation.last_message.sender.id === props.user.id 
                     ? `You: ${conversation.last_message.message}` 
-                    : `${getOtherUser(conversation).first_name}: ${conversation.last_message.message}` }}
+                    : `${getOtherUser(conversation.id).first_name}: ${conversation.last_message.message}` }}
                 </p>
                 <p class="text-xs text-gray-500 truncate w-full text-left" v-else>No messages yet</p>
               </div>
@@ -184,17 +196,19 @@ watch(selectedConversation, (newVal) => {
         </div>
       </div>
 
-      <div class="flex flex-col bg-white rounded-md w-3/4 px-4 pb-4">
+      <div class="flex flex-col bg-white rounded-md md:w-3/4 pb-4">
         <template v-if="selectedConversation">
           <ConversationsElement 
             :messages="messages" 
             @send="send" 
+            @close="selectedConversation = null"
             :user="user" 
             @load-more="loadMoreMessages"
             :has-more-messages="hasMoreMessages"
             :is-loading-more="isLoadingMore"
             :is-loading="loadingMessages"
             :key="selectedConversation"
+            :other-user="getOtherUser(selectedConversation)"
           />
         </template>
         <template v-else>

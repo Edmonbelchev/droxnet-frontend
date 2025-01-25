@@ -12,14 +12,28 @@ const authStore = useAuthStore();
 const conversations = ref([]);
 const messages = ref([]);
 const isLoading = ref(true);
-const retrieveConversations = async () => {
-  const response = await fetchConversations();
+
+const search = ref('');
+const perPage = ref(10);
+const page = ref(1);
+const isLoadingSearch = ref(false);
+
+const retrieveConversations = async (query: string = '', loadingSearch: boolean = false) => {
+  if(loadingSearch) {
+    isLoadingSearch.value = true;
+  }
+
+  const response = await fetchConversations(perPage.value, page.value, query);
 
   if (response.status.value === "success") {
     conversations.value = response.data.value.data;
   }
 
   isLoading.value = false;
+
+  if(loadingSearch) {
+    isLoadingSearch.value = false;
+  }
 };
 
 const initializePusher = (conversationId: string, userId: number) => {
@@ -71,6 +85,10 @@ provide('initializePusher', initializePusher)
 onMounted(async () => {
   await retrieveConversations();
 });
+
+watch(search, (newVal: string) => {
+  retrieveConversations(newVal, true);
+})
 </script>
 
 <template>
@@ -83,6 +101,8 @@ onMounted(async () => {
           :conversations="conversations"
           :isLoading="isLoading"
           :user="authStore.user"
+          @search="search = $event"
+          :isLoadingSearch="isLoadingSearch"
           @initializePusher="initializePusher"
         />
       </div>

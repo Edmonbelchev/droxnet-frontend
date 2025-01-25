@@ -33,6 +33,7 @@
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^42.0.1",
     "@ckeditor/ckeditor5-vue": "^6.0.0",
+    "@stripe/stripe-js": "^5.4.0",
     "pusher-js": "^8.4.0-rc2"
   }
 }

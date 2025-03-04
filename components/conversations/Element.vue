@@ -46,9 +46,11 @@ const scrollToBottom = async (force = false) => {
   }
 };
 
-onMounted(() => {
-  scrollToBottom(true);
-});
+const statusColors = {
+  ongoing: 'bg-blue-100 text-blue-800',
+  cancelled: 'bg-red-100 text-red-800',
+  completed: 'bg-green-100 text-green-800',
+};
 
 watch(
   () => props.messages.length,
@@ -60,6 +62,10 @@ watch(
     }
   }
 );
+
+onMounted(() => {
+  scrollToBottom(true);
+});
 </script>
 
 <template>
@@ -141,14 +147,41 @@ watch(
               </div>
 
               <div class="flex-grow">
+                <div 
+                class="bg-[--background-color] text-[--text-color] rounded-md p-3"
+                :class="[
+                  'max-w-[70%] w-fit p-3 rounded-lg text-xs md:text-sm',
+                  { 'ml-auto': message.sender.id === user.id },
+                ]"
+                v-if="JSON.parse(message.message).type == 'job'"
+                >
+                  <div class="flex flex-col gap-2">
+                    Job status updated
+                    <span class="text-base font-medium">{{JSON.parse(message.message).job.title}}</span>
+                    <span :class="[
+                      'rounded-full p-2 text-xs w-fit', 
+                      statusColors[JSON.parse(message.message).job.status]
+                    ]">
+                      Status: {{JSON.parse(message.message).job.status}}
+                    </span>
+                    <NuxtLink 
+                      :to="`/profile/jobs/${JSON.parse(message.message).job.id}`" 
+                      class="text-xs md:text-sm flex flex-col gap-1 bg-[--primary-color] items-center justify-center text-white py-2 px-4 rounded-md w-fit min-w-[150px]"
+                      target="_blank"
+                    >
+                      View Job
+                    </NuxtLink>
+                  </div>
+                </div>
                 <div
                   class="bg-gray-200 text-[--text-color]"
                   :class="[
                     'max-w-[70%] w-fit p-3 rounded-lg',
                     { 'ml-auto': message.sender.id === user.id },
                   ]"
+                  v-else
                 >
-                  {{ message.message }}
+                  {{ JSON.parse(message.message).text }}
                 </div>
               </div>
 

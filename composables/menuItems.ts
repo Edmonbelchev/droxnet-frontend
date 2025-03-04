@@ -21,6 +21,21 @@ const profileSidebarMenuItems = () => {
       url: "/profile",
     },
     {
+      title: "Payments",
+      icon: "fa:dollar",
+      url: "/profile/payments",
+      dropdown: [
+        {
+          title: "Deposit Funds",
+          url: "/profile/payments/deposit",
+        },
+        {
+          title: "Withdraw Funds",
+          url: "/profile/payments/withdraw",
+        },
+      ]
+    },
+    {
       title: "All Jobs",
       icon: "fa-solid:box",
       url: "/profile/jobs",

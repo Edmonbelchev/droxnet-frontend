@@ -4,6 +4,7 @@ definePageMeta({
 });
 
 const route = useRoute();
+const router = useRouter();
 const authStore = useAuthStore();
 const toast: any = useNuxtApp().$toast;
 
@@ -43,6 +44,11 @@ const handleUpdateStatus = async () => {
   const response = await updateJobStatus(job.value.id, selectedStatus.value);
   if (response.status.value === "success") {
     toast.success("Job status updated successfully");
+
+    if(selectedStatus.value === "completed") {      
+      // Redirect to payment page
+      router.push(`/profile/jobs/${job.value.id}/payment`);
+    }
   } else {
     toast.error("Failed to update job status");
   }

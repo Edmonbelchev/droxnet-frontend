@@ -61,7 +61,7 @@ const send = async (message: string) => {
   const tempId = Date.now().toString()
   const tempMessage = {
     id: tempId,
-    message: message,
+    message: { text: message },
     sender: { id: props.user.id },
     status: 'sending',
     created_at: new Date().toISOString()
@@ -69,7 +69,7 @@ const send = async (message: string) => {
   messages.value.push(tempMessage)
 
   const form = ref({
-    message: message,
+    message: JSON.stringify({ text: message }),
     conversation_id: selectedConversation.value
   })
 
@@ -173,10 +173,19 @@ watch(selectedConversation, (newVal) => {
                 <h3 class="text-left text-sm font-medium text-[--text-color]">
                   {{ getOtherUser(conversation).first_name }} {{ getOtherUser(conversation).last_name }}
                 </h3>
-                <p class="text-xs text-gray-500 truncate w-full text-left" v-if="conversation.last_message">
+                <p 
+                  class="text-xs text-gray-500 truncate w-full text-left" 
+                  v-if="conversation.last_message && JSON.parse(conversation.last_message.message).type == 'job'"
+                >
+                  Job: {{JSON.parse(conversation.last_message.message).job.title}}<br>
+                </p>
+                <p 
+                  class="text-xs text-gray-500 truncate w-full text-left" 
+                  v-else-if="conversation.last_message"
+                >
                   {{ conversation.last_message.sender.id === props.user.id 
-                    ? `You: ${conversation.last_message.message}` 
-                    : `${getOtherUser(conversation).first_name}: ${conversation.last_message.message}` }}
+                    ? `You: ${JSON.parse(conversation.last_message.message).text}` 
+                    : `${getOtherUser(conversation.id).first_name}: ${JSON.parse(conversation.last_message.message).text}` }}
                 </p>
                 <p class="text-xs text-gray-500 truncate w-full text-left" v-else>No messages yet</p>
               </div>

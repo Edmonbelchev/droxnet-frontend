@@ -4,7 +4,6 @@ const props = defineProps<{
   user: any;
   hasMoreMessages: boolean;
   isLoadingMore: boolean;
-  isLoading: boolean;
 }>();
 
 const emit = defineEmits(["send", "load-more"]);
@@ -56,12 +55,22 @@ watch(
   () => props.messages.length,
   async (newLength: number, oldLength: number) => {
     if (newLength > oldLength) {
-      console.log('test')
+
       await nextTick(); // Wait for the DOM to update
       scrollToBottom(); // Smooth scroll to bottom after sending a message
     }
   }
 );
+// Function to parse message
+const parseMessage = (msg: any) => {
+  try {
+    return typeof msg.message === "string" ? JSON.parse(msg.message) : msg.message;
+  } catch (e) {
+    console.error("Invalid JSON in message:", msg.message);
+    return {};
+  }
+};
+
 
 onMounted(() => {
   scrollToBottom(true);
@@ -70,14 +79,7 @@ onMounted(() => {
 
 <template>
   <div class="flex px-4">
-    <div
-      class="flex flex-col justify-center items-center gap-2 min-h-[700px] w-full"
-      v-if="isLoading"
-    >
-      <Loader width="70px" height="70px" />
-      <span class="text-gray-300 text-base">Loading messages...</span>
-    </div>
-    <div class="flex flex-col min-h-[700px] w-full" v-else>
+    <div class="flex flex-col min-h-[700px] w-full">
       <div
         class="flex flex-col justify-center items-center w-full my-auto"
         v-if="messages.length === 0"
@@ -91,12 +93,12 @@ onMounted(() => {
         </span>
       </div>
 
-      <div v-else class="flex-1 overflow-y-auto max-h-[500px] relative">
+      <div v-else class="flex-1 overflow-y-auto max-h-[500px] relative animate-[fadeIn_300ms_ease-in_forwards]">
         <div
           class="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white to-transparent pointer-events-none"
           v-if="hasMoreMessages"
         ></div>
-        <div ref="chatContainer" class="h-full overflow-y-auto scroll-smooth chat-container">
+        <div ref="chatContainer" class="h-full overflow-y-auto scroll-smooth chat-container pt-4">
           <div v-if="hasMoreMessages" class="text-center py-2 relative z-10">
             <button
               @click="loadMoreMessages"
@@ -129,7 +131,7 @@ onMounted(() => {
                     v-if="message.sender.profile_image"
                     :src="message.sender.profile_image"
                     alt="User Avatar"
-                    class="w-[50px] h-[50px] rounded-full"
+                    class="w-[50px] h-[50px] rounded-full object-cover"
                   />
                   <span
                     v-else
@@ -153,19 +155,18 @@ onMounted(() => {
                   'max-w-[70%] w-fit p-3 rounded-lg text-xs md:text-sm',
                   { 'ml-auto': message.sender.id === user.id },
                 ]"
-                v-if="JSON.parse(message.message).type == 'job'"
-                >
+                v-if="parseMessage(message).type == 'job'">
                   <div class="flex flex-col gap-2">
                     Job status updated
-                    <span class="text-base font-medium">{{JSON.parse(message.message).job.title}}</span>
+                    <span class="text-base font-medium">{{parseMessage(message).job.title}}</span>
                     <span :class="[
                       'rounded-full p-2 text-xs w-fit', 
-                      statusColors[JSON.parse(message.message).job.status]
+                      statusColors[parseMessage(message).job.status]
                     ]">
-                      Status: {{JSON.parse(message.message).job.status}}
+                      Status: {{parseMessage(message).job.status}}
                     </span>
                     <NuxtLink 
-                      :to="`/profile/jobs/${JSON.parse(message.message).job.id}`" 
+                      :to="`/profile/jobs/${parseMessage(message).job.id}`" 
                       class="text-xs md:text-sm flex flex-col gap-1 bg-[--primary-color] items-center justify-center text-white py-2 px-4 rounded-md w-fit min-w-[150px]"
                       target="_blank"
                     >
@@ -181,7 +182,7 @@ onMounted(() => {
                   ]"
                   v-else
                 >
-                  {{ JSON.parse(message.message).text }}
+                  {{ parseMessage(message).text }}
                 </div>
               </div>
 
@@ -190,11 +191,10 @@ onMounted(() => {
                 class="flex-shrink-0 ml-2"
               >
                 <NuxtLink :to="`/users/${message.sender.uuid}`" v-if="isLastMessageFromSender(index)">
-                  <img
-                    v-if="message.sender.profile_image"
+                  <img v-if="message.sender.profile_image"
                     :src="message.sender.profile_image"
                     alt="User Avatar"
-                    class="w-[50px] h-[50px] rounded-full"
+                    class="w-[50px] h-[50px] rounded-full object-cover"
                   />
                   <span
                     v-else

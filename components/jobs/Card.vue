@@ -44,7 +44,7 @@ const unsave = async () => {
       <div class="mb-1 flex items-center gap-1">
         <Icon name="lets-icons:check-fill" class="text-[--green-color]" />
         <h3 class="text-[--text-color] text-sm">
-          {{ job.user.company_details.company_name }}
+          {{ job.user?.company_details?.company_name }}
         </h3>
       </div>
 

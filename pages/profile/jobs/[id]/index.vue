@@ -45,12 +45,9 @@ const handleUpdateStatus = async () => {
   if (response.status.value === "success") {
     toast.success("Job status updated successfully");
 
-    if(selectedStatus.value === "completed") {      
-      // Redirect to payment page
-      router.push(`/profile/jobs/${job.value.id}/payment`);
-    }
+    // TODO: Handle redirect on complete
   } else {
-    toast.error("Failed to update job status");
+    toast.error(response?.error ?? "Failed to update job status");
   }
   isModalOpen.value = false; // Close the modal after submission
   loadingUpdateStatus.value = false;

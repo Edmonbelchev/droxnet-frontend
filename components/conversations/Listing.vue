@@ -28,8 +28,10 @@ const selectedConversation = ref(null)
 const isLoadingMore = ref(false)
 const hasMoreMessages = ref(false)
 const loadingMessages = ref(true)
+const isLoadingConversation = ref(false)
 
 const retrieveMessages = async (conversationId: string, page = 1) => {
+    isLoadingConversation.value = true
     const response = await fetchMessages(messagesPerPage, page, conversationId)
 
     if (response.status.value === 'success') {
@@ -46,6 +48,7 @@ const retrieveMessages = async (conversationId: string, page = 1) => {
     }
 
     loadingMessages.value = false
+    isLoadingConversation.value = false
 }
 
 const loadMoreMessages = async () => {
@@ -185,7 +188,7 @@ watch(selectedConversation, (newVal) => {
                 >
                   {{ conversation.last_message.sender.id === props.user.id 
                     ? `You: ${JSON.parse(conversation.last_message.message).text}` 
-                    : `${getOtherUser(conversation.id).first_name}: ${JSON.parse(conversation.last_message.message).text}` }}
+                    : `${getOtherUser(conversation.id)?.first_name}: ${JSON.parse(conversation.last_message.message).text}` }}
                 </p>
                 <p class="text-xs text-gray-500 truncate w-full text-left" v-else>No messages yet</p>
               </div>
@@ -194,7 +197,8 @@ watch(selectedConversation, (newVal) => {
       </div>
 
       <div class="flex flex-col bg-white rounded-md w-3/4 px-4 pb-4">
-        <template v-if="selectedConversation">
+        <SkeletonConversationsElement v-if="isLoadingConversation" />
+        <template v-else-if="selectedConversation">
           <ConversationsElement 
             :messages="messages" 
             @send="send" 
@@ -202,7 +206,6 @@ watch(selectedConversation, (newVal) => {
             @load-more="loadMoreMessages"
             :has-more-messages="hasMoreMessages"
             :is-loading-more="isLoadingMore"
-            :is-loading="loadingMessages"
             :key="selectedConversation"
           />
         </template>

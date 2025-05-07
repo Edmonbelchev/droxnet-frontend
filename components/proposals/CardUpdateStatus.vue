@@ -52,7 +52,7 @@ function handleSubmit() {
         <img
           :src="proposal.user.profile_image"
           alt=""
-          class="w-[60px] h-[60px] rounded-md"
+          class="w-[60px] h-[60px] rounded-md object-cover"
           v-if="proposal.user.profile_image"
         />
         <div

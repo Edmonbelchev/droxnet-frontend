@@ -4,6 +4,7 @@ definePageMeta({
 });
 
 const route = useRoute();
+const router = useRouter();
 const authStore = useAuthStore();
 const toast: any = useNuxtApp().$toast;
 
@@ -43,8 +44,10 @@ const handleUpdateStatus = async () => {
   const response = await updateJobStatus(job.value.id, selectedStatus.value);
   if (response.status.value === "success") {
     toast.success("Job status updated successfully");
+
+    // TODO: Handle redirect on complete
   } else {
-    toast.error(response.error);
+    toast.error(response?.error ?? "Failed to update job status");
   }
   isModalOpen.value = false; // Close the modal after submission
   loadingUpdateStatus.value = false;

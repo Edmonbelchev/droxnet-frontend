@@ -5,7 +5,6 @@ const props = defineProps<{
   otherUser: any;
   hasMoreMessages: boolean;
   isLoadingMore: boolean;
-  isLoading: boolean;
 }>();
 
 const emit = defineEmits(["send", "load-more", "close"]);
@@ -57,68 +56,42 @@ const scrollToBottom = async (force = false) => {
   }
 };
 
-onMounted(() => {
-  scrollToBottom(true);
-});
+const statusColors = {
+  ongoing: 'bg-blue-100 text-blue-800',
+  cancelled: 'bg-red-100 text-red-800',
+  completed: 'bg-green-100 text-green-800',
+};
 
 watch(
-  () => [...props.messages],
-  async (newMessages, oldMessages) => {
-    if (newMessages.length > oldMessages.length) {
-      // Check if the new message was added at the end (new message)
-      // or at the beginning (loading older messages)
-      const isNewMessage = newMessages[newMessages.length - 1]?.id !== oldMessages[oldMessages.length - 1]?.id;
-      
-      if (isNewMessage) {
-        scrollToBottom(true); // Only scroll for new messages
-      }
+  () => props.messages.length,
+  async (newLength: number, oldLength: number) => {
+    if (newLength > oldLength) {
+
+      await nextTick(); // Wait for the DOM to update
+      scrollToBottom(); // Smooth scroll to bottom after sending a message
     }
   },
   { deep: true }
 );
+// Function to parse message
+const parseMessage = (msg: any) => {
+  try {
+    return typeof msg.message === "string" ? JSON.parse(msg.message) : msg.message;
+  } catch (e) {
+    console.error("Invalid JSON in message:", msg.message);
+    return {};
+  }
+};
+
+
+onMounted(() => {
+  scrollToBottom(true);
+});
 </script>
 
 <template>
-  <div class="absolute top-0 left-0 w-full h-full z-1 bg-white md:relative flex flex-col">
-    <div class="flex flex-wrap items-center justify-between gap-3 p-4 border-b">
-      <div class="flex items-center gap-3">
-        <button @click="emit('close')" class="text-[--light-blue] hover:underline text-sm">
-          <Icon name="fluent:arrow-left-20-regular" class="text-lg" />
-        </button>
-        <img
-          v-if="otherUser?.profile_image"
-          :src="otherUser.profile_image"
-          alt="User Avatar"
-          class="w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-full"
-        />
-        <span
-          v-else
-          class="w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-md flex justify-center items-center"
-        >
-          <IconsAvatar width="100%" height="100%" fill="#d1d5db" />
-        </span>
-        <div class="flex flex-col">
-          <span class="font-medium text-[--text-color]">
-            {{ otherUser?.first_name }} {{ otherUser?.last_name }}
-          </span>
-        </div>
-      </div>
-      <NuxtLink
-        :to="otherUser.role === 'employer' ? `/companies/${otherUser?.uuid}` : `/users/${otherUser?.uuid}`"
-        class="text-[--light-blue] hover:underline text-sm"
-      >
-        View Profile
-      </NuxtLink>
-    </div>
-
-    <div
-      class="flex flex-col justify-center items-center gap-2 px-4 min-h-[700px] w-full"
-      v-if="isLoading"
-    >
-      <Loader width="70px" height="70px" />
-      <span class="text-gray-300 text-base">Loading messages...</span>
-    </div>
-    <div class="flex flex-col min-h-[700px] w-full px-4" v-else>
+  <div class="flex px-4">
+    <div class="flex flex-col min-h-[700px] w-full">
       <div
         class="flex flex-col justify-center items-center w-full my-auto"
         v-if="messages.length === 0"
@@ -132,12 +105,12 @@ watch(
         </span>
       </div>
 
-      <div v-else class="flex-1 overflow-y-auto max-h-[500px] relative pt-4">
+      <div v-else class="flex-1 overflow-y-auto max-h-[500px] relative animate-[fadeIn_300ms_ease-in_forwards]">
         <div
           class="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white to-transparent pointer-events-none"
           v-if="hasMoreMessages"
         ></div>
-        <div ref="chatContainer" class="h-full overflow-y-auto scroll-smooth chat-container">
+        <div ref="chatContainer" class="h-full overflow-y-auto scroll-smooth chat-container pt-4">
           <div v-if="hasMoreMessages" class="text-center py-2 relative z-10">
             <button
               @click="loadMoreMessages"
@@ -170,7 +143,7 @@ watch(
                     v-if="message.sender.profile_image"
                     :src="message.sender.profile_image"
                     alt="User Avatar"
-                    class="w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-full"
+                    class="w-[50px] h-[50px] rounded-full object-cover"
                   />
                   <span
                     v-else
@@ -188,14 +161,40 @@ watch(
               </div>
 
               <div class="flex-grow">
+                <div 
+                class="bg-[--background-color] text-[--text-color] rounded-md p-3"
+                :class="[
+                  'max-w-[70%] w-fit p-3 rounded-lg text-xs md:text-sm',
+                  { 'ml-auto': message.sender.id === user.id },
+                ]"
+                v-if="parseMessage(message).type == 'job'">
+                  <div class="flex flex-col gap-2">
+                    Job status updated
+                    <span class="text-base font-medium">{{parseMessage(message).job.title}}</span>
+                    <span :class="[
+                      'rounded-full p-2 text-xs w-fit', 
+                      statusColors[parseMessage(message).job.status]
+                    ]">
+                      Status: {{parseMessage(message).job.status}}
+                    </span>
+                    <NuxtLink 
+                      :to="`/profile/jobs/${parseMessage(message).job.id}`" 
+                      class="text-xs md:text-sm flex flex-col gap-1 bg-[--primary-color] items-center justify-center text-white py-2 px-4 rounded-md w-fit min-w-[150px]"
+                      target="_blank"
+                    >
+                      View Job
+                    </NuxtLink>
+                  </div>
+                </div>
                 <div
                   class="bg-gray-200 text-[--text-color]"
                   :class="[
                     'max-w-[70%] w-fit p-3 rounded-lg text-xs md:text-sm',
                     { 'ml-auto': message.sender.id === user.id },
                   ]"
+                  v-else
                 >
-                  {{ message.message }}
+                  {{ parseMessage(message).text }}
                 </div>
               </div>
 
@@ -204,11 +203,10 @@ watch(
                 class="flex-shrink-0 ml-2"
               >
                 <NuxtLink :to="`/users/${message.sender.uuid}`" v-if="isLastMessageFromSender(index)">
-                  <img
-                    v-if="user.profile_image"
-                    :src="user.profile_image"
+                  <img v-if="message.sender.profile_image"
+                    :src="message.sender.profile_image"
                     alt="User Avatar"
-                    class="w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-full"
+                    class="w-[50px] h-[50px] rounded-full object-cover"
                   />
                   <span
                     v-else

@@ -306,7 +306,7 @@ onMounted(() => {
 
                   <h3
                     class="text-base text-[--text-color] mb-4"
-                    v-if="job.user.company_details.company_name"
+                    v-if="job.user?.company_details?.company_name"
                   >
                     {{ job.user.company_details.company_name }}
                   </h3>

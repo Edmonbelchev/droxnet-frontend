@@ -19,6 +19,9 @@ export default defineNuxtConfig({
         appKey: process.env.PUSHER_APP_KEY,
         cluster: process.env.PUSHER_APP_CLUSTER,
       },
+      stripe: {
+        key: process.env.STRIPE_KEY,
+      },
     },
   },
 

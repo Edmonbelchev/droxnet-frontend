@@ -1,8 +1,9 @@
-const fetchConversations = async (perPage: number, page: number) => {
+const fetchConversations = async (perPage: number, page: number, query: string) => {
     const { data, error, status } = await dataFetch('/conversations', {
         params: {
             perPage: perPage,
-            page: page
+            page: page,
+            query: query
         }
     })
     

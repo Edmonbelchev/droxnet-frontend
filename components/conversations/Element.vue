@@ -2,11 +2,12 @@
 const props = defineProps<{
   messages: any[];
   user: any;
+  otherUser: any;
   hasMoreMessages: boolean;
   isLoadingMore: boolean;
 }>();
 
-const emit = defineEmits(["send", "load-more"]);
+const emit = defineEmits(["send", "load-more", "close"]);
 
 const message = ref("");
 
@@ -14,6 +15,13 @@ const handleSendMessage = async () => {
   if (message.value.trim()) {
     emit("send", message.value);
     message.value = "";
+  }
+};
+
+const handleKeyDown = (event: KeyboardEvent) => {
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault();
+    handleSendMessage();
   }
 };
 
@@ -35,12 +43,15 @@ const loadMoreMessages = () => {
 const scrollToBottom = async (force = false) => {
   await nextTick();
   if (chatContainer.value) {
-    if (
-      force ||
+    const scrollThreshold = chatContainer.value.clientHeight * 0.2;
+    const isNearBottom = 
       chatContainer.value.scrollTop + chatContainer.value.clientHeight >=
-        chatContainer.value.scrollHeight - 100
-    ) {
-      chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
+      chatContainer.value.scrollHeight - scrollThreshold;
+      
+    if (force || isNearBottom) {
+      setTimeout(() => {
+        chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
+      }, 100); // Small delay to ensure content is rendered
     }
   }
 };
@@ -59,7 +70,8 @@ watch(
       await nextTick(); // Wait for the DOM to update
       scrollToBottom(); // Smooth scroll to bottom after sending a message
     }
-  }
+  },
+  { deep: true }
 );
 // Function to parse message
 const parseMessage = (msg: any) => {
@@ -89,7 +101,7 @@ onMounted(() => {
           class="rounded-full object-cover mb-4"
         />
         <span class="text-gray-300 text-base">
-          No message selected to display
+          There are no messages yet to display in this conversation.
         </span>
       </div>
 
@@ -135,14 +147,14 @@ onMounted(() => {
                   />
                   <span
                     v-else
-                    class="w-[50px] h-[50px] rounded-md flex justify-center items-center"
+                    class="w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-md flex justify-center items-center"
                   >
                     <IconsAvatar width="100%" height="100%" fill="#d1d5db" />
                   </span>
                 </NuxtLink>
 
                 <span
-                  class="w-[50px] h-[50px] rounded-md flex justify-center items-center"
+                  class="w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-md flex justify-center items-center"
                   v-else
                 >
                 </span>
@@ -177,7 +189,7 @@ onMounted(() => {
                 <div
                   class="bg-gray-200 text-[--text-color]"
                   :class="[
-                    'max-w-[70%] w-fit p-3 rounded-lg',
+                    'max-w-[70%] w-fit p-3 rounded-lg text-xs md:text-sm',
                     { 'ml-auto': message.sender.id === user.id },
                   ]"
                   v-else
@@ -198,14 +210,14 @@ onMounted(() => {
                   />
                   <span
                     v-else
-                    class="w-[50px] h-[50px] rounded-md flex justify-center items-center"
+                    class="w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-md flex justify-center items-center"
                   >
                     <IconsAvatar width="100%" height="100%" fill="#d1d5db" />
                   </span>
                 </NuxtLink>
 
                 <span
-                  class="w-[50px] h-[50px] rounded-md flex justify-center items-center"
+                  class="w-[40px] h-[40px] md:w-[50px] md:h-[50px] rounded-md flex justify-center items-center"
                   v-else
                 >
                 </span>
@@ -217,9 +229,9 @@ onMounted(() => {
               class="text-xs text-gray-500 mt-2"
               :class="[
                 message.sender.id === user.id
-                  ? 'text-right mr-[72px]'
+                  ? 'text-right mr-[50px] md:mr-[60px]'
                   : 'text-left',
-                'ml-[72px]',
+                'ml-[50px] md:ml-[60px]',
               ]"
             >
               {{ formatDateToLocaleString(message.created_at) }}
@@ -234,6 +246,7 @@ onMounted(() => {
           inputClass="px-4 py-2 min-h-[200px] rounded-t border focus:border-[--primary-color] focus-visible:outline-none transition-all duration-300 w-full"
           placeholder="Type your message here..."
           :resizable="false"
+          @keydown="handleKeyDown"
         />
         <div class="border-x border-b class flex justify-end p-2">
           <button
